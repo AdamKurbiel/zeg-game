@@ -2,9 +2,10 @@ var game = document.getElementById("game");
 var ctx = game.getContext("2d");
 
 //cfg
-const GAME_WIDTH = 400;
-const GAME_HEIGHT = 400;
-const TILE_SIZE = 20;
+const GAME_WIDTH = game.width;
+const GAME_HEIGHT = game.height;
+const TILE_SIZE = 35;
+
 const TILE_COLORS = {
     "#" : "Black",    //# - ściana
     "." : "White",    //. - podłoga
@@ -24,7 +25,7 @@ const MAP = [//TODO: Mapy jako osobny plik (.json? osobny plik .js?)
     "#.#######..#.###.#.#",
     "#.....H....#.....#.#",
     "#..######..#####.#.#",
-    "#......K.........#.#",
+    "#................#.#",
     "####################"
 ];
 
@@ -37,12 +38,11 @@ function placeTile(x,y,style){
 function buildMap(level){
     //Wczytywanie mapy
     //Mapa nie musi być kwadratem :)
-
     let row = 0;
     level.forEach(element => {
         let column = 0;
         while(element[column] != undefined){
-            placeTile(row * TILE_SIZE, column * TILE_SIZE, TILE_COLORS[element[column]]);
+            placeTile(column * TILE_SIZE, row * TILE_SIZE, TILE_COLORS[element[column]]);
             column++;
         }
 

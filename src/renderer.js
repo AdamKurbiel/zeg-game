@@ -9,7 +9,7 @@ const TILE_COLORS = {
 
 export function placeTile(ctx, x,y,style){
     ctx.fillStyle = style
-    ctx.fillRect(x,y,TILE_SIZE,TILE_SIZE);
+    ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 }
 
 export function buildMap(ctx, level){
@@ -19,7 +19,7 @@ export function buildMap(ctx, level){
     level.forEach(element => {
         let column = 0;
         while(element[column] != undefined){
-            placeTile(ctx,column * TILE_SIZE, row * TILE_SIZE, TILE_COLORS[element[column]]);
+            placeTile(ctx,column, row, TILE_COLORS[element[column]]);
             column++;
         }
         row++;

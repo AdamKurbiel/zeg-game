@@ -53,11 +53,17 @@ setInterval(() => {//GŁÓWNA PĘTLA
     if (now - moveCooldown > MOVE_DELAY){
         let dx = 0;
         let dy = 0;
-
-        if (KEYS.w) dy -= 1;
-        if (KEYS.s) dy += 1;
-        if (KEYS.a) dx -= 1;
-        if (KEYS.d) dx += 1;
+        
+        
+        if (KEYS.w){
+            dy -= 1;
+        }else if(KEYS.s){
+            dy += 1;
+        }else if(KEYS.a){
+            dx -= 1;
+        }else if(KEYS.d){
+            dx += 1;
+        }
 
         if (dx !== 0 || dy !== 0){
             plr.move(dx,dy,map);

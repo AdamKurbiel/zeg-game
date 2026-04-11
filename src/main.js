@@ -5,6 +5,7 @@ import { Camera } from "./camera.js";
 
 var game = document.getElementById("game");
 var ctx = game.getContext("2d");
+var inGame = true;
 
 ctx.imageSmoothingEnabled = false; //PIXEL ART SIĘ NIE ROZMYWA
 const GAME_WIDTH = game.width;
@@ -44,6 +45,8 @@ document.addEventListener("keyup",(event) =>{
 
 let moveCooldown = 0;
 setInterval(() => {//GŁÓWNA PĘTLA
+    if (!inGame) return;
+
     const now = Date.now();
     cam.updatePosition(plr,TILE_SIZE,GAME_WIDTH,GAME_HEIGHT);
     
@@ -77,7 +80,7 @@ setInterval(() => {//GŁÓWNA PĘTLA
     ctx.translate(-cam.renderX,-cam.renderY);
     
     buildMap(ctx,map);
-    renderPlayer(ctx,plr);
+    renderPlayer(ctx,plr,0.125);
 
     ctx.restore();
     ctx.setTransform(1,0,0,1,0,0)

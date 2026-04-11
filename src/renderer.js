@@ -34,9 +34,9 @@ export function placeTile(ctx, x,y,style){
     );
 }
 
-export function renderPlayer(ctx,player){
-    player.renderX = lerp(player.renderX,player.x,0.25);
-    player.renderY = lerp(player.renderY,player.y,0.25);
+export function renderPlayer(ctx,player,ease){
+    player.renderX = lerp(player.renderX,player.x,ease);
+    player.renderY = lerp(player.renderY,player.y,ease);
     ctx.drawImage(
         PLAYER_SPRITES[player.animationState],
         player.renderX * TILE_SIZE,

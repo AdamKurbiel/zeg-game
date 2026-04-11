@@ -1,0 +1,19 @@
+body {
+    background-color: #4F1628;
+}
+.container{
+    margin: 0;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+.inventory{
+    margin-left: 50px;
+}
+h1{
+    text-align: center;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    font-size: 60px;
+}

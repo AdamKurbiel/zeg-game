@@ -34,7 +34,6 @@ export function placeTile(ctx, x,y,style){
 }
 
 export function renderPlayer(ctx,player){
-
     player.renderX = lerp(player.renderX,player.x,0.25);
     player.renderY = lerp(player.renderY,player.y,0.25);
     ctx.drawImage(
@@ -49,7 +48,6 @@ export function renderPlayer(ctx,player){
 
     if (player.animationState != "IDLE" && player.d < ANIMATION_DELAY){
         player.d++;
-        console.log(player.d);
         if (player.d == ANIMATION_DELAY) {
             player.animationState = "IDLE";
             player.d = 0;
@@ -60,7 +58,7 @@ export function renderPlayer(ctx,player){
 export function buildMap(ctx, level){
     //Wczytywanie mapy
     let row = 0;
-    level.content.forEach(element => {
+    level.content().forEach(element => {
         let column = 0;
         while(element[column] != undefined){
             placeTile(ctx,column, row, TILE_COLORS[element[column]]);

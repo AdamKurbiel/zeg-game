@@ -10,24 +10,29 @@ ctx.imageSmoothingEnabled = false; //PIXEL ART SIĘ NIE ROZMYWA
 const GAME_WIDTH = game.width;
 const GAME_HEIGHT = game.height;
 
-
 var plr = new Player();
 var map = new Map();
 
+map.loadLevel(1);
+plr.resetPosition(map);
 
 document.addEventListener("keydown", (event) =>{//KONTROLA
     const key = event.key.toLowerCase();
-
+    
     if(key === "w" || event.key === "ArrowUp"){
+        event.preventDefault();
         plr.move(0,-1,map);
     }
     if(key === "s" || event.key === "ArrowDown"){
+        event.preventDefault();
         plr.move(0,1,map);
     }
     if(key === "a" || event.key === "ArrowLeft"){
+        event.preventDefault();
         plr.move(-1,0,map);
     }
     if(key === "d" || event.key === "ArrowRight"){
+        event.preventDefault();
         plr.move(1,0,map);
     }
 })

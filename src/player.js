@@ -16,10 +16,17 @@ export function Player(){
 
     this.paused = false
 }
+Player.prototype.resetPosition = function(map){
+    var block = map.findFirstBlock("S");//szukam startu
+    if (block == false) return;
+
+    this.x = block[1];
+    this.y = block[0];
+}
 
 Player.prototype.move = function(dx,dy,map){
     if (this.paused) return;
-    let nextTile = map.content[this.y+dy][this.x+dx];
+    let nextTile = map.content()[this.y+dy][this.x+dx];
     if (nextTile == "#") return; //sprawdzam czy to sciana
 
     this.x += dx;

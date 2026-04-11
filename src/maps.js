@@ -29,9 +29,32 @@ export function getMap(index){
 
 export function Map(){
     this.level = 1;
-    this.content = getMap(this.level);
+    this.grid = getMap(this.level);
 };
 
+Map.prototype.findFirstBlock = function(type){
+    for(let i = 0; i < this.content().length; i++){
+        for (let j in this.content()[i]){
+            if (this.content()[i][j] == type){
+                return [parseInt([i]),parseInt([j])];
+            }
+        }
+    }
+    return false;
+}
+
+Map.prototype.loadLevel = function(level){
+    this.level = level;
+    this.grid = getMap(this.level);
+}
+
+Map.prototype.content = function(){
+    return this.grid;
+}
+
+
 Map.prototype.clearRow = function(x,y){
-    this.content[y][x] = ".";
+
+    this.grid[y][x] = ".";
+    console.log(this.grid);
 }

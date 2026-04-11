@@ -44,7 +44,8 @@ document.addEventListener("keyup",(event) =>{
 })
 
 let moveCooldown = 0;
-setInterval(() => {//GŁÓWNA PĘTLA
+
+function step(){
     if (!inGame) return;
 
     const now = Date.now();
@@ -56,7 +57,6 @@ setInterval(() => {//GŁÓWNA PĘTLA
     if (now - moveCooldown > MOVE_DELAY){
         let dx = 0;
         let dy = 0;
-        
         
         if (KEYS.w){
             dy -= 1;
@@ -74,8 +74,6 @@ setInterval(() => {//GŁÓWNA PĘTLA
         }
     }
 
-
-
     ctx.save();
     ctx.translate(-cam.renderX,-cam.renderY);
     
@@ -88,4 +86,5 @@ setInterval(() => {//GŁÓWNA PĘTLA
     ctx.lineWidth = 10;
     ctx.strokeStyle = "black";
     ctx.strokeRect(0,0,GAME_WIDTH,GAME_HEIGHT);
-}, 10);
+};
+requestAnimationFrame(step);

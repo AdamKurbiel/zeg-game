@@ -7,7 +7,9 @@ export function Player(){
 
     this.x = 1,
     this.y = 1,
-    
+    this.renderX = this.x,
+    this.renderY = this.y,
+
     this.color = "brown",
     this.animationState = "IDLE",
     this.d = 0; //OPÓŹNIENIE ANIMACJI

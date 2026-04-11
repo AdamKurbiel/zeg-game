@@ -19,6 +19,10 @@ function createImage(path){
     return image;
 }
 
+function lerp (start, end, t){
+    return start * (1 - t) + end * t;
+}
+
 export function placeTile(ctx, x,y,style){
     ctx.fillStyle = style
     ctx.fillRect(
@@ -30,13 +34,18 @@ export function placeTile(ctx, x,y,style){
 }
 
 export function renderPlayer(ctx,player){
+
+    player.renderX = lerp(player.renderX,player.x,0.25);
+    player.renderY = lerp(player.renderY,player.y,0.25);
     ctx.drawImage(
         PLAYER_SPRITES[player.animationState],
-        player.x * TILE_SIZE,
-        player.y * TILE_SIZE,
+        player.renderX * TILE_SIZE,
+        player.renderY * TILE_SIZE,
         TILE_SIZE,
         TILE_SIZE
     );
+
+
 
     if (player.animationState != "IDLE" && player.d < ANIMATION_DELAY){
         player.d++;

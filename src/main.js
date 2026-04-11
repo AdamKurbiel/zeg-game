@@ -7,12 +7,14 @@ var stats = document.getElementById("stats");
 var ctx = game.getContext("2d");
 
 
-
+ctx.imageSmoothingEnabled = false; //PIXEL ART SIĘ NIE ROZMYWA
 const GAME_WIDTH = game.width;
 const GAME_HEIGHT = game.height;
 
+
 var plr = new Player();
 var map = new Map();
+
 
 document.addEventListener("keydown", (event) =>{//KONTROLA
     const key = event.key.toLowerCase();

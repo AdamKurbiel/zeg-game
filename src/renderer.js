@@ -24,7 +24,7 @@ function lerp (start, end, t){
 }
 
 export function placeTile(ctx, x,y,style){
-    ctx.fillStyle = style
+    ctx.fillStyle = style;
     ctx.fillRect(
         x * TILE_SIZE,
         y * TILE_SIZE,

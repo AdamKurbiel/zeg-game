@@ -75,7 +75,7 @@ function step(now) {
     ctx.translate(-cam.renderX, -cam.renderY);
 
     buildMap(ctx, map);
-    renderPlayer(ctx, plr, MOVE_EASING, Date.now());
+    renderPlayer(ctx, plr, MOVE_EASING);
 
     ctx.restore();
 

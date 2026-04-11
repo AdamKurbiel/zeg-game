@@ -5,12 +5,24 @@ export function Player(){
     this.y = 1;
 
     this.color = "brown";
+    this.paused = false;
 }
 
 Player.prototype.move = function(dx,dy,map){
-    let nextTile = map[this.y+dy][this.x+dx];
+    if (this.paused) return;
+    let nextTile = map.content[this.y+dy][this.x+dx];
     if (nextTile == "#") return; //sprawdzam czy to sciana
 
     this.x += dx;
     this.y += dy;
+
+    if (nextTile == "H"){//leczenie (dodaje jeden punkt życia)
+        map.clearRow(this.x,this.y);
+        this.health += 1;
+    }
+
+    if (nextTile == "E"){
+        this.paused = true;
+    }
+    
 }

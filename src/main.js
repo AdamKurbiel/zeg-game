@@ -18,16 +18,16 @@ document.addEventListener("keydown", (event) =>{//KONTROLA
     const key = event.key.toLowerCase();
 
     if(event.key === "w" || event.key === "ArrowUp"){
-        plr.move(0,-1,map.content);
+        plr.move(0,-1,map);
     }
     if(event.key === "s" || event.key === "ArrowDown"){
-        plr.move(0,1,map.content);
+        plr.move(0,1,map);
     }
     if(event.key === "a" || event.key === "ArrowLeft"){
-        plr.move(-1,0,map.content);
+        plr.move(-1,0,map);
     }
     if(event.key === "d" || event.key === "ArrowRight"){
-        plr.move(1,0,map.content);
+        plr.move(1,0,map);
     }
 })
 
@@ -38,7 +38,7 @@ setInterval(() => {//GŁÓWNA PĘTLA
 
     renderPlayer(ctx,plr);
 
-    stats.innerText = `X: ${plr.x}; Y: ${plr.y}; HP: ${plr.health}`;
+    stats.innerText = `X: ${plr.x}; Y: ${plr.y}; HP: ${plr.health} WON: ${plr.paused}`;
 
     ctx.lineWidth = 5;
     ctx.strokeRect(0,0,GAME_WIDTH,GAME_HEIGHT);

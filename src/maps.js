@@ -22,12 +22,17 @@ const maps = {
     "...####......"]
 };
 
-export function Map(){
-    this.level = 1;
-    this.content = maps[this.level];
-}
 
 
 export function getMap(index){
-    return maps[index];
+    return maps[index].map(row => row.split(""));
+};
+
+export function Map(){
+    this.level = 1;
+    this.content = getMap(this.level);
+};
+
+Map.prototype.clearRow = function(x,y){
+    this.content[y][x] = ".";
 }

@@ -56,6 +56,8 @@ function step(now) {
 
     ctx.setTransform(1,0,0,1,0,0);
     ctx.clearRect(0,0,GAME_WIDTH,GAME_HEIGHT);
+    ctx.fillStyle = "gray";
+    ctx.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT)
 
     plr.update(KEYS,map,now,MOVE_DELAY);
 

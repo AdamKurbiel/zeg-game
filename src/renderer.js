@@ -12,9 +12,13 @@ export function placeTile(ctx, x,y,style){
     ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 }
 
+export function renderPlayer(ctx,player){
+    ctx.fillStyle = player.color
+    ctx.fillRect(player.x * TILE_SIZE, player.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+}
+
 export function buildMap(ctx, level){
     //Wczytywanie mapy
-    //Mapa nie musi być kwadratem :)
     let row = 0;
     level.forEach(element => {
         let column = 0;

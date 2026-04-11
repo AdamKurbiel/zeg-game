@@ -1,4 +1,5 @@
 export const TILE_SIZE = 40;
+
 const TILE_COLORS = {
     "#" : "black",    //# - ściana
     "." : "White",    //. - podłoga

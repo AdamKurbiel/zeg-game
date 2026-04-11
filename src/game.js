@@ -35,7 +35,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
 
     function update(now){
         player.update(keys,map,now,MOVE_DELAY);
-        camera.updatePosition(player,TILE_SIZE,GAME_WIDTH,GAME_HEIGHT);
+        camera.updatePosition(player,GAME_WIDTH,GAME_HEIGHT);
     }
 
     function render(){
@@ -66,6 +66,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
     return {
         start(){
             running = true;
+            camera.updateRaw(player,GAME_WIDTH,GAME_HEIGHT);
             requestAnimationFrame(step);
         },
         stop(){

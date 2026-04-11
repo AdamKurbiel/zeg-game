@@ -5,6 +5,7 @@ import { Camera } from "./camera.js";
 import { createKeyboard } from "./input.js";
 import { createGame } from "./game.js";
 
+
 const SMOOTHING_ENABLED = false; //filtrowanie
 
 var gameCanvas = document.getElementById("game");
@@ -21,6 +22,7 @@ const KEYS = createKeyboard();
 
 MAP.loadLevel(1);
 PLAYER.resetPosition(MAP); //Ustawienie pozycji gracza na START na mapie
+
 
 const GAME = createGame(ctx, statsCtx, gameCanvas, statsCanvas, MAP, PLAYER, CAMERA, KEYS);
 GAME.start();

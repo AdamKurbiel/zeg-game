@@ -22,6 +22,8 @@ Player.prototype.resetPosition = function(map){
 
     this.x = block[1];
     this.y = block[0];
+    this.renderX = this.x;
+    this.renderY = this.y;
 }
 
 Player.prototype.move = function(dx,dy,map){

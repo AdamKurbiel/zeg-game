@@ -4,7 +4,10 @@ import { Player } from "./player.js";
 import { Camera } from "./camera.js";
 
 var game = document.getElementById("game");
+var gameStats = document.getElementById("gameStats");
+
 var ctx = game.getContext("2d");
+var gameStatsCtx = gameStats.getContext("2d");
 var inGame = true;
 
 ctx.imageSmoothingEnabled = false; //PIXEL ART SIĘ NIE ROZMYWA
@@ -48,6 +51,9 @@ let moveCooldown = 0;
 
 function step(now) {
     if (!inGame) return;
+    gameStatsCtx.lineWidth = "10";
+    gameStatsCtx.strokeRect(0,0,gameStats.width,gameStats.height);
+
 
     console.log(plr.health);
 

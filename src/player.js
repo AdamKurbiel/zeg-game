@@ -70,6 +70,7 @@ Player.prototype.move = function(dx,dy,map){
         this.health += 1;
     }
 
+
     if (nextTile == "E"){
         this.paused = true;
     }

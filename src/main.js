@@ -49,6 +49,8 @@ let moveCooldown = 0;
 function step(now) {
     if (!inGame) return;
 
+    console.log(plr.health);
+
     cam.updatePosition(plr, TILE_SIZE, GAME_WIDTH, GAME_HEIGHT);
 
     ctx.setTransform(1,0,0,1,0,0);

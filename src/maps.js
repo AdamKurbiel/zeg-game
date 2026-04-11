@@ -57,6 +57,8 @@ Map.prototype.findFirstBlock = function(type){
     return false;
 }
 
+//Instancja mapy wczytuje się raz i jest możliwa do edycji (usuwanie przedmiotów itd.)
+
 Map.prototype.loadLevel = function(level){
     this.level = level;
     this.grid = getMap(this.level);
@@ -65,7 +67,6 @@ Map.prototype.loadLevel = function(level){
 Map.prototype.content = function(){
     return this.grid;
 }
-
 
 Map.prototype.clearRow = function(x,y){
 

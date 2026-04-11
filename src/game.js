@@ -1,13 +1,18 @@
+//Chcąc nie chcąc to duży skrypt :( mam nadzieje że czytelny
 import { buildMap, renderPlayer, TILE_SIZE } from "./renderer.js";
 
-export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, camera, keys){
+export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, camera, keys){ 
     const GAME_WIDTH = gameCanvas.width;
     const GAME_HEIGHT = gameCanvas.height;
-
+    const STATS_WIDTH = statsCanvas.width;
+    const STATS_HEIGHT = statsCanvas.height;
+    
+    //CONFIG (RACZEJ NIE ZMIENIAJ JEŚLI SIĘ NIE ZNASZ)
     const MOVE_DELAY = 150;
     const MOVE_EASING = 0.125;
-
+    
     let running = true;
+    //
 
     function clearScreen(){
         ctx.setTransform(1,0,0,1,0,0);
@@ -19,7 +24,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
 
     function clearStats(){
         statsCtx.fillStyle = "#2B1A4F";
-        statsCtx.fillRect(0,0,statsCanvas.width,statsCanvas.height);
+        statsCtx.fillRect(0,0,STATS_WIDTH,STATS_HEIGHT);
     }
 
     function drawBorder(){

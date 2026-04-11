@@ -10,7 +10,8 @@ const ANIMATION_DELAY = 15;//opóźnienie między zmianą klatek
 
 const PLAYER_SPRITES  = {
     "IDLE" : createImage("assets/player/Idle.png"),
-    "WALK" : createImage("assets/player/Walk.png"),
+    "WALK0" : createImage("assets/player/Walk0.png"),
+    "WALK1" : createImage("assets/player/Walk1.png"),
 }
 
 function createImage(path){

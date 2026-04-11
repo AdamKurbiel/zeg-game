@@ -1,3 +1,5 @@
+
+
 function randomNumber(min,max){
     return Math.floor(Math.random() * max) + min;
 }
@@ -13,6 +15,7 @@ export function Player(){
     this.color = "brown",
     this.animationState = "IDLE",
     this.d = 0; //OPÓŹNIENIE ANIMACJI
+    this.foot = 0; //ANIMACJA CHODZENIA
 
     this.paused = false
 }
@@ -34,7 +37,14 @@ Player.prototype.move = function(dx,dy,map){
     this.x += dx;
     this.y += dy;
 
-    this.animationState = "WALK";
+    if (this.foot == 0){
+        this.foot = 1;
+    }else{
+        this.foot = 0; 
+    }
+
+    this.animationState = `WALK${this.foot}`;//walk0 albo walk1
+
 
     if (nextTile == "H"){//leczenie (dodaje jeden punkt życia)
         map.clearRow(this.x,this.y);

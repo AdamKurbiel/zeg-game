@@ -1,4 +1,4 @@
-import { getMap, Map } from "./maps.js";
+import { Map } from "./maps.js";
 import { buildMap, renderPlayer } from "./renderer.js";
 import { Player } from "./player.js";
 
@@ -17,16 +17,16 @@ var map = new Map();
 document.addEventListener("keydown", (event) =>{//KONTROLA
     const key = event.key.toLowerCase();
 
-    if(event.key === "w" || event.key === "ArrowUp"){
+    if(key === "w" || event.key === "ArrowUp"){
         plr.move(0,-1,map);
     }
-    if(event.key === "s" || event.key === "ArrowDown"){
+    if(key === "s" || event.key === "ArrowDown"){
         plr.move(0,1,map);
     }
-    if(event.key === "a" || event.key === "ArrowLeft"){
+    if(key === "a" || event.key === "ArrowLeft"){
         plr.move(-1,0,map);
     }
-    if(event.key === "d" || event.key === "ArrowRight"){
+    if(key === "d" || event.key === "ArrowRight"){
         plr.move(1,0,map);
     }
 })

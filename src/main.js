@@ -3,6 +3,7 @@ import { buildMap, renderPlayer, TILE_SIZE} from "./renderer.js";
 import { Player } from "./player.js";
 import { Camera } from "./camera.js";
 
+
 var game = document.getElementById("game");
 var gameStats = document.getElementById("gameStats");
 
@@ -51,8 +52,8 @@ let moveCooldown = 0;
 
 function step(now) {
     if (!inGame) return;
-    gameStatsCtx.lineWidth = "10";
-    gameStatsCtx.strokeRect(0,0,gameStats.width,gameStats.height);
+    gameStatsCtx.fillStyle = "#2B1A4F";
+    gameStatsCtx.fillRect(0,0,gameStats.width,gameStats.height);
 
 
     console.log(plr.health);

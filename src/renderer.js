@@ -20,7 +20,7 @@ export function renderPlayer(ctx,player){
 export function buildMap(ctx, level){
     //Wczytywanie mapy
     let row = 0;
-    level.forEach(element => {
+    level.content.forEach(element => {
         let column = 0;
         while(element[column] != undefined){
             placeTile(ctx,column, row, TILE_COLORS[element[column]]);

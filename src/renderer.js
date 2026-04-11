@@ -9,8 +9,8 @@ const TILE_COLORS = {
 const ANIMATION_DELAY = 15;//opóźnienie między zmianą klatek
 
 const PLAYER_SPRITES  = {
-    "IDLE" : createImage("../assets/player/Idle.png"),
-    "WALK" : createImage("../assets/player/Walk.png"),
+    "IDLE" : createImage("assets/player/Idle.png"),
+    "WALK" : createImage("assets/player/Walk.png"),
 }
 
 function createImage(path){

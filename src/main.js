@@ -47,38 +47,17 @@ document.addEventListener("keyup",(event) =>{
         event.preventDefault();
     }
 })
-
-let moveCooldown = 0;
-
 function step(now) {
     if (!inGame) return;
     gameStatsCtx.fillStyle = "#2B1A4F";
     gameStatsCtx.fillRect(0,0,gameStats.width,gameStats.height);
-
-
-    console.log(plr.health);
 
     cam.updatePosition(plr, TILE_SIZE, GAME_WIDTH, GAME_HEIGHT);
 
     ctx.setTransform(1,0,0,1,0,0);
     ctx.clearRect(0,0,GAME_WIDTH,GAME_HEIGHT);
 
-    if (now - moveCooldown > MOVE_DELAY) {
-        let dx = 0;
-        let dy = 0;
-
-        if (KEYS.w) dy = -1;
-        else if (KEYS.s) dy = 1;
-        else if (KEYS.a) dx = -1;
-        else if (KEYS.d) dx = 1;
-
-        if (dx !== 0 || dy !== 0) {
-            plr.move(dx, dy, map);
-            moveCooldown = now;
-        }else{
-            plr.animationState = "IDLE";
-        }
-    }
+    plr.update(KEYS,map,now,MOVE_DELAY);
 
     ctx.save();
     ctx.translate(-cam.renderX, -cam.renderY);

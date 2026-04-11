@@ -15,6 +15,7 @@ export function Player(){
     this.color = "brown",
     this.animationState = "IDLE",
     this.foot = 0, //ANIMACJA CHODZENIA
+    this.moveCooldown = 0;
 
     this.paused = false
 }
@@ -28,29 +29,23 @@ Player.prototype.resetPosition = function(map){
     this.renderY = this.y;
 }
 
-Player.prototype.update = function(keys, map, now, moveCooldown, moveDelay) {
+Player.prototype.update = function(KEYS, map, now, MOVE_DELAY) {
+    if (now - this.moveCooldown > MOVE_DELAY) {
+        let dx = 0;
+        let dy = 0;
 
-    if (this.paused) return moveCooldown;
-    if (now - moveCooldown <= moveDelay) return moveCooldown;
+        if (KEYS.w) dy = -1;
+        else if (KEYS.s) dy = 1;
+        else if (KEYS.a) dx = -1;
+        else if (KEYS.d) dx = 1;
 
-    const IDLE_TIME = 120;
-    let dx = 0;
-    let dy = 0;
-
-    if (keys.w) dy = -1;
-    else if (keys.s) dy = 1;
-    else if (keys.a) dx = -1;
-    else if (keys.d) dx = 1;
-
-    if (dx !== 0 || dy !== 0) {
-        this.move(dx, dy, map);
-        return now;
+        if (dx !== 0 || dy !== 0) {
+            this.move(dx, dy, map);
+            this.moveCooldown = now;
+        }else{
+            this.animationState = "IDLE";
+        }
     }
-
-    if (Date.now() - Player.lastMoveTime > IDLE_TIME){
-        Player.animationState = "IDLE";
-    }
-    return moveCooldown;
 };
 
 Player.prototype.move = function(dx,dy,map){

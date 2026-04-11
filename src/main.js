@@ -11,6 +11,7 @@ ctx.imageSmoothingEnabled = false; //PIXEL ART SIĘ NIE ROZMYWA
 const GAME_WIDTH = game.width;
 const GAME_HEIGHT = game.height;
 const MOVE_DELAY = 150;
+const MOVE_EASING = 0.125;
 const KEYS = {
     w: false,
     a: false,
@@ -45,46 +46,44 @@ document.addEventListener("keyup",(event) =>{
 
 let moveCooldown = 0;
 
-function step(){
+function step(now) {
     if (!inGame) return;
 
-    const now = Date.now();
-    cam.updatePosition(plr,TILE_SIZE,GAME_WIDTH,GAME_HEIGHT);
-    
-    ctx.setTransform(1,0,0,1,0,0)
+    cam.updatePosition(plr, TILE_SIZE, GAME_WIDTH, GAME_HEIGHT);
+
+    ctx.setTransform(1,0,0,1,0,0);
     ctx.clearRect(0,0,GAME_WIDTH,GAME_HEIGHT);
 
-    if (now - moveCooldown > MOVE_DELAY){
+    if (now - moveCooldown > MOVE_DELAY) {
         let dx = 0;
         let dy = 0;
-        
-        if (KEYS.w){
-            dy -= 1;
-        }else if(KEYS.s){
-            dy += 1;
-        }else if(KEYS.a){
-            dx -= 1;
-        }else if(KEYS.d){
-            dx += 1;
-        }
 
-        if (dx !== 0 || dy !== 0){
-            plr.move(dx,dy,map);
+        if (KEYS.w) dy = -1;
+        else if (KEYS.s) dy = 1;
+        else if (KEYS.a) dx = -1;
+        else if (KEYS.d) dx = 1;
+
+        if (dx !== 0 || dy !== 0) {
+            plr.move(dx, dy, map);
             moveCooldown = now;
+        }else{
+            plr.animationState = "IDLE";
         }
     }
 
     ctx.save();
-    ctx.translate(-cam.renderX,-cam.renderY);
-    
-    buildMap(ctx,map);
-    renderPlayer(ctx,plr,0.125);
+    ctx.translate(-cam.renderX, -cam.renderY);
+
+    buildMap(ctx, map);
+    renderPlayer(ctx, plr, MOVE_EASING, Date.now());
 
     ctx.restore();
-    ctx.setTransform(1,0,0,1,0,0)
 
     ctx.lineWidth = 10;
     ctx.strokeStyle = "black";
     ctx.strokeRect(0,0,GAME_WIDTH,GAME_HEIGHT);
-};
+
+    requestAnimationFrame(step);
+}
+
 requestAnimationFrame(step);

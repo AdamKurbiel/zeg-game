@@ -6,7 +6,7 @@ const TILE_COLORS = {
     "E" : "Red",    //E - wyjście
     "H" : "Green"    //H - leczenie
 };
-const ANIMATION_DELAY = 15;//opóźnienie między zmianą klatek
+const ANIMATION_DELAY = 150;//opóźnienie między zmianą klatek
 
 const PLAYER_SPRITES  = {
     "IDLE" : createImage("assets/player/Idle.png"),
@@ -34,7 +34,7 @@ export function placeTile(ctx, x,y,style){
     );
 }
 
-export function renderPlayer(ctx,player,ease){
+export function renderPlayer(ctx,player,ease,now){
     player.renderX = lerp(player.renderX,player.x,ease);
     player.renderY = lerp(player.renderY,player.y,ease);
     ctx.drawImage(
@@ -46,13 +46,8 @@ export function renderPlayer(ctx,player,ease){
     );
 
 
-
-    if (player.animationState != "IDLE" && player.d < ANIMATION_DELAY){
-        player.d++;
-        if (player.d == ANIMATION_DELAY) {
-            player.animationState = "IDLE";
-            player.d = 0;
-        }
+    if (player.animationState !== "IDLE"){
+        console.log("IDLE");
     }
 }
 

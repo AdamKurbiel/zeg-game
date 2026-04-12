@@ -1,4 +1,5 @@
 import { buildMap, renderPlayer, renderHud } from "../systems/renderer.js";
+import { renderHud } from "../systems/hud.js";
 
 export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, camera, keys){ 
     const GAME_WIDTH = gameCanvas.width;

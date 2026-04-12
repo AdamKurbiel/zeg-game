@@ -1,5 +1,4 @@
-//Chcąc nie chcąc to duży skrypt :( mam nadzieje że czytelny
-import { buildMap, renderPlayer, TILE_SIZE } from "../systems/renderer.js";
+import { buildMap, renderPlayer } from "../systems/renderer.js";
 
 export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, camera, keys){ 
     const GAME_WIDTH = gameCanvas.width;
@@ -67,6 +66,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         start(){
             running = true;
             camera.updateRaw(player,GAME_WIDTH,GAME_HEIGHT);
+
             requestAnimationFrame(step);
         },
         stop(){

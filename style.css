@@ -1,5 +1,5 @@
 body {
-    background-color: #4F1628;
+    background-color: #1f0b11;
 }
 .container{
     margin: 0;
@@ -12,9 +12,8 @@ body {
     margin-left: 50px;
 }
 .logo{
-    height: 150px;
+    height: 100px;
     width: 700px;
     display: block;
     margin: 40px auto;
-    background: aqua;
 }

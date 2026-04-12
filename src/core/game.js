@@ -1,4 +1,4 @@
-import { buildMap, renderPlayer, renderHud } from "../systems/renderer.js";
+import { buildMap, renderPlayer } from "../systems/renderer.js";
 import { renderHud } from "../systems/hud.js";
 
 export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, camera, keys){ 
@@ -65,6 +65,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         start(){
             running = true;
             camera.updateRaw(player,GAME_WIDTH,GAME_HEIGHT);
+            
 
             requestAnimationFrame(step);
         },

@@ -8,19 +8,15 @@ const TILE_COLORS = {
     "H" : "Green"    //H - leczenie
 };
 
-const TEXTURES = {
+export const TEXTURES = {
     heart : createImage("assets/ui/heart_icon.png"),
+    IDLE : createImage("assets/player/Idle.png"),
+    WALK0 : createImage("assets/player/Walk0.png"),
+    WALK1 : createImage("assets/player/Walk1.png"),
 }
 
 //TODO: ZMIENIĆ PLACEHOLDEROWE KOLORY NA TEKSTURY
 //Podłoga będzie musiała być rysowana zawsze POD innymi blokami (oprócz ściany).
-
-const PLAYER_SPRITES  = {
-    "IDLE" : createImage("assets/player/Idle.png"),
-    "WALK0" : createImage("assets/player/Walk0.png"),
-    "WALK1" : createImage("assets/player/Walk1.png"),
-}
-
 function createImage(path){
     var image = new Image();
     image.src = path;
@@ -46,7 +42,7 @@ export function renderPlayer(ctx,player,ease){
     player.renderX = lerp(player.renderX,player.x,ease);
     player.renderY = lerp(player.renderY,player.y,ease);
     ctx.drawImage(
-        PLAYER_SPRITES[player.animationState],
+        TEXTURES[player.animationState],
         player.renderX * TILE_SIZE,
         player.renderY * TILE_SIZE,
         TILE_SIZE,

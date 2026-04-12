@@ -13,6 +13,7 @@ var statsCanvas = document.getElementById("gameStats");
 var ctx = gameCanvas.getContext("2d");
 var statsCtx = statsCanvas.getContext("2d");
 ctx.imageSmoothingEnabled = SMOOTHING_ENABLED;
+statsCtx.imageSmoothingEnabled = SMOOTHING_ENABLED;
 
 const MAP = new Map();
 const PLAYER = new Player();

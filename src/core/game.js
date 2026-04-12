@@ -1,4 +1,4 @@
-import { buildMap, renderPlayer } from "../systems/renderer.js";
+import { buildMap, renderPlayer, renderHud } from "../systems/renderer.js";
 
 export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, camera, keys){ 
     const GAME_WIDTH = gameCanvas.width;
@@ -19,11 +19,6 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
 
         ctx.fillStyle = "gray";
         ctx.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);
-    }
-
-    function clearStats(){
-        statsCtx.fillStyle = "#2B1A4F";
-        statsCtx.fillRect(0,0,STATS_WIDTH,STATS_HEIGHT);
     }
 
     function drawBorder(){
@@ -51,11 +46,14 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         drawBorder();
     }
 
+
+
     function step(now){
         if (!running) return;
 
-        clearStats();
         update(now);
+
+        renderHud(statsCtx,player,STATS_WIDTH,STATS_HEIGHT);
         render();
 
         requestAnimationFrame(step);

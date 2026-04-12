@@ -1,10 +1,9 @@
 //©Adam Kurbiel
-import { Map } from "./maps.js";
-import { Player } from "./player.js";
-import { Camera } from "./camera.js";
-import { createKeyboard } from "./input.js";
+import { Map } from "../world/maps.js";
+import { Player } from "../entities/player.js";
+import { Camera } from "../systems/camera.js";
+import { createKeyboard } from "../systems/input.js";
 import { createGame } from "./game.js";
-
 
 const SMOOTHING_ENABLED = false; //filtrowanie
 

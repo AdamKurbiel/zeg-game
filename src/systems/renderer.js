@@ -1,4 +1,5 @@
-export const TILE_SIZE = 40;
+export const TILE_SIZE = 50;
+
 const TILE_COLORS = {
     "#" : "black",    //# - ściana
     "." : "White",    //. - podłoga
@@ -6,6 +7,9 @@ const TILE_COLORS = {
     "E" : "Red",    //E - wyjście
     "H" : "Green"    //H - leczenie
 };
+
+//TODO: ZMIENIĆ PLACEHOLDEROWE KOLORY NA TEKSTURY
+//Podłoga będzie musiała być rysowana zawsze POD innymi blokami (oprócz ściany).
 
 const PLAYER_SPRITES  = {
     "IDLE" : createImage("assets/player/Idle.png"),
@@ -19,6 +23,7 @@ function createImage(path){
     return image;
 }
 
+//do płynnego poruszania się
 function lerp (start, end, t){
     return start * (1 - t) + end * t;
 }
@@ -46,12 +51,16 @@ export function renderPlayer(ctx,player,ease){
 }
 
 export function buildMap(ctx, level){
-    //Wczytywanie mapy
+    //Wczytywanie mapy (bazując na TILE_COLORS)
     let row = 0;
     level.content().forEach(element => {
         let column = 0;
         while(element[column] != undefined){
-            placeTile(ctx,column, row, TILE_COLORS[element[column]]);
+            placeTile(
+                ctx,column,
+                row,
+                TILE_COLORS[element[column]]
+            );
             column++;
         }
         row++;

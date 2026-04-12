@@ -64,7 +64,7 @@ function heartCounter(statsCtx,health){
     
     statsCtx.fillStyle = "#cc3471";
     statsCtx.font = "48px arial";
-    statsCtx.fillText(health,HUD_POSITIONS.heart[0]+80 ,HUD_POSITIONS.heart[1]+50);
+    statsCtx.fillText(health,HUD_POSITIONS.heart[0]+90 ,HUD_POSITIONS.heart[1]+37);
 }
 
 

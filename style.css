@@ -11,9 +11,10 @@ body {
 .inventory{
     margin-left: 50px;
 }
-h1{
-    text-align: center;
-    font-weight: bold;
-    color: rgb(0, 0, 0);
-    font-size: 60px;
+.logo{
+    height: 150px;
+    width: 700px;
+    display: block;
+    margin: 40px auto;
+    background: aqua;
 }

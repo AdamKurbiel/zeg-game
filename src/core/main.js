@@ -31,8 +31,7 @@ statsCanvas.addEventListener("click", (e) => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    PLAYER.health = 3;
-    MAP.loadLevel(currentLevel);
+    
     checkResetBtn_click(x, y, PLAYER,MAP);
 });
 

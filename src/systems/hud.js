@@ -46,8 +46,9 @@ export function checkResetBtn_click(x,y,player,map){
         y >= resetButton.y &&
         y <= resetButton.y + resetButton.height
     ){
+        player.health = 3;
+        map.loadLevel(map.level);
         player.resetPosition(map)
-        console.log("Kliknięto");
     }
 }
 

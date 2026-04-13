@@ -49,6 +49,7 @@ export function checkResetBtn_click(x,y,player,map){
         player.health = 3;
         map.loadLevel(map.level);
         player.resetPosition(map)
+        player.paused = false;
     }
 }
 

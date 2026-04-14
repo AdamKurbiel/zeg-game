@@ -62,6 +62,12 @@ Player.prototype.move = function(dx,dy,map){
 
     if (nextTile == "E"){
         this.paused = true;
+        //ładowanie kolejnego poziomu
+
+        map.loadLevel(map.level + 1);
+        this.resetPosition(map);
+        this.paused = false;
+        
     }
     
 }

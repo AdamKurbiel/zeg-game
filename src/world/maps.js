@@ -36,7 +36,6 @@ const maps = {
 ]
 };
 
-
 export function getMap(index){
     return maps[index].map(row => row.split(""));
 };

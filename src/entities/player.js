@@ -64,10 +64,11 @@ Player.prototype.move = function(dx,dy,map){
         this.paused = true;
         //ładowanie kolejnego poziomu
 
-        map.loadLevel(map.level + 1);
-        this.resetPosition(map);
-        this.paused = false;
-        
+        if (map.doMapExist(map.level+1)){
+            map.loadLevel(map.level+1);
+            this.resetPosition(map);
+            this.paused = false;
+        }
     }
     
 }

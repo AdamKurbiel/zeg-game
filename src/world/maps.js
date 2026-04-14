@@ -31,7 +31,7 @@ const maps = {
     ".#.................#",
     "#..................#",
     ".#.................#",
-    "#..................#",
+    "#................E.#",
     ".###################"
 ]
 };
@@ -71,4 +71,11 @@ Map.prototype.clearRow = function(x,y){
 
     this.grid[y][x] = ".";
     console.log(this.grid);
+}
+
+Map.prototype.doMapExist = function(index){
+    if (index in maps){
+        return true;
+    }else
+        return false;
 }

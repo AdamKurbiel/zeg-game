@@ -1,5 +1,11 @@
 import { TEXTURES } from "./renderer.js";
 
+const HUD_POSITIONS = {
+    heart : [10,10],
+    reset_button: [240,10],
+    inventory: [10,50]
+}
+
 class Button {
  constructor(text,fillColor,textColor){
     this.text = text;
@@ -30,11 +36,6 @@ class Button {
 
 };
 
-const HUD_POSITIONS = {
-    heart : [10,10],
-    reset_button: [240,10]
-}
-
 const resetButton = new Button("Retry level","#cc3471","white");
 resetButton.setPosition(HUD_POSITIONS.reset_button[0],HUD_POSITIONS.reset_button[1]);
 resetButton.setSize(150,60);
@@ -54,7 +55,7 @@ export function checkResetBtn_click(x,y,player,map){
 }
 
 
-function heartCounter(statsCtx,health){
+function drawHeartCounter(statsCtx,health){
     statsCtx.drawImage(
         TEXTURES.heart,
         HUD_POSITIONS.heart[0],
@@ -68,14 +69,23 @@ function heartCounter(statsCtx,health){
     statsCtx.fillText(health,HUD_POSITIONS.heart[0]+90 ,HUD_POSITIONS.heart[1]+37);
 }
 
+function drawInventory(statsCtx,player){
+    let slots = 3; //ilość slotów w ekwipunku
+    for (let i = 0; i < slots; i++){
+        
+    }
+}
+
 
 export function renderHud(statsCtx,player,width,height){
     statsCtx.fillStyle = "#2B1A4F";
     statsCtx.fillRect(0,0,width,height);
 
-    heartCounter(statsCtx, player.health);
+    drawHeartCounter(statsCtx, player.health);
+    resetButton.draw(statsCtx);
+    drawInventory(statsCtx,player);
 
 
-    resetButton.draw(statsCtx)
+    
     
 }

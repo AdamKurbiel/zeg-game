@@ -1,17 +1,25 @@
 export function Player(){
-    this.health = 3,
+    this.health = 3, //Życia gracza
+    this.inventory = {
+        1 : 0,
+        2 : 0,
+        3 : 0
+    }
 
-    this.x = 1,
-    this.y = 1,
-    this.renderX = this.x,
-    this.renderY = this.y,
+    //pozycja startowa gracza
+    this.x = 1, 
+    this.y = 1, 
 
-    this.color = "brown",
-    this.animationState = "IDLE",
-    this.foot = 0, //ANIMACJA CHODZENIA
-    this.moveCooldown = 0;
+    //gracz zatrzymany
+    this.paused = false,
 
-    this.paused = false
+    ///Zmienne sterowane przez pętlę gry///
+    this.animationState = "IDLE", //Stan animacji gracza
+    this.foot = 0, //Klatka animacji gracza
+    this.moveCooldown = 0; //Opóźnienie przy przytrzymaniu przycisku
+    this.renderX = this.x, //płynne chodzenie
+    this.renderY = this.y //płynne chodzenie
+    
 }
 Player.prototype.resetPosition = function(map){
     var block = map.findFirstBlock("S");//szukam startu

@@ -2,7 +2,7 @@ import { restartLevel } from "../core/game.js";
 
 export function Player(){
     this.health = 2, //Życia gracza
-    this.inventory = ['BURGER'],
+    this.inventory = [],
     this.immune = false;
     this.immuneTimer = 5000;
     this.immuneCooldown = 0;

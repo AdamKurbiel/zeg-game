@@ -6,7 +6,8 @@ const HUD_POSITIONS = {
     heart : [20,10],
     reset_button: [190,85],
     inventory_slots : [60,180],
-    level_info: [280,50]
+    level_info: [280,50],
+    authors: [200,680]
 };
 
 const INVENTORY_MAX_SLOTS = 3;
@@ -209,6 +210,15 @@ function drawLevelInfo(statsCtx,map){
     statsCtx.fillText(`Poziom ${map.level}`,HUD_POSITIONS.level_info[0],HUD_POSITIONS.level_info[1]);
 }
 
+function drawAuthors(statsCtx){
+    statsCtx.fillStyle = "White";
+    statsCtx.font = "14px arial";
+    statsCtx.textAlign = "center"
+    statsCtx.globalAlpha = 0.8;
+    statsCtx.fillText("Stworzone przez Adam Kurbiel & Karina Bednarska (2026).",HUD_POSITIONS.authors[0],HUD_POSITIONS.authors[1]);
+    statsCtx.globalAlpha = 1.0;
+}
+
 const resetButton = new Button("Zresetuj","#b4225c","white","#a21c52");
 resetButton.setPosition(HUD_POSITIONS.reset_button[0],HUD_POSITIONS.reset_button[1]);
 resetButton.setSize(180,40);
@@ -224,6 +234,8 @@ export function renderHud(statsCtx,player,width,height,map){
     drawInventory(statsCtx,player);
 
     drawTooltip(statsCtx, width, height)
+
+    drawAuthors(statsCtx)
 
     statsCtx.strokeStyle = "Black";
     statsCtx.lineWidth = 10;

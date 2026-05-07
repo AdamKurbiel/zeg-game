@@ -34,7 +34,7 @@ statsCanvas.addEventListener("click", (event) => {
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
-    checkResetBtn_click(x, y, PLAYER,MAP);
+    checkResetBtn_click(x, y, PLAYER,MAP,ENTITYHANDLER);
 });
 
 statsCanvas.addEventListener('mousemove', (event) => {

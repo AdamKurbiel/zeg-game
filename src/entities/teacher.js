@@ -12,10 +12,15 @@ export class Teacher {
         this.y = y,
         this.way = DIRECTION[way],
         this.cooldown = 0
+        this.isPanic = false
     }
 
 
     update(map,now,MOVE_DELAY) {
+        if (this.isPanic){
+            map.clearRow(this.x,this.y);
+            return;
+        }
         if (now - this.cooldown > MOVE_DELAY) {
 
             if (map.getCell(this.x+this.way,this.y) != "."){
@@ -29,5 +34,9 @@ export class Teacher {
             
             this.cooldown = now;
         }
+    }
+
+    panic(){//wyczyść wszystko i zatrzymaj
+        this.isPanic = true;
     }
 }

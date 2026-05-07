@@ -65,7 +65,7 @@ draw(ctx){
 }
 };
 
-export function checkResetBtn_click(x,y,player,map){
+export function checkResetBtn_click(x,y,player,map,entityHandler){
     if (player.gameOver) return;
     if (
         x >= resetButton.x &&
@@ -75,7 +75,10 @@ export function checkResetBtn_click(x,y,player,map){
     ){
         player.health = 3;
         player.inventory = [];
+        entityHandler.clear(map);
         map.loadLevel(map.level);
+        map.instantiateEntities(entityHandler);
+        map
         player.resetPosition(map)
         player.paused = false;
     }

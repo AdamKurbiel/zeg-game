@@ -23,7 +23,9 @@ var tooltip = {
     enabled : false,
 }
 
-
+function lerp (start, end, t){
+    return start * (1 - t) + end * t;
+}
 
 class Button { //PRZYCISK
 constructor(text,fillColor,textColor){
@@ -105,26 +107,53 @@ function drawHeartCounter(statsCtx,health){
     
     statsCtx.fillStyle = "#cc3471";
     statsCtx.font = "48px arial";
+    statsCtx.textAlign = "center";
     statsCtx.fillText(health,HUD_POSITIONS.heart[0]+90 ,HUD_POSITIONS.heart[1]+37);
 }
 
 function drawTooltip(statsCtx,width,height){
-
-    if (tooltip.enabled == false){
+    if (tooltip.enabled == false){     
         return;
     };
-    
+
     let SIZE_X = 200;
     let SIZE_Y = 100;
     let POS_X = tooltip.xPosition;
-    let POS_Y = tooltip.yPosition;
+    let POS_Y = tooltip.yPosition - 100;
+    let OFFSET_X = 5;
 
-    if (POS_X + SIZE_X > width){
-        POS_X = width - SIZE_X;
+    let title = tooltip.title;
+    let description = tooltip.desc;
+
+
+    if (POS_X + SIZE_X > width - OFFSET_X){
+        POS_X = width - SIZE_X - OFFSET_X;
     }
 
-    statsCtx.fillStyle = "White";
+    //ustawienia
+    statsCtx.fillStyle = "Black";
+    statsCtx.strokeStyle = "Pink";
+    statsCtx.lineWidth = 5;
+    
+    statsCtx.strokeRect(POS_X,POS_Y,SIZE_X,SIZE_Y);
+
+    //Tytuł
+    statsCtx.globalAlpha = 0.6;
     statsCtx.fillRect(POS_X,POS_Y,SIZE_X,SIZE_Y);
+    statsCtx.globalAlpha = 1.0;
+
+    statsCtx.textAlign = "left";
+    statsCtx.fillStyle = "White";
+    statsCtx.font = "Bold 20px arial";
+    statsCtx.fillText(tooltip.title,POS_X+5,POS_Y+16)
+
+    //Opis
+    statsCtx.fillStyle = "White";
+    statsCtx.font = "12px arial";
+    statsCtx.fillText(tooltip.desc,POS_X+5,POS_Y+36)
+
+
+
 }
 
 function drawInventory(statsCtx,player){

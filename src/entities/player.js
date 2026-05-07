@@ -58,11 +58,17 @@ Player.prototype.move = function(dx,dy,map){
     this.foot = this.foot ? 0 : 1 ;
     this.animationState = `WALK${this.foot}`;//walk0 albo walk1
 
-    if (nextTile == "H"){//leczenie (dodaje jeden punkt życia)
+    if (nextTile == "M"){//leczenie (dodaje jeden punkt życia)
         map.clearRow(this.x,this.y);
         this.health += 1;
     }
 
+    if (nextTile == "B"){//Burger
+        if (this.inventory.length >= 3) return;
+
+        map.clearRow(this.x,this.y);
+        this.inventory.push("BURGER");
+    }
 
     if (nextTile == "E"){
         this.paused = true;

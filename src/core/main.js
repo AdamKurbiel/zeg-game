@@ -40,7 +40,7 @@ statsCanvas.addEventListener('mousemove', (event) => {
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
-    checkSlots_hover(x,y,statsCtx);
+    checkSlots_hover(x,y,statsCtx,PLAYER);
 });
 
 

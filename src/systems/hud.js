@@ -1,4 +1,6 @@
+import { Player } from "../entities/player.js";
 import { TEXTURES } from "./renderer.js";
+import { ITEM_DICT } from "./itemInfo.js";
 
 const HUD_POSITIONS = {
     heart : [10,10],
@@ -70,7 +72,7 @@ export function checkResetBtn_click(x,y,player,map){
     }
 }
 
-export function checkSlots_hover(x,y,statsCtx){
+export function checkSlots_hover(x,y,statsCtx,player){
     
     for (let i = 0; i < INVENTORY_MAX_SLOTS; i++){
         let slot_x = HUD_POSITIONS.inventory_slots[0] + i*100;
@@ -83,9 +85,14 @@ export function checkSlots_hover(x,y,statsCtx){
             y >= slot_y &&
             y <= slot_y + slot_wh
         ){
+            if (player.inventory[i] == undefined){
+                tooltip.title = ITEM_DICT[0].Title;
+                tooltip.desc = ITEM_DICT[0].Description;
+            }else{
+                tooltip.title = ITEM_DICT[player.inventory[i]].Title;
+                tooltip.desc = ITEM_DICT[player.inventory[i]].Description;
+            }
             
-            tooltip.title = i;
-            tooltip.desc = `Touching slot ${i}. To jest test.\nJeśli widzisz to w kolejnej linii,\nTo znaczy że wszystko działa.`
             tooltip.xPosition = x,
             tooltip.yPosition = y,
             tooltip.enabled = true
@@ -131,34 +138,29 @@ function drawTooltip(statsCtx,width,height){
         POS_X = width - SIZE_X - OFFSET_X;
     }
 
-    //ustawienia
+    //Ustawienia
     statsCtx.fillStyle = "Black";
     statsCtx.strokeStyle = "Pink";
     statsCtx.lineWidth = 5;
     
+    //Główny prostokąt
     statsCtx.strokeRect(POS_X,POS_Y,SIZE_X,SIZE_Y);
-
-    //Tytuł
     statsCtx.globalAlpha = 0.6;
     statsCtx.fillRect(POS_X,POS_Y,SIZE_X,SIZE_Y);
     statsCtx.globalAlpha = 1.0;
 
+    //Tytuł
     statsCtx.textAlign = "left";
     statsCtx.fillStyle = "White";
     statsCtx.font = "Bold 20px arial";
-    statsCtx.fillText(tooltip.title,POS_X+5,POS_Y+16)
+    statsCtx.fillText(title,POS_X+5,POS_Y+16);
 
     //Opis
     for (let i = 0; i < description.length; i++){
         statsCtx.fillStyle = "White";
         statsCtx.font = "12px arial";
-        statsCtx.fillText(description[i],POS_X+5,POS_Y+36+(i*18))
+        statsCtx.fillText(description[i],POS_X+5,POS_Y+36+(i*18));
     }
-    
-
-
-
-
 }
 
 function drawInventory(statsCtx,player){
@@ -174,15 +176,18 @@ function drawInventory(statsCtx,player){
             INVENTORY_SLOT_SIZE,
             INVENTORY_SLOT_SIZE
         );
+
+        if (player.inventory[i] != undefined && player.inventory[i] != 0){
+            console.log(player.inventory[i]);
+            statsCtx.drawImage(
+                TEXTURES[player.inventory[i]],
+                HUD_POSITIONS.inventory_slots[0] + i*100+10,
+                HUD_POSITIONS.inventory_slots[1] + 10,
+                INVENTORY_SLOT_SIZE * 0.75,
+                INVENTORY_SLOT_SIZE * 0.75
+            )
+        }
     }
-
-/*
-    for (let i of slots){//rysujemy każdy przedmiot po kolei
-        console.log(INVENTORY_ITEM_NAMES[i]);
-    }
-*/
-
-
 }
 
 const resetButton = new Button("Retry level","#cc3471","white");

@@ -13,7 +13,8 @@ np. jeśli chcemy żeby leczenie miało teksturę medkit.png, ustawiamy H na "ME
 const TILE_COLORS = {
     "#" : "black",    //# - ściana
     "." : "white",    //. - podłoga
-    "H" : "MEDKIT",   //H - Leczenie
+    "M" : "MEDKIT",   //H - Leczenie
+    "B" : "BURGER",
     "S" : "blue",     //S - start
     "E" : "red",      //E - wyjście
 };

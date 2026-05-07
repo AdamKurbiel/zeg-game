@@ -64,7 +64,7 @@ export function checkResetBtn_click(x,y,player,map){
 
 function drawHeartCounter(statsCtx,health){
     statsCtx.drawImage(
-        TEXTURES.heart,
+        TEXTURES.HEART,
         HUD_POSITIONS.heart[0],
         HUD_POSITIONS.heart[1],
         64,
@@ -83,7 +83,7 @@ function drawInventory(statsCtx,player){
 
     for (let i = 0; i < INVENTORY_MAX_SLOTS; i++){
         statsCtx.drawImage(
-            TEXTURES["inventory_slot"],
+            TEXTURES.INVENTORY_SLOT,
             HUD_POSITIONS.inventory_slots[0] + i*100,
             HUD_POSITIONS.inventory_slots[1],
             80,

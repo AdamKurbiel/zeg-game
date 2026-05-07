@@ -85,7 +85,7 @@ export function checkSlots_hover(x,y,statsCtx){
         ){
             
             tooltip.title = i;
-            tooltip.desc = `Touching slot ${i}.`
+            tooltip.desc = `Touching slot ${i}. To jest test.\nJeśli widzisz to w kolejnej linii,\nTo znaczy że wszystko działa.`
             tooltip.xPosition = x,
             tooltip.yPosition = y,
             tooltip.enabled = true
@@ -122,8 +122,9 @@ function drawTooltip(statsCtx,width,height){
     let POS_Y = tooltip.yPosition - 100;
     let OFFSET_X = 5;
 
+
     let title = tooltip.title;
-    let description = tooltip.desc;
+    let description = tooltip.desc.split("\n");
 
 
     if (POS_X + SIZE_X > width - OFFSET_X){
@@ -148,9 +149,13 @@ function drawTooltip(statsCtx,width,height){
     statsCtx.fillText(tooltip.title,POS_X+5,POS_Y+16)
 
     //Opis
-    statsCtx.fillStyle = "White";
-    statsCtx.font = "12px arial";
-    statsCtx.fillText(tooltip.desc,POS_X+5,POS_Y+36)
+    for (let i = 0; i < description.length; i++){
+        statsCtx.fillStyle = "White";
+        statsCtx.font = "12px arial";
+        statsCtx.fillText(description[i],POS_X+5,POS_Y+36+(i*18))
+    }
+    
+
 
 
 

@@ -66,6 +66,7 @@ draw(ctx){
 };
 
 export function checkResetBtn_click(x,y,player,map){
+    if (player.gameOver) return;
     if (
         x >= resetButton.x &&
         x <= resetButton.x + resetButton.width &&
@@ -81,6 +82,8 @@ export function checkResetBtn_click(x,y,player,map){
 }
 
 export function checkHudHover(x,y,statsCtx,player){
+
+    if (player.gameOver) return;
     //BUTTON HOVER
 
 
@@ -229,8 +232,15 @@ resetButton.setPosition(HUD_POSITIONS.reset_button[0],HUD_POSITIONS.reset_button
 resetButton.setSize(180,40);
 
 export function renderHud(statsCtx,player,width,height,map){
+    
     statsCtx.fillStyle = "#2B1A4F";
     statsCtx.fillRect(0,0,width,height);
+
+    statsCtx.strokeStyle = "Black";
+    statsCtx.lineWidth = 10;
+    statsCtx.strokeRect(0,0,width,height);
+    if (player.gameOver) return;
+
 
     drawHeartCounter(statsCtx, player.health);
     resetButton.draw(statsCtx);
@@ -241,8 +251,4 @@ export function renderHud(statsCtx,player,width,height,map){
     drawTooltip(statsCtx, width, height)
 
     drawAuthors(statsCtx)
-
-    statsCtx.strokeStyle = "Black";
-    statsCtx.lineWidth = 10;
-    statsCtx.strokeRect(0,0,width,height);
 }

@@ -17,7 +17,6 @@ export class Teacher {
 
     update(map,now,MOVE_DELAY) {
         if (now - this.cooldown > MOVE_DELAY) {
-            console.log("Move!");
 
             if (map.getCell(this.x+this.way,this.y) != "."){
                 this.way *= -1

@@ -1,6 +1,6 @@
 import { Player } from "../entities/player.js";
 import { TEXTURES } from "./renderer.js";
-import { ITEM_DICT } from "./itemInfo.js";
+import { ITEM_DICT, ITEM_RARITY_DICT } from "./itemInfo.js";
 
 const HUD_POSITIONS = {
     heart : [10,10],
@@ -19,6 +19,7 @@ var tooltip = {
     title : "",
     desc : "",
 
+    rarity : 0,
     xPosition : 0,
     yPosition : 0,
 
@@ -66,14 +67,18 @@ export function checkResetBtn_click(x,y,player,map){
         y <= resetButton.y + resetButton.height
     ){
         player.health = 3;
+        player.inventory = [];
         map.loadLevel(map.level);
         player.resetPosition(map)
         player.paused = false;
     }
 }
 
-export function checkSlots_hover(x,y,statsCtx,player){
-    
+export function checkHudHover(x,y,statsCtx,player){
+    //BUTTON HOVER
+
+
+    //INVENTORY SLOTS HOVER
     for (let i = 0; i < INVENTORY_MAX_SLOTS; i++){
         let slot_x = HUD_POSITIONS.inventory_slots[0] + i*100;
         let slot_y = HUD_POSITIONS.inventory_slots[1];
@@ -88,9 +93,11 @@ export function checkSlots_hover(x,y,statsCtx,player){
             if (player.inventory[i] == undefined){
                 tooltip.title = ITEM_DICT[0].Title;
                 tooltip.desc = ITEM_DICT[0].Description;
+                tooltip.rarity = 0;
             }else{
                 tooltip.title = ITEM_DICT[player.inventory[i]].Title;
                 tooltip.desc = ITEM_DICT[player.inventory[i]].Description;
+                tooltip.rarity = ITEM_DICT[player.inventory[i]].Rarity;
             }
             
             tooltip.xPosition = x,
@@ -151,7 +158,7 @@ function drawTooltip(statsCtx,width,height){
 
     //Tytuł
     statsCtx.textAlign = "left";
-    statsCtx.fillStyle = "White";
+    statsCtx.fillStyle = ITEM_RARITY_DICT[tooltip.rarity].Color;
     statsCtx.font = "Bold 20px arial";
     statsCtx.fillText(title,POS_X+5,POS_Y+16);
 

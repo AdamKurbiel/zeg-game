@@ -4,7 +4,7 @@ import { Player } from "../entities/player.js";
 import { Camera } from "../systems/camera.js";
 import { createKeyboard } from "../systems/input.js";
 import { createGame } from "./game.js";
-import { checkResetBtn_click, checkSlots_hover } from "../systems/hud.js";
+import { checkHudHover, checkResetBtn_click} from "../systems/hud.js";
 
 const SMOOTHING_ENABLED = false; //filtrowanie
 
@@ -40,7 +40,7 @@ statsCanvas.addEventListener('mousemove', (event) => {
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
-    checkSlots_hover(x,y,statsCtx,PLAYER);
+    checkHudHover(x,y,statsCtx,PLAYER);
 });
 
 

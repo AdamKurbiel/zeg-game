@@ -6,6 +6,7 @@ const HUD_POSITIONS = {
     heart : [20,10],
     reset_button: [190,85],
     inventory_slots : [60,180],
+    inventory_border : [0,160],
     level_info: [280,50],
     authors: [200,680]
 };
@@ -179,6 +180,10 @@ function drawInventory(statsCtx,player){
     //funkcja do rysowania przedmiotów ekwipunku
     let slots = player.inventory;
     if (slots.length > INVENTORY_MAX_SLOTS) return;
+
+    statsCtx.lineWidth = 4;
+    statsCtx.strokeStyle = "black";
+    statsCtx.strokeRect(HUD_POSITIONS.inventory_border[0],HUD_POSITIONS.inventory_border[1],400,120);
 
     for (let i = 0; i < INVENTORY_MAX_SLOTS; i++){
         statsCtx.drawImage(

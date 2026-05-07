@@ -54,7 +54,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
 
         update(now);
 
-        renderHud(statsCtx,player,STATS_WIDTH,STATS_HEIGHT);
+        renderHud(statsCtx,player,STATS_WIDTH,STATS_HEIGHT,map);
         render();
 
         requestAnimationFrame(step);

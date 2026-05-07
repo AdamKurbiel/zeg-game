@@ -3,10 +3,10 @@ import { TEXTURES } from "./renderer.js";
 import { ITEM_DICT, ITEM_RARITY_DICT } from "./itemInfo.js";
 
 const HUD_POSITIONS = {
-    heart : [10,10],
-    reset_button: [240,10],
-    inventory: [10,50],
-    inventory_slots : [60,120]
+    heart : [20,10],
+    reset_button: [190,85],
+    inventory_slots : [60,180],
+    level_info: [280,50]
 };
 
 const INVENTORY_MAX_SLOTS = 3;
@@ -31,10 +31,11 @@ function lerp (start, end, t){
 }
 
 class Button { //PRZYCISK
-constructor(text,fillColor,textColor){
+constructor(text,fillColor,textColor,strokeColor){
     this.text = text;
     this.fillColor = fillColor;
     this.textColor = textColor;
+    this.strokeColor = strokeColor;
 }
  
 setPosition(x,y){
@@ -50,6 +51,9 @@ setSize(width,height){
 draw(ctx){
     ctx.fillStyle = this.fillColor;
     ctx.fillRect(this.x,this.y,this.width,this.height);
+    ctx.strokeStyle = this.strokeColor;
+    ctx.lineWidth = 5;
+    ctx.strokeRect(this.x,this.y,this.width,this.height);
 
     ctx.fillStyle = this.textColor;
     ctx.textAlign = 'center';
@@ -115,14 +119,14 @@ function drawHeartCounter(statsCtx,health){
         TEXTURES.HEART,
         HUD_POSITIONS.heart[0],
         HUD_POSITIONS.heart[1],
-        64,
-        64
+        128,
+        128
     );
     
-    statsCtx.fillStyle = "#cc3471";
+    statsCtx.fillStyle = "#fff8fc";
     statsCtx.font = "48px arial";
     statsCtx.textAlign = "center";
-    statsCtx.fillText(health,HUD_POSITIONS.heart[0]+90 ,HUD_POSITIONS.heart[1]+37);
+    statsCtx.fillText(health,HUD_POSITIONS.heart[0]+60 ,HUD_POSITIONS.heart[1]+75);
 }
 
 function drawTooltip(statsCtx,width,height){
@@ -185,7 +189,7 @@ function drawInventory(statsCtx,player){
         );
 
         if (player.inventory[i] != undefined && player.inventory[i] != 0){
-            console.log(player.inventory[i]);
+            statsCtx.globalAlpha = 0.8;
             statsCtx.drawImage(
                 TEXTURES[player.inventory[i]],
                 HUD_POSITIONS.inventory_slots[0] + i*100+10,
@@ -193,23 +197,35 @@ function drawInventory(statsCtx,player){
                 INVENTORY_SLOT_SIZE * 0.75,
                 INVENTORY_SLOT_SIZE * 0.75
             )
+            statsCtx.globalAlpha = 1;
         }
     }
 }
 
-const resetButton = new Button("Retry level","#cc3471","white");
-resetButton.setPosition(HUD_POSITIONS.reset_button[0],HUD_POSITIONS.reset_button[1]);
-resetButton.setSize(150,60);
+function drawLevelInfo(statsCtx,map){
+    statsCtx.fillStyle = "White";
+    statsCtx.textAlign = "center";
+    statsCtx.font = "bold 30px arial";
+    statsCtx.fillText(`Poziom ${map.level}`,HUD_POSITIONS.level_info[0],HUD_POSITIONS.level_info[1]);
+}
 
-export function renderHud(statsCtx,player,width,height){
+const resetButton = new Button("Zresetuj","#b4225c","white","#a21c52");
+resetButton.setPosition(HUD_POSITIONS.reset_button[0],HUD_POSITIONS.reset_button[1]);
+resetButton.setSize(180,40);
+
+export function renderHud(statsCtx,player,width,height,map){
     statsCtx.fillStyle = "#2B1A4F";
     statsCtx.fillRect(0,0,width,height);
 
     drawHeartCounter(statsCtx, player.health);
     resetButton.draw(statsCtx);
+    drawLevelInfo(statsCtx,map);
+
     drawInventory(statsCtx,player);
 
     drawTooltip(statsCtx, width, height)
-    
 
+    statsCtx.strokeStyle = "Black";
+    statsCtx.lineWidth = 10;
+    statsCtx.strokeRect(0,0,width,height);
 }

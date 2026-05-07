@@ -17,8 +17,9 @@ const TILE_COLORS = {
     "B" : "BURGER",
     "S" : "blue",     //S - start
     "E" : "red",      //E - wyjście
-    "<" : "purple",    //< - przeciwnik ruszający się w bok, gdy trafi na ścianę odbija się w drugą stronę. Zaczyna próbując iść w lewo.
-    ">" : "purple"    //> - przeciwnik ruszający się w bok, gdy trafi na ścianę odbija się w drugą stronę. Zaczyna próbując iść w prawo.
+    "<" : "BALL",    //< - przeciwnik ruszający się w bok, gdy trafi na ścianę odbija się w drugą stronę. Zaczyna próbując iść w lewo.
+    "K" : "KEY", //Klucz do drzwi 
+    "D" : "DOORS" //drzwi
 };
 
 
@@ -36,7 +37,10 @@ export const TEXTURES = {
 
     //TEKSTURY W GRZE
     MEDKIT : createImage("assets/textures/medkit.png"),
-    BURGER : createImage("assets/textures/golosz-burger.png")
+    BURGER : createImage("assets/textures/golosz-burger.png"),
+    DOORS : createImage("assets/textures/doors.png"),
+    KEY: createImage("assets/textures/key.png"),
+    BALL: createImage("assets/textures/ball.png")
 }
 
 //TODO: ZMIENIĆ PLACEHOLDEROWE KOLORY NA TEKSTURY

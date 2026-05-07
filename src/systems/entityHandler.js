@@ -1,4 +1,4 @@
-import { Teacher } from "../entities/teacher.js";
+import { Teacher } from "../entities/ball.js";
 
 export class EntityHandler{
     constructor(){

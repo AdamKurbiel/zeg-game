@@ -27,10 +27,11 @@ export class Teacher {
                 this.way *= -1
             }
 
-            map.clearRow(this.x,this.y);
-            this.x += this.way;
-            map.setCell(this.x,this.y,this.defWay);
             
+            map.clearRow(this.x,this.y);
+            map.setCell(this.x+this.way,this.y,this.defWay);
+           
+            this.x += this.way;
             
             this.cooldown = now;
         }

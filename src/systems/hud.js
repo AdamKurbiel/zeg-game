@@ -17,6 +17,12 @@ const INVENTORY_SLOT_SIZE = 80;
 const INVENTORY_ITEM_NAMES = {
     0: "Empty"
 };
+var slotHover = {
+    0 : false,
+    1 : false,
+    2 : false
+}
+
 
 var tooltip = {
     title : "",
@@ -34,11 +40,13 @@ function lerp (start, end, t){
 }
 
 class Button { //PRZYCISK
-constructor(text,fillColor,textColor,strokeColor){
+constructor(text,fillColor,textColor,strokeColor,hoverColor){
     this.text = text;
     this.fillColor = fillColor;
+    this.hoverColor = hoverColor
     this.textColor = textColor;
     this.strokeColor = strokeColor;
+    this.hover = false;
 }
  
 setPosition(x,y){
@@ -53,6 +61,7 @@ setSize(width,height){
 
 draw(ctx){
     ctx.fillStyle = this.fillColor;
+    if (this.hover) ctx.fillStyle = this.hoverColor;
     ctx.fillRect(this.x,this.y,this.width,this.height);
     ctx.strokeStyle = this.strokeColor;
     ctx.lineWidth = 5;
@@ -82,6 +91,16 @@ export function checkHudHover(x,y,statsCtx,player){
 
     if (player.gameOver) return;
     //BUTTON HOVER
+    if (
+        x >= resetButton.x &&
+        x <= resetButton.x + resetButton.width &&
+        y >= resetButton.y &&
+        y <= resetButton.y + resetButton.height
+    ){
+        resetButton.hover = true;
+    }else{
+        resetButton.hover = false;
+    }
 
 
     //INVENTORY SLOTS HOVER
@@ -101,6 +120,7 @@ export function checkHudHover(x,y,statsCtx,player){
                 tooltip.desc = ITEM_DICT[0].Description;
                 tooltip.rarity = 0;
             }else{
+                slotHover[i] = true;
                 tooltip.title = ITEM_DICT[player.inventory[i]].Title;
                 tooltip.desc = ITEM_DICT[player.inventory[i]].Description;
                 tooltip.rarity = ITEM_DICT[player.inventory[i]].Rarity;
@@ -110,6 +130,8 @@ export function checkHudHover(x,y,statsCtx,player){
             tooltip.yPosition = y,
             tooltip.enabled = true
             return;
+        }else{
+            slotHover[i] = false;
         }
     }
     tooltip.enabled = false;
@@ -186,6 +208,7 @@ function drawInventory(statsCtx,player){
     statsCtx.strokeRect(HUD_POSITIONS.inventory_border[0],HUD_POSITIONS.inventory_border[1],400,120);
 
     for (let i = 0; i < INVENTORY_MAX_SLOTS; i++){
+        console.log(`${slotHover[i]}`)
         statsCtx.drawImage(
             TEXTURES.INVENTORY_SLOT,
             HUD_POSITIONS.inventory_slots[0] + i*100,
@@ -196,12 +219,23 @@ function drawInventory(statsCtx,player){
 
         if (player.inventory[i] != undefined && player.inventory[i] != 0){
             statsCtx.globalAlpha = 0.8;
+            var SLOT_SIZE = INVENTORY_SLOT_SIZE * 0.75;
+            let off_x = 0;
+            let off_y = 0;
+            if (slotHover[i]) {
+                SLOT_SIZE = INVENTORY_SLOT_SIZE * 0.80;
+                off_x = -1;
+                off_y = -1;
+            }
+            
+            
+
             statsCtx.drawImage(
                 TEXTURES[player.inventory[i]],
-                HUD_POSITIONS.inventory_slots[0] + i*100+10,
-                HUD_POSITIONS.inventory_slots[1] + 10,
-                INVENTORY_SLOT_SIZE * 0.75,
-                INVENTORY_SLOT_SIZE * 0.75
+                HUD_POSITIONS.inventory_slots[0] + i*100+10+off_x,
+                HUD_POSITIONS.inventory_slots[1] + 10+off_y,
+                SLOT_SIZE,
+                SLOT_SIZE
             )
             statsCtx.globalAlpha = 1;
         }
@@ -220,11 +254,11 @@ function drawAuthors(statsCtx){
     statsCtx.font = "14px arial";
     statsCtx.textAlign = "center"
     statsCtx.globalAlpha = 0.8;
-    statsCtx.fillText("Stworzone przez Adam Kurbiel & Karina Bednarska (2026).",HUD_POSITIONS.authors[0],HUD_POSITIONS.authors[1]);
+    statsCtx.fillText("Stworzone przez wpisuje tu cokolwiek zebym nic niezlikowal (2026).",HUD_POSITIONS.authors[0],HUD_POSITIONS.authors[1]);
     statsCtx.globalAlpha = 1.0;
 }
 
-const resetButton = new Button("Zresetuj","#b4225c","white","#a21c52");
+const resetButton = new Button("Zresetuj","#b4225c","white","#a21c52","#881644");
 resetButton.setPosition(HUD_POSITIONS.reset_button[0],HUD_POSITIONS.reset_button[1]);
 resetButton.setSize(180,40);
 

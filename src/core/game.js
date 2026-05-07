@@ -58,7 +58,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         ctx.font = "bold 64px arial"
         ctx.fillText("KONIEC GRY",350,250);
         ctx.font = "28px arial"
-        ctx.fillText(`Czas: ${Math.round(time_played/10)/10}s`,350,290);
+        ctx.fillText(`Najdalej: Poziom ${map.level}`,350,290);
 
         ctx.font = "18px arial"
         ctx.fillText("Przegrano grę. Aby zacząć od początku, odśwież stronę.",350,650);

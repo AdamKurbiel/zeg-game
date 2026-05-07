@@ -7,7 +7,12 @@ export const ITEM_DICT = {
     BURGER : {
         "Rarity": 2,
         "Title": "Burger Gołosza",
-        "Description": "Po zjedzeniu zapewnia odporność\nna ataki przez 5 sekund.\n\n**Ten burger jest dobry.**"
+        "Description": "Po zjedzeniu zapewnia odporność\nna ataki przez 5 sekund.\n\n**Sos ręcznie robiony.**"
+    },
+    KEY : {
+        "Rarity": 1,
+        "Title": "Klucz",
+        "Description":"Ten klucz powinien otworzyć\nwiększość drzwi.\n**Za zgubienie kluczyka płatność\n30zł u Pani woźnej.**"
     }
 }
 

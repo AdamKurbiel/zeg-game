@@ -1,8 +1,8 @@
 import { restartLevel } from "../core/game.js";
 
 export function Player(){
-    this.health = 3, //Życia gracza
-    this.inventory = []
+    this.health = 1, //Życia gracza
+    this.inventory = ['KEY'],
 
     //pozycja startowa gracza
     this.x = 1, 
@@ -59,12 +59,20 @@ Player.prototype.update = function(KEYS, map, now, MOVE_DELAY,entityHandler) {
     
 };
 
-
 Player.prototype.move = function(dx,dy,map){
     if (this.paused) return;
     
     let nextTile = map.content()[this.y+dy][this.x+dx];
     if (nextTile == "#") return; //sprawdzam czy to sciana
+    if (nextTile == "D"){
+        if (this.inventory.indexOf('KEY') != -1){
+            let index = this.inventory.indexOf('KEY');
+            this.inventory.splice(index, 1);
+            map.clearRow(this.x+dx,this.y+dy);
+        }else{
+            return;
+        }
+    }
 
     this.x += dx;
     this.y += dy;
@@ -83,6 +91,15 @@ Player.prototype.move = function(dx,dy,map){
         map.clearRow(this.x,this.y);
         this.inventory.push("BURGER");
     }
+
+    if (nextTile == "K"){//Burger
+        if (this.inventory.length >= 3) return;
+
+        map.clearRow(this.x,this.y);
+        this.inventory.push("KEY");
+    }
+
+
 
     if (nextTile == "E"){
         this.paused = true;

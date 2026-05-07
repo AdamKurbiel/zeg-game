@@ -1,10 +1,6 @@
 export function Player(){
     this.health = 3, //Życia gracza
-    this.inventory = {
-        1 : 0,
-        2 : 0,
-        3 : 0
-    }
+    this.inventory = [0],
 
     //pozycja startowa gracza
     this.x = 1, 

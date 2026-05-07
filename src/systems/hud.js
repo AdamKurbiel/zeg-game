@@ -3,10 +3,17 @@ import { TEXTURES } from "./renderer.js";
 const HUD_POSITIONS = {
     heart : [10,10],
     reset_button: [240,10],
-    inventory: [10,50]
-}
+    inventory: [10,50],
+    inventory_slots : [60,120]
+};
 
-class Button {
+const INVENTORY_MAX_SLOTS = 3;
+const INVENTORY_ITEM_NAMES = {
+    0: "Empty"
+};
+
+
+class Button { //PRZYCISK
  constructor(text,fillColor,textColor){
     this.text = text;
     this.fillColor = fillColor;
@@ -70,10 +77,27 @@ function drawHeartCounter(statsCtx,health){
 }
 
 function drawInventory(statsCtx,player){
-    let slots = 3; //ilość slotów w ekwipunku
-    for (let i = 0; i < slots; i++){
-        
+    //funkcja do rysowania przedmiotów ekwipunku
+    let slots = player.inventory;
+    if (slots.length < 1 || slots.length > INVENTORY_MAX_SLOTS) return;
+
+    for (let i = 0; i < INVENTORY_MAX_SLOTS; i++){
+        statsCtx.drawImage(
+            TEXTURES["inventory_slot"],
+            HUD_POSITIONS.inventory_slots[0] + i*100,
+            HUD_POSITIONS.inventory_slots[1],
+            80,
+            80
+        );
     }
+
+/*
+    for (let i of slots){//rysujemy każdy przedmiot po kolei
+        console.log(INVENTORY_ITEM_NAMES[i]);
+    }
+*/
+
+
 }
 
 

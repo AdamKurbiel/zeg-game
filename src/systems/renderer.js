@@ -13,6 +13,7 @@ export const TEXTURES = {
     IDLE : createImage("assets/player/Idle.png"),
     WALK0 : createImage("assets/player/Walk0.png"),
     WALK1 : createImage("assets/player/Walk1.png"),
+    inventory_slot : createImage("assets/ui/inventory_slot.png")
 }
 
 //TODO: ZMIENIĆ PLACEHOLDEROWE KOLORY NA TEKSTURY

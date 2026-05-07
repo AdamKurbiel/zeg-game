@@ -1,8 +1,11 @@
 import { restartLevel } from "../core/game.js";
 
 export function Player(){
-    this.health = 1, //Życia gracza
-    this.inventory = ['KEY'],
+    this.health = 2, //Życia gracza
+    this.inventory = ['BURGER'],
+    this.immune = false;
+    this.immuneTimer = 5000;
+    this.immuneCooldown = 0;
 
     //pozycja startowa gracza
     this.x = 1, 
@@ -32,6 +35,13 @@ Player.prototype.resetPosition = function(map){
 
 Player.prototype.update = function(KEYS, map, now, MOVE_DELAY,entityHandler) {
     if (this.paused) return;
+
+    if (now - this.immuneCooldown > this.immuneTimer && this.immune){
+        console.log("siema");
+        this.immune = false;
+        this.immuneCooldown = now;
+    }
+
     if (now - this.moveCooldown > MOVE_DELAY) {
         let dx = 0;
         let dy = 0;
@@ -54,10 +64,16 @@ Player.prototype.update = function(KEYS, map, now, MOVE_DELAY,entityHandler) {
     //tutaj kolizje z przeciwnikami nie zależące od ruchu gracza
 
     if (currTile == "<"){
+        if (this.immune) return;
         restartLevel(this,entityHandler,map,true);     
     }
     
 };
+
+Player.prototype.deleteItem = function(item){
+    let index = this.inventory.indexOf(item);
+    this.inventory.splice(index, 1);
+}
 
 Player.prototype.move = function(dx,dy,map){
     if (this.paused) return;
@@ -66,8 +82,7 @@ Player.prototype.move = function(dx,dy,map){
     if (nextTile == "#") return; //sprawdzam czy to sciana
     if (nextTile == "D"){
         if (this.inventory.indexOf('KEY') != -1){
-            let index = this.inventory.indexOf('KEY');
-            this.inventory.splice(index, 1);
+            this.deleteItem('KEY');
             map.clearRow(this.x+dx,this.y+dy);
         }else{
             return;

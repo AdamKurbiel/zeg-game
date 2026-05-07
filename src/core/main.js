@@ -4,7 +4,7 @@ import { Player } from "../entities/player.js";
 import { Camera } from "../systems/camera.js";
 import { createKeyboard } from "../systems/input.js";
 import { createGame } from "./game.js";
-import { checkHudHover, checkResetBtn_click} from "../systems/hud.js";
+import { checkHudHover, checkHudClick} from "../systems/hud.js";
 import { EntityHandler } from "../systems/entityHandler.js";
 
 const SMOOTHING_ENABLED = false; //filtrowanie
@@ -34,7 +34,7 @@ statsCanvas.addEventListener("click", (event) => {
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
-    checkResetBtn_click(x, y, PLAYER,MAP,ENTITYHANDLER);
+    checkHudClick(x, y, PLAYER,MAP,ENTITYHANDLER);
 });
 
 statsCanvas.addEventListener('mousemove', (event) => {

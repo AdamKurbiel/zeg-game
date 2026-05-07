@@ -23,6 +23,7 @@ var slotHover = {
     2 : false
 }
 
+var temp_now
 
 var tooltip = {
     title : "",
@@ -75,8 +76,10 @@ draw(ctx){
 }
 };
 
-export function checkResetBtn_click(x,y,player,map,entityHandler){
+export function checkHudClick(x,y,player,map,entityHandler){
     if (player.gameOver) return;
+
+    //RESET BUTTON
     if (
         x >= resetButton.x &&
         x <= resetButton.x + resetButton.width &&
@@ -85,12 +88,36 @@ export function checkResetBtn_click(x,y,player,map,entityHandler){
     ){
         restartLevel(player,entityHandler,map,false);
     }
+
+
+    //INVENTORY SLOTS
+    for (let i = 0; i < INVENTORY_MAX_SLOTS; i++){
+        let slot_x = HUD_POSITIONS.inventory_slots[0] + i*100;
+        let slot_y = HUD_POSITIONS.inventory_slots[1];
+        let slot_wh = INVENTORY_SLOT_SIZE;
+
+        if (
+            x >= slot_x &&
+            x <= slot_x + slot_wh &&
+            y >= slot_y &&
+            y <= slot_y + slot_wh
+        ){
+            var item = player.inventory[i]
+            if (item == "BURGER"){
+                player.deleteItem("BURGER");
+                player.immuneCooldown = temp_now;
+                player.immune = true
+            }
+
+            return;
+        }
+    }
 }
 
 export function checkHudHover(x,y,statsCtx,player){
 
     if (player.gameOver) return;
-    //BUTTON HOVER
+    //RESET BUTTON
     if (
         x >= resetButton.x &&
         x <= resetButton.x + resetButton.width &&
@@ -208,7 +235,6 @@ function drawInventory(statsCtx,player){
     statsCtx.strokeRect(HUD_POSITIONS.inventory_border[0],HUD_POSITIONS.inventory_border[1],400,120);
 
     for (let i = 0; i < INVENTORY_MAX_SLOTS; i++){
-        console.log(`${slotHover[i]}`)
         statsCtx.drawImage(
             TEXTURES.INVENTORY_SLOT,
             HUD_POSITIONS.inventory_slots[0] + i*100,
@@ -254,7 +280,7 @@ function drawAuthors(statsCtx){
     statsCtx.font = "14px arial";
     statsCtx.textAlign = "center"
     statsCtx.globalAlpha = 0.8;
-    statsCtx.fillText("Stworzone przez wpisuje tu cokolwiek zebym nic niezlikowal (2026).",HUD_POSITIONS.authors[0],HUD_POSITIONS.authors[1]);
+    statsCtx.fillText("Stworzone przez Adam Kurbiel & Karina Bednarska (2026).",HUD_POSITIONS.authors[0],HUD_POSITIONS.authors[1]);
     statsCtx.globalAlpha = 1.0;
 }
 
@@ -262,8 +288,8 @@ const resetButton = new Button("Zresetuj","#b4225c","white","#a21c52","#881644")
 resetButton.setPosition(HUD_POSITIONS.reset_button[0],HUD_POSITIONS.reset_button[1]);
 resetButton.setSize(180,40);
 
-export function renderHud(statsCtx,player,width,height,map){
-    
+export function renderHud(statsCtx,player,width,height,map,now){
+    temp_now = now;
     statsCtx.fillStyle = "#2B1A4F";
     statsCtx.fillRect(0,0,width,height);
 

@@ -28,9 +28,17 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         ctx.strokeRect(0,0,GAME_WIDTH,GAME_HEIGHT);
     }
 
+
+
     function update(now){
+        if (player.health == 0){
+            player.paused = true;
+            player.gameOver = true;
+        }
+
         player.update(keys,map,now,MOVE_DELAY);
         camera.updatePosition(player,GAME_WIDTH,GAME_HEIGHT);
+        entityHandler.update(map,now);
     }
 
     function render(){
@@ -40,11 +48,21 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         ctx.translate(-camera.renderX, -camera.renderY);
 
         buildMap(ctx,map);
+        entityHandler.update();
         renderPlayer(ctx, player, MOVE_EASING);
 
         ctx.restore();
 
-
+        
+        if (player.gameOver){
+            ctx.globalAlpha = 0.5;
+            gameCanvas.style.webkitFilter = "blur(3px)";
+            ctx.fillStyle = "red";
+            ctx.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);
+            ctx.globalAlpha = 1.0;
+        }else{
+            gameCanvas.style.webkitFilter = "blur(0px)";
+        }
 
         drawBorder();
     }

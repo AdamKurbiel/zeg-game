@@ -2,12 +2,12 @@
 //może zacząć iść w prawo (>) lub w lewo (<).
 //gdy dotrze do ściany, odbije kierunek.
 const DIRECTION = {
-    '>' : [1],
-    '<' : [-1]
+    '<' : -1
 }
 
-export class teacher {
-    constructor(way,x,y){ //way: < or >
+export class Teacher {
+    constructor(way,y,x){ //way: < or >
+        this.defWay = way;
         this.x = x,
         this.y = y,
         this.way = DIRECTION[way],
@@ -16,9 +16,19 @@ export class teacher {
 
 
     update(map,now,MOVE_DELAY) {
-        if (now - this.moveCooldown > MOVE_DELAY) {
+        if (now - this.cooldown > MOVE_DELAY) {
             console.log("Move!");
-            this.moveCooldown = now;
+
+            if (map.getCell(this.x+this.way,this.y) != "."){
+                this.way *= -1
+            }
+
+            map.clearRow(this.x,this.y);
+            this.x += this.way;
+            map.setCell(this.x,this.y,this.defWay);
+            
+            
+            this.cooldown = now;
         }
     }
 }

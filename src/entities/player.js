@@ -1,5 +1,5 @@
 export function Player(){
-    this.health = 3, //Życia gracza
+    this.health = 1, //Życia gracza
     this.inventory = []
 
     //pozycja startowa gracza
@@ -8,6 +8,7 @@ export function Player(){
 
     //gracz zatrzymany
     this.paused = false,
+    this.gameOver = false,
 
     ///Zmienne sterowane przez pętlę gry///
     this.animationState = "IDLE", //Stan animacji gracza
@@ -28,6 +29,7 @@ Player.prototype.resetPosition = function(map){
 }
 
 Player.prototype.update = function(KEYS, map, now, MOVE_DELAY) {
+    if (this.paused) return;
     if (now - this.moveCooldown > MOVE_DELAY) {
         let dx = 0;
         let dy = 0;
@@ -44,7 +46,18 @@ Player.prototype.update = function(KEYS, map, now, MOVE_DELAY) {
             this.animationState = "IDLE";
         }
     }
+
+    let currTile = map.content()[this.y][this.x];
+
+    //tutaj kolizje z przeciwnikami nie zależące od ruchu gracza
+
+    if (currTile == "<"){
+        this.health--;
+        this.resetPosition(map);
+    }
+    
 };
+
 
 Player.prototype.move = function(dx,dy,map){
     if (this.paused) return;

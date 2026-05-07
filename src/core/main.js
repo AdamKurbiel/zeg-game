@@ -25,6 +25,7 @@ const ENTITYHANDLER = new EntityHandler();
 var currentLevel = 1;
 
 MAP.loadLevel(currentLevel);
+MAP.instantiateEntities(ENTITYHANDLER);
 PLAYER.resetPosition(MAP); //Ustawienie pozycji gracza na START na mapie
 
 statsCanvas.addEventListener("click", (event) => {

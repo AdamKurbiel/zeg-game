@@ -68,9 +68,7 @@ Map.prototype.content = function(){
 }
 
 Map.prototype.clearRow = function(x,y){
-
     this.grid[y][x] = ".";
-    console.log(this.grid);
 }
 
 Map.prototype.doMapExist = function(index){
@@ -78,4 +76,27 @@ Map.prototype.doMapExist = function(index){
         return true;
     }else
         return false;
+}
+
+Map.prototype.setCell = function(x,y,type){
+    if (this.grid[y][x] == undefined) return;
+    this.grid[y][x] = type
+}
+
+Map.prototype.getCell = function(x,y){
+    return this.grid[y][x];
+}
+
+
+Map.prototype.instantiateEntities = function(entityHandler){
+    for (let x = 0; x < this.content().length; x++){
+
+        for (let y = 0; y < this.content()[x].length; y++){
+            if (this.content()[x][y] == "<"){
+                console.log("Found teacher!");
+                entityHandler.addEntity("<",x,y);
+            }
+        }
+
+    }
 }

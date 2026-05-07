@@ -1,7 +1,7 @@
 import { buildMap, renderPlayer } from "../systems/renderer.js";
 import { renderHud } from "../systems/hud.js";
 
-export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, camera, keys){ 
+export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, camera, keys, entityHandler){ 
     const GAME_WIDTH = gameCanvas.width;
     const GAME_HEIGHT = gameCanvas.height;
     const STATS_WIDTH = statsCanvas.width;
@@ -43,6 +43,8 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         renderPlayer(ctx, player, MOVE_EASING);
 
         ctx.restore();
+
+
 
         drawBorder();
     }

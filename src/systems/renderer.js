@@ -17,6 +17,8 @@ const TILE_COLORS = {
     "B" : "BURGER",
     "S" : "blue",     //S - start
     "E" : "red",      //E - wyjście
+    "<" : "purple",    //< - przeciwnik ruszający się w bok, gdy trafi na ścianę odbija się w drugą stronę. Zaczyna próbując iść w lewo.
+    ">" : "purple"    //> - przeciwnik ruszający się w bok, gdy trafi na ścianę odbija się w drugą stronę. Zaczyna próbując iść w prawo.
 };
 
 

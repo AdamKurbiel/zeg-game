@@ -1,6 +1,7 @@
 import { Player } from "../entities/player.js";
 import { TEXTURES } from "./renderer.js";
 import { ITEM_DICT, ITEM_RARITY_DICT } from "./itemInfo.js";
+import { restartLevel } from "../core/game.js";
 
 const HUD_POSITIONS = {
     heart : [20,10],
@@ -73,14 +74,7 @@ export function checkResetBtn_click(x,y,player,map,entityHandler){
         y >= resetButton.y &&
         y <= resetButton.y + resetButton.height
     ){
-        player.health = 3;
-        player.inventory = [];
-        entityHandler.clear(map);
-        map.loadLevel(map.level);
-        map.instantiateEntities(entityHandler);
-        map
-        player.resetPosition(map)
-        player.paused = false;
+        restartLevel(player,entityHandler,map,false);
     }
 }
 

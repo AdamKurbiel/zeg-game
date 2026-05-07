@@ -1,6 +1,23 @@
 import { buildMap, renderPlayer } from "../systems/renderer.js";
 import { renderHud } from "../systems/hud.js";
 
+export function restartLevel(player,entityHandler,map,hasDied){
+
+    if (hasDied){
+        player.health--;
+    }else{
+        player.inventory = [];
+        player.health = 3;
+        entityHandler.clear(map);
+        map.loadLevel(map.level);
+        map.instantiateEntities(entityHandler);
+    }
+    
+    
+    player.resetPosition(map)
+    player.paused = false;
+}
+
 export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, camera, keys, entityHandler){ 
     const GAME_WIDTH = gameCanvas.width;
     const GAME_HEIGHT = gameCanvas.height;
@@ -14,6 +31,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
     var time_played = 0;
     let running = true;
     //
+
 
     function clearScreen(){
         ctx.setTransform(1,0,0,1,0,0);
@@ -56,7 +74,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
             
         }
 
-        player.update(keys,map,now,MOVE_DELAY);
+        player.update(keys,map,now,MOVE_DELAY,entityHandler);
         camera.updatePosition(player,GAME_WIDTH,GAME_HEIGHT);
         entityHandler.update(map,now);
     }

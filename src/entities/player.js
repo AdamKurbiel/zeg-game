@@ -1,3 +1,5 @@
+import { restartLevel } from "../core/game.js";
+
 export function Player(){
     this.health = 3, //Życia gracza
     this.inventory = []
@@ -28,7 +30,7 @@ Player.prototype.resetPosition = function(map){
     this.renderY = this.y;
 }
 
-Player.prototype.update = function(KEYS, map, now, MOVE_DELAY) {
+Player.prototype.update = function(KEYS, map, now, MOVE_DELAY,entityHandler) {
     if (this.paused) return;
     if (now - this.moveCooldown > MOVE_DELAY) {
         let dx = 0;
@@ -52,8 +54,7 @@ Player.prototype.update = function(KEYS, map, now, MOVE_DELAY) {
     //tutaj kolizje z przeciwnikami nie zależące od ruchu gracza
 
     if (currTile == "<"){
-        this.health--;
-        this.resetPosition(map);
+        restartLevel(this,entityHandler,map,true);     
     }
     
 };

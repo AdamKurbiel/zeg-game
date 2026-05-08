@@ -87,7 +87,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
             
         }
 
-        player.update(keys,map,now,MOVE_DELAY,entityHandler);
+        player.update(keys,map,now,MOVE_DELAY,entityHandler,audioSystem);
         camera.updatePosition(player,GAME_WIDTH,GAME_HEIGHT);
         entityHandler.update(map,now);
     }

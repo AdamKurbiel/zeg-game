@@ -37,7 +37,7 @@ Player.prototype.resetPosition = function(map){
     this.renderY = this.y;
 }
 
-Player.prototype.update = function(KEYS, map, now, MOVE_DELAY,entityHandler) {
+Player.prototype.update = function(KEYS, map, now, MOVE_DELAY,entityHandler,audioSystem) {
     if (this.paused) return;
 
     if (now - this.immuneCooldown > this.immuneTimer && this.immune){
@@ -56,7 +56,7 @@ Player.prototype.update = function(KEYS, map, now, MOVE_DELAY,entityHandler) {
         else if (KEYS.d) dx = 1;
 
         if (dx !== 0 || dy !== 0) {
-            this.move(dx, dy, map,entityHandler);
+            this.move(dx, dy, map,entityHandler,audioSystem);
             this.moveCooldown = now;
         }else{
             this.animationState = "IDLE";
@@ -69,6 +69,7 @@ Player.prototype.update = function(KEYS, map, now, MOVE_DELAY,entityHandler) {
 
     if (currTile == "<"){
         if (this.immune) return;
+        audioSystem.playSfx("assets/sounds/sfx/bonk.mp3",0.25);
         restartLevel(this,entityHandler,map,true);     
     }
     
@@ -79,7 +80,7 @@ Player.prototype.deleteItem = function(item){
     this.inventory.splice(index, 1);
 }
 
-Player.prototype.move = function(dx,dy,map,entityHandler){
+Player.prototype.move = function(dx,dy,map,entityHandler, audioSystem){
     if (this.paused) return;
     
     let nextTile = map.content()[this.y+dy][this.x+dx];
@@ -100,6 +101,7 @@ Player.prototype.move = function(dx,dy,map,entityHandler){
     this.animationState = `WALK${this.foot}`;//walk0 albo walk1
 
     if (nextTile == "M"){//leczenie (dodaje jeden punkt życia)
+        audioSystem.playSfx("assets/sounds/sfx/heal.mp3",0.35);
         map.clearRow(this.x,this.y);
         this.health += 1;
     }
@@ -107,13 +109,15 @@ Player.prototype.move = function(dx,dy,map,entityHandler){
     if (nextTile == "B"){//Burger
         if (this.inventory.length >= 3) return;
 
+        audioSystem.playSfx("assets/sounds/sfx/pickup_item.mp3",0.25);
         map.clearRow(this.x,this.y);
         this.inventory.push("BURGER");
     }
 
-    if (nextTile == "K"){//Burger
+    if (nextTile == "K"){//Klucz
         if (this.inventory.length >= 3) return;
 
+        audioSystem.playSfx("assets/sounds/sfx/pickup_item.mp3",0.25);
         map.clearRow(this.x,this.y);
         this.inventory.push("KEY");
     }

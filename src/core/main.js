@@ -6,6 +6,7 @@ import { createKeyboard } from "../systems/input.js";
 import { createGame } from "./game.js";
 import { checkHudHover, checkHudClick} from "../systems/hud.js";
 import { EntityHandler } from "../systems/entityHandler.js";
+import { AudioSystem } from "../systems/audio.js";
 
 const SMOOTHING_ENABLED = false; //filtrowanie
 
@@ -22,6 +23,7 @@ const PLAYER = new Player();
 const CAMERA = new Camera();
 const KEYS = createKeyboard();
 const ENTITYHANDLER = new EntityHandler();
+const AUDIOSYSTEM = new AudioSystem();
 var currentLevel = 1;
 
 MAP.loadLevel(currentLevel);
@@ -47,5 +49,5 @@ statsCanvas.addEventListener('mousemove', (event) => {
 });
 
 
-const GAME = createGame(ctx, statsCtx, gameCanvas, statsCanvas, MAP, PLAYER, CAMERA, KEYS, ENTITYHANDLER);
+const GAME = createGame(ctx, statsCtx, gameCanvas, statsCanvas, MAP, PLAYER, CAMERA, KEYS, ENTITYHANDLER, AUDIOSYSTEM);
 GAME.start();

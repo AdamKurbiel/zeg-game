@@ -29,7 +29,7 @@ export function nextLevel(map,player,entityHandler){
         }
 }
 
-export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, camera, keys, entityHandler){ 
+export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, camera, keys, entityHandler, audioSystem){ 
     const GAME_WIDTH = gameCanvas.width;
     const GAME_HEIGHT = gameCanvas.height;
     const STATS_WIDTH = statsCanvas.width;
@@ -41,6 +41,8 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
     
     var time_played = 0;
     let running = true;
+
+    audioSystem.playMusic("assets/sounds/music/01.mp3",0.5);
     //
 
 

@@ -26,28 +26,31 @@ const ENTITYHANDLER = new EntityHandler();
 const AUDIOSYSTEM = new AudioSystem();
 var currentLevel = 1;
 
-MAP.loadLevel(currentLevel);
-MAP.instantiateEntities(ENTITYHANDLER);
-PLAYER.resetPosition(MAP); //Ustawienie pozycji gracza na START na mapie
 
-statsCanvas.addEventListener("click", (event) => {
-    const rect = statsCanvas.getBoundingClientRect();
+window.startGame = function(){
+    MAP.loadLevel(currentLevel);
+    MAP.instantiateEntities(ENTITYHANDLER);
+    PLAYER.resetPosition(MAP); //Ustawienie pozycji gracza na START na mapie
 
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
+    statsCanvas.addEventListener("click", (event) => {
+        const rect = statsCanvas.getBoundingClientRect();
 
-    checkHudClick(x, y, PLAYER,MAP,ENTITYHANDLER);
-});
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
 
-statsCanvas.addEventListener('mousemove', (event) => {
-    const rect = statsCanvas.getBoundingClientRect();
+        checkHudClick(x, y, PLAYER,MAP,ENTITYHANDLER);
+    });
 
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
+    statsCanvas.addEventListener('mousemove', (event) => {
+        const rect = statsCanvas.getBoundingClientRect();
 
-    checkHudHover(x,y,statsCtx,PLAYER);
-});
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
 
+        checkHudHover(x,y,statsCtx,PLAYER);
+    });
 
-const GAME = createGame(ctx, statsCtx, gameCanvas, statsCanvas, MAP, PLAYER, CAMERA, KEYS, ENTITYHANDLER, AUDIOSYSTEM);
-GAME.start();
+    const GAME = createGame(ctx, statsCtx, gameCanvas, statsCanvas, MAP, PLAYER, CAMERA, KEYS, ENTITYHANDLER, AUDIOSYSTEM);
+    GAME.start();
+
+}

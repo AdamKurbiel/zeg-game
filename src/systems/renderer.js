@@ -1,3 +1,6 @@
+import { Bat } from "../entities/bat.js";
+import { isEntity } from "./entityHandler.js";
+
 export const TILE_SIZE = 50;
 
 /*
@@ -41,6 +44,8 @@ export const TEXTURES = {
     BURGER : createImage("assets/textures/golosz-burger.png"),
     DOORS : createImage("assets/textures/doors.png"),
     KEY: createImage("assets/textures/key.png"),
+
+    //BYTY W GRZE
     BAT0: createImage("assets/textures/bat0.png"),
     BAT1: createImage("assets/textures/bat1.png")
 }
@@ -95,6 +100,25 @@ export function renderPlayer(ctx,player,ease){
     );
 }
 
+export function renderEntities(ctx,entityHandler){
+    for (let i of entityHandler.entities){
+        var entityInfo = entityHandler.getEntityInfo(i.symbol);
+        var entityAnimation = entityInfo.Frames;
+        var currentFrame = i.frame;
+        
+        //console.log(`Entity info:\nname: ${entityInfo.Name},\nAnimation frames: ${entityAnimation},\nCurrent frame: ${currentFrame}`);
+
+        ctx.drawImage(
+            TEXTURES[entityAnimation[currentFrame]],
+            i.x * TILE_SIZE,
+            i.y * TILE_SIZE,
+            entityInfo.WidthScale * TILE_SIZE,
+            entityInfo.HeightScale * TILE_SIZE
+        );
+
+    }
+}
+
 export function buildMap(ctx, level){
     //Ta funkcja interpretuje mapę na podstawie znaków z poziomu (maps.js)
     let row = 0;
@@ -105,9 +129,13 @@ export function buildMap(ctx, level){
         while(element[column] != undefined){
             var tile = TILE_COLORS[element[column]];
 
-            //Patrz: linijka 4-11
-            if (tile == tile.toUpperCase()) placeTexture(ctx, column, row, TEXTURES[tile]); 
-            else placeTile(ctx, column, row, tile);
+            if (isEntity(element[column]) == true){
+                placeTile(ctx,column,row,"white");
+            }else{
+                //Patrz: linijka 4-11
+                if (tile == tile.toUpperCase()) placeTexture(ctx, column, row, TEXTURES[tile]); 
+                else placeTile(ctx, column, row, tile);
+            }
 
             column++;
         }

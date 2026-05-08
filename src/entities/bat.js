@@ -4,18 +4,19 @@
 
 export class Bat {
     constructor(x,y){ //way: < or >
+        this.symbol = "<",
         this.x = x,
         this.y = y,
-        this.direction = -1,
         this.cooldown = 0,
-        this.isPanic = false
-        this.frame = "<";
+        this.isPanic = false,
+        this.frame = 0,
+
+        //Indywidualne
+        this.direction = -1
     }
 
 
     update(map,now,MOVE_DELAY) {
-
-        console.log(`existing BAT ON X: ${this.x},Y:${this.y}`)
 
         if (this.isPanic){
             map.clearRow(this.x,this.y);
@@ -27,16 +28,15 @@ export class Bat {
                 this.direction *= -1;
             }
 
-            if (this.frame == "<"){
-                this.frame = ">";
+            if (this.frame == 0){
+                this.frame = 1;
             }else{
-                this.frame = "<";
+                this.frame = 0;
             }
             
 
             map.clearRow(this.x,this.y);
-            map.setCell(this.x+this.direction,this.y,this.frame);
-            console.log(this.x);
+            map.setCell(this.x+this.direction,this.y,"<");
             
             this.x += this.direction;
             this.cooldown = now;

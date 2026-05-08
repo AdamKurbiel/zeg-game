@@ -1,4 +1,4 @@
-import { buildMap, renderPlayer } from "../systems/renderer.js";
+import { buildMap, renderEntities, renderPlayer } from "../systems/renderer.js";
 import { renderHud } from "../systems/hud.js";
 
 export function restartLevel(player,entityHandler,map,hasDied){
@@ -101,6 +101,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         buildMap(ctx,map);
         entityHandler.update();
         renderPlayer(ctx, player, MOVE_EASING);
+        renderEntities(ctx,entityHandler);
 
         ctx.restore();
 

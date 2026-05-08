@@ -108,10 +108,13 @@ export function renderEntities(ctx,entityHandler){
         
         //console.log(`Entity info:\nname: ${entityInfo.Name},\nAnimation frames: ${entityAnimation},\nCurrent frame: ${currentFrame}`);
 
+        i.renderX = lerp(i.renderX,i.x,0.175);
+        i.renderY = lerp(i.renderY,i.y,0.30);
+
         ctx.drawImage(
             TEXTURES[entityAnimation[currentFrame]],
-            i.x * TILE_SIZE + entityInfo.XOffset,
-            i.y * TILE_SIZE + entityInfo.YOffset,
+            i.renderX * TILE_SIZE + entityInfo.XOffset,
+            i.renderY * TILE_SIZE + entityInfo.YOffset,
             entityInfo.WidthScale * TILE_SIZE,
             entityInfo.HeightScale * TILE_SIZE
         );

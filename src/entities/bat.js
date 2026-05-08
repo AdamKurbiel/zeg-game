@@ -3,13 +3,15 @@
 //gdy dotrze do ściany, odbije kierunek.
 
 export class Bat {
-    constructor(x,y){ //way: < or >
+    constructor(x,y){
         this.symbol = "<",
         this.x = x,
         this.y = y,
         this.cooldown = 0,
         this.isPanic = false,
         this.frame = 0,
+        this.renderX = this.x,
+        this.renderY = this.y
 
         //Indywidualne
         this.direction = -1
@@ -17,12 +19,12 @@ export class Bat {
 
 
     update(map,now,MOVE_DELAY) {
-
+        var moveDelay = MOVE_DELAY * 1.50
         if (this.isPanic){
             map.clearRow(this.x,this.y);
             return;
         }
-        if (now - this.cooldown > MOVE_DELAY) {
+        if (now - this.cooldown > moveDelay) {
 
             if (map.getCell(this.x+this.direction,this.y) != "."){
                 this.direction *= -1;

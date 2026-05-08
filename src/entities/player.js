@@ -1,15 +1,16 @@
-import { restartLevel } from "../core/game.js";
+import { restartLevel, nextLevel } from "../core/game.js";
 
 export function Player(){
     this.health = 2, //Życia gracza
     this.inventory = [],
-    this.immune = false;
-    this.immuneTimer = 5000;
-    this.immuneCooldown = 0;
+
+    this.immuneTimer = 5000; //czas efektu nietykalności
+    
 
     //pozycja startowa gracza
     this.x = 1, 
     this.y = 1, 
+    
 
     //gracz zatrzymany
     this.paused = false,
@@ -21,6 +22,9 @@ export function Player(){
     this.moveCooldown = 0; //Opóźnienie przy przytrzymaniu przycisku
     this.renderX = this.x, //płynne chodzenie
     this.renderY = this.y //płynne chodzenie
+    this.immuneCooldown = 0; //cooldown do nietykalności
+    this.immune = false; //efekt nietykalności przez burgera
+    this.initialHealth = this.health; //zabezpieczenie aby hp po restarcie było ustawiane na takie jakie gracz miał na początku poziomu.
     
 }
 Player.prototype.resetPosition = function(map){
@@ -52,7 +56,7 @@ Player.prototype.update = function(KEYS, map, now, MOVE_DELAY,entityHandler) {
         else if (KEYS.d) dx = 1;
 
         if (dx !== 0 || dy !== 0) {
-            this.move(dx, dy, map);
+            this.move(dx, dy, map,entityHandler);
             this.moveCooldown = now;
         }else{
             this.animationState = "IDLE";
@@ -75,7 +79,7 @@ Player.prototype.deleteItem = function(item){
     this.inventory.splice(index, 1);
 }
 
-Player.prototype.move = function(dx,dy,map){
+Player.prototype.move = function(dx,dy,map,entityHandler){
     if (this.paused) return;
     
     let nextTile = map.content()[this.y+dy][this.x+dx];
@@ -119,12 +123,7 @@ Player.prototype.move = function(dx,dy,map){
     if (nextTile == "E"){
         this.paused = true;
         //ładowanie kolejnego poziomu
-
-        if (map.doMapExist(map.level+1)){
-            map.loadLevel(map.level+1);
-            this.resetPosition(map);
-            this.paused = false;
-        }
+        nextLevel(map,this,entityHandler);
     }
     
 }

@@ -7,7 +7,7 @@ export function restartLevel(player,entityHandler,map,hasDied){
         player.health--;
     }else{
         player.inventory = [];
-        player.health = 3;
+        player.health = player.initialHealth;
         entityHandler.clear(map);
         map.loadLevel(map.level);
         map.instantiateEntities(entityHandler);
@@ -16,6 +16,17 @@ export function restartLevel(player,entityHandler,map,hasDied){
     
     player.resetPosition(map)
     player.paused = false;
+}
+
+export function nextLevel(map,player,entityHandler){
+        if (map.doMapExist(map.level+1)){
+            player.initialHealth = player.health;
+            entityHandler.clear(map);
+            map.loadLevel(map.level+1);
+            map.instantiateEntities(entityHandler);
+            player.resetPosition(map);
+            player.paused = false;
+        }
 }
 
 export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, camera, keys, entityHandler){ 

@@ -48,7 +48,7 @@ window.startGame = function(){
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
 
-        checkHudClick(x, y, PLAYER,MAP,ENTITYHANDLER);
+        checkHudClick(x, y, PLAYER,MAP,ENTITYHANDLER,AUDIOSYSTEM);
     });
 
     statsCanvas.addEventListener('mousemove', (event) => {
@@ -57,7 +57,7 @@ window.startGame = function(){
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
 
-        checkHudHover(x,y,statsCtx,PLAYER);
+        checkHudHover(x,y,statsCtx,PLAYER,AUDIOSYSTEM);
     });
 
     const GAME = createGame(ctx, statsCtx, gameCanvas, statsCanvas, MAP, PLAYER, CAMERA, KEYS, ENTITYHANDLER, AUDIOSYSTEM);

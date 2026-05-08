@@ -77,7 +77,7 @@ draw(ctx){
 }
 };
 
-export function checkHudClick(x,y,player,map,entityHandler){
+export function checkHudClick(x,y,player,map,entityHandler,audioSystem){
     if (player.gameOver) return;
 
     //RESET BUTTON
@@ -106,6 +106,7 @@ export function checkHudClick(x,y,player,map,entityHandler){
             var item = player.inventory[i]
             if (item == "BURGER"){
                 player.deleteItem("BURGER");
+                audioSystem.playSfx('assets/sounds/sfx/eat.mp3',0.25);
                 player.immuneCooldown = temp_now;
                 player.immune = true
             }
@@ -115,7 +116,7 @@ export function checkHudClick(x,y,player,map,entityHandler){
     }
 }
 
-export function checkHudHover(x,y,statsCtx,player){
+export function checkHudHover(x,y,statsCtx,player,audioSystem){
 
     if (player.gameOver) return;
     //RESET BUTTON
@@ -129,7 +130,6 @@ export function checkHudHover(x,y,statsCtx,player){
     }else{
         resetButton.hover = false;
     }
-
 
     //INVENTORY SLOTS HOVER
     for (let i = 0; i < INVENTORY_MAX_SLOTS; i++){
@@ -148,6 +148,9 @@ export function checkHudHover(x,y,statsCtx,player){
                 tooltip.desc = ITEM_DICT[0].Description;
                 tooltip.rarity = 0;
             }else{
+                if (slotHover[i] == false){
+                    audioSystem.playSfx('assets/sounds/sfx/blip.mp3',0.25);
+                }
                 slotHover[i] = true;
                 tooltip.title = ITEM_DICT[player.inventory[i]].Title;
                 tooltip.desc = ITEM_DICT[player.inventory[i]].Description;

@@ -13,6 +13,7 @@ export class AudioSystem{
     }
 
     playSfx(url,volume){
+
         this.sfx = this.loadAudio(url);
         this.sfx.volume = volume;
         this.sfx.play();

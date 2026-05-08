@@ -110,8 +110,8 @@ export function renderEntities(ctx,entityHandler){
 
         ctx.drawImage(
             TEXTURES[entityAnimation[currentFrame]],
-            i.x * TILE_SIZE,
-            i.y * TILE_SIZE,
+            i.x * TILE_SIZE + entityInfo.XOffset,
+            i.y * TILE_SIZE + entityInfo.YOffset,
             entityInfo.WidthScale * TILE_SIZE,
             entityInfo.HeightScale * TILE_SIZE
         );

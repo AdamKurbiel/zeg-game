@@ -5,7 +5,9 @@ const ENTITY_INDEX = {
         Name : "Bat",
         Frames : ["BAT0","BAT1"],
         WidthScale : 1,
-        HeightScale : 0.9
+        HeightScale : 0.9,
+        YOffset = 0,
+        XOffset = 0,
         
     },
 }

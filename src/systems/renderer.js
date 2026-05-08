@@ -17,7 +17,8 @@ const TILE_COLORS = {
     "B" : "BURGER",
     "S" : "blue",     //S - start
     "E" : "red",      //E - wyjście
-    "<" : "BALL",    //< - przeciwnik ruszający się w bok, gdy trafi na ścianę odbija się w drugą stronę. Zaczyna próbując iść w lewo.
+    "<" : "BAT0",     //< - przeciwnik ruszający się w bok, gdy trafi na ścianę odbija się w drugą stronę.
+    ">" : "BAT1",    
     "K" : "KEY", //Klucz do drzwi 
     "D" : "DOORS" //drzwi
 };
@@ -40,7 +41,8 @@ export const TEXTURES = {
     BURGER : createImage("assets/textures/golosz-burger.png"),
     DOORS : createImage("assets/textures/doors.png"),
     KEY: createImage("assets/textures/key.png"),
-    BALL: createImage("assets/textures/ball.png")
+    BAT0: createImage("assets/textures/bat0.png"),
+    BAT1: createImage("assets/textures/bat1.png")
 }
 
 //TODO: ZMIENIĆ PLACEHOLDEROWE KOLORY NA TEKSTURY
@@ -80,7 +82,6 @@ export function placeTexture(ctx, x, y, img){
         TILE_SIZE
     )
 }
-
 
 export function renderPlayer(ctx,player,ease){
     player.renderX = lerp(player.renderX,player.x,ease);

@@ -19,9 +19,9 @@ export class EntityHandler{
         }
     }
 
-    addEntity(type,x,y){
+    addEntity(type,y,x){
         if (type == "<"){
-            var bat = new Bat(type,x,y);
+            var bat = new Bat(x,y);
             this.entities.push(bat);
         }        
     }

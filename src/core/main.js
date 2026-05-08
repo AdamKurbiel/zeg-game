@@ -24,12 +24,18 @@ const CAMERA = new Camera();
 const KEYS = createKeyboard();
 const ENTITYHANDLER = new EntityHandler();
 const AUDIOSYSTEM = new AudioSystem();
-const FONT = new FontFace('tiny5','url(assets/ui/tiny5.ttf)');
-FONT.load().then((loadedfont) =>{
+
+const FONT_TINY = new FontFace('tiny5','url(assets/ui/tiny5.ttf)');
+FONT_TINY.load().then((loadedfont) =>{
     window.document.fonts.add(loadedfont);
 });
 
-export const FONTNAME = "tiny5";
+const FONT_JERSEY = new FontFace('jersey','url(assets/ui/jersey.ttf)');
+FONT_JERSEY.load().then((loadedfont) =>{
+    window.document.fonts.add(loadedfont);
+});
+
+export const FONTNAMES = ["tiny5",'jersey'];
 
 
 

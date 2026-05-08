@@ -2,7 +2,7 @@ import { Player } from "../entities/player.js";
 import { TEXTURES } from "./renderer.js";
 import { ITEM_DICT, ITEM_RARITY_DICT } from "./itemInfo.js";
 import { restartLevel } from "../core/game.js";
-import { FONTNAME } from "../core/main.js";
+import { FONTNAMES } from "../core/main.js";
 
 const HUD_POSITIONS = {
     heart : [20,10],
@@ -72,7 +72,7 @@ draw(ctx){
     ctx.fillStyle = this.textColor;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = `25px ${FONTNAME}`;
+    ctx.font = `25px ${FONTNAMES[0]}`;
     ctx.fillText(this.text,this.x + this.width / 2, this.y + this.height / 2, this.width);
 }
 };
@@ -179,9 +179,9 @@ function drawHeartCounter(statsCtx,health){
     );
     
     statsCtx.fillStyle = "#fff8fc";
-    statsCtx.font = `62px ${FONTNAME}`;
+    statsCtx.font = `68px ${FONTNAMES[1]}`;
     statsCtx.textAlign = "center";
-    statsCtx.fillText(health,HUD_POSITIONS.heart[0]+66 ,HUD_POSITIONS.heart[1]+75);
+    statsCtx.fillText(health,HUD_POSITIONS.heart[0]+63 ,HUD_POSITIONS.heart[1]+75);
 }
 
 function drawTooltip(statsCtx,width,height){
@@ -218,13 +218,13 @@ function drawTooltip(statsCtx,width,height){
     //Tytuł
     statsCtx.textAlign = "left";
     statsCtx.fillStyle = ITEM_RARITY_DICT[tooltip.rarity].Color;
-    statsCtx.font = `28px ${FONTNAME}`;
+    statsCtx.font = `28px ${FONTNAMES[0]}`;
     statsCtx.fillText(title,POS_X+5,POS_Y+16);
 
     //Opis
     for (let i = 0; i < description.length; i++){
         statsCtx.fillStyle = "White";
-        statsCtx.font = `13px ${FONTNAME}`;
+        statsCtx.font = `16px ${FONTNAMES[1]}`;
         statsCtx.fillText(description[i],POS_X+5,POS_Y+36+(i*18));
     }
 }
@@ -275,13 +275,13 @@ function drawInventory(statsCtx,player){
 function drawLevelInfo(statsCtx,map){
     statsCtx.fillStyle = "White";
     statsCtx.textAlign = "center";
-    statsCtx.font = `48px ${FONTNAME}`;
+    statsCtx.font = `48px ${FONTNAMES[0]}`;
     statsCtx.fillText(`Poziom ${map.level}`,HUD_POSITIONS.level_info[0]+5,HUD_POSITIONS.level_info[1]);
 }
 
 function drawAuthors(statsCtx){
     statsCtx.fillStyle = "White";
-    statsCtx.font = `15px ${FONTNAME}`;
+    statsCtx.font = `15px ${FONTNAMES[0]}`;
     statsCtx.textAlign = "center"
     statsCtx.globalAlpha = 0.8;
     statsCtx.fillText("Stworzone przez Adam Kurbiel & Karina Bednarska (2026).",HUD_POSITIONS.authors[0],HUD_POSITIONS.authors[1]);

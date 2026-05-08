@@ -1,5 +1,6 @@
 import { buildMap, renderEntities, renderPlayer } from "../systems/renderer.js";
 import { renderHud } from "../systems/hud.js";
+import { FONTNAMES } from "./main.js";
 
 export function restartLevel(player,entityHandler,map,hasDied){
 
@@ -68,13 +69,13 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         
         ctx.fillStyle = "white";
         ctx.textAlign = "center";
-        ctx.font = "bold 64px arial"
+        ctx.font = `108px ${FONTNAMES[1]}`
         ctx.fillText("KONIEC GRY",350,250);
-        ctx.font = "28px arial"
+        ctx.font = `28px ${FONTNAMES[0]}`
         ctx.fillText(`Najdalej: Poziom ${map.level}`,350,290);
 
-        ctx.font = "18px arial"
-        ctx.fillText("Przegrano grę. Aby zacząć od początku, odśwież stronę.",350,650);
+        ctx.font = `18px ${FONTNAMES[0]}`
+        ctx.fillText("Przegrano grę. Aby zacząć od początku, odśwież stronę.",350,640);
     }
 
     function update(now){

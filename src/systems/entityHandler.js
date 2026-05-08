@@ -1,4 +1,4 @@
-import { Teacher } from "../entities/ball.js";
+import { Bat } from "../entities/bat.js";
 
 export class EntityHandler{
     constructor(){
@@ -21,8 +21,8 @@ export class EntityHandler{
 
     addEntity(type,x,y){
         if (type == "<"){
-            var teacher = new Teacher(type,x,y);
-            this.entities.push(teacher);
+            var bat = new Bat(type,x,y);
+            this.entities.push(bat);
         }        
     }
 }

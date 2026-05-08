@@ -1,11 +1,11 @@
-//logika do przeciwnika: nauczyciel
+//logika do przeciwnika: nietoperz
 //może zacząć iść w prawo (>) lub w lewo (<).
 //gdy dotrze do ściany, odbije kierunek.
 const DIRECTION = {
     '<' : -1
 }
 
-export class Teacher {
+export class Bat {
     constructor(way,y,x){ //way: < or >
         this.defWay = way;
         this.x = x,

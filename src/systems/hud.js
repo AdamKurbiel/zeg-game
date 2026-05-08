@@ -176,9 +176,9 @@ function drawHeartCounter(statsCtx,health){
     );
     
     statsCtx.fillStyle = "#fff8fc";
-    statsCtx.font = `64px ${FONTNAME}`;
+    statsCtx.font = `62px ${FONTNAME}`;
     statsCtx.textAlign = "center";
-    statsCtx.fillText(health,HUD_POSITIONS.heart[0]+62 ,HUD_POSITIONS.heart[1]+75);
+    statsCtx.fillText(health,HUD_POSITIONS.heart[0]+66 ,HUD_POSITIONS.heart[1]+75);
 }
 
 function drawTooltip(statsCtx,width,height){
@@ -221,7 +221,7 @@ function drawTooltip(statsCtx,width,height){
     //Opis
     for (let i = 0; i < description.length; i++){
         statsCtx.fillStyle = "White";
-        statsCtx.font = `16px ${FONTNAME}`;
+        statsCtx.font = `13px ${FONTNAME}`;
         statsCtx.fillText(description[i],POS_X+5,POS_Y+36+(i*18));
     }
 }
@@ -272,13 +272,13 @@ function drawInventory(statsCtx,player){
 function drawLevelInfo(statsCtx,map){
     statsCtx.fillStyle = "White";
     statsCtx.textAlign = "center";
-    statsCtx.font = `60px ${FONTNAME}`;
-    statsCtx.fillText(`Poziom ${map.level}`,HUD_POSITIONS.level_info[0],HUD_POSITIONS.level_info[1]);
+    statsCtx.font = `48px ${FONTNAME}`;
+    statsCtx.fillText(`Poziom ${map.level}`,HUD_POSITIONS.level_info[0]+5,HUD_POSITIONS.level_info[1]);
 }
 
 function drawAuthors(statsCtx){
     statsCtx.fillStyle = "White";
-    statsCtx.font = `18px ${FONTNAME}`;
+    statsCtx.font = `15px ${FONTNAME}`;
     statsCtx.textAlign = "center"
     statsCtx.globalAlpha = 0.8;
     statsCtx.fillText("Stworzone przez Adam Kurbiel & Karina Bednarska (2026).",HUD_POSITIONS.authors[0],HUD_POSITIONS.authors[1]);

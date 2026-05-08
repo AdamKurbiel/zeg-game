@@ -24,6 +24,15 @@ const CAMERA = new Camera();
 const KEYS = createKeyboard();
 const ENTITYHANDLER = new EntityHandler();
 const AUDIOSYSTEM = new AudioSystem();
+const FONT = new FontFace('Jersey','url(assets/ui/jersey.ttf)');
+FONT.load().then((loadedfont) =>{
+    window.document.fonts.add(loadedfont);
+});
+
+export const FONTNAME = "Jersey";
+
+
+
 var currentLevel = 1;
 
 
@@ -31,6 +40,7 @@ window.startGame = function(){
     MAP.loadLevel(currentLevel);
     MAP.instantiateEntities(ENTITYHANDLER);
     PLAYER.resetPosition(MAP); //Ustawienie pozycji gracza na START na mapie
+
 
     statsCanvas.addEventListener("click", (event) => {
         const rect = statsCanvas.getBoundingClientRect();

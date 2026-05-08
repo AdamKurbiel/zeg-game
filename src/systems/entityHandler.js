@@ -6,8 +6,8 @@ const ENTITY_INDEX = {
         Frames : ["BAT0","BAT1"],
         WidthScale : 1,
         HeightScale : 0.9,
-        YOffset = 0,
-        XOffset = 0,
+        YOffset : 0,
+        XOffset : 0,
         
     },
 }

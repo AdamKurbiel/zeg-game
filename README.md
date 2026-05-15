@@ -1,11 +1,41 @@
-# GRA LABIRYNT
+## AUTORZY
+Adam Kurbiel i Karina Bednarska
+
+## GRA LABIRYNT
 Prosta gra typu labirynt tworzona w JavaScript, HTML i CSS.
+Gracz steruje postacią poruszającą się po planszy, zbiera przedmioty, unika zagrożeń i rozwiązuje zagadki logiczne.
+W trakcie przechodzenia na kolejne poziomy gracz poznaję historię główniego bohatera.
 
-Gracz steruje postacią poruszającą się po planszy, zbiera przedmioty i unika zagrożeń.
+## STEROWANIE
+-sterowanie klawiszami WSAD
+-płynny ruch postaci
+-kolizje ze ścianami
+-animacja ruchu
+-użycie przedmionu przez kliknięcie na niego myszką
 
-Czas realizacji: 10.04.2026-08.06.2026.
+## ZAGROŻENIA
+gracz musi uważać na:
+-pułapki położone na ziemi(dziury, macki)
+-różne istoty poruszające się po mapie
 
-## Autorzy
-Adam Kurbiel
+Gdy gracz zostanie udeżony przez przeciwnika lub wejdzie w pułapke to traci 1 punkt zdrowia
 
-Karina Bednarska
+## POZIOMY
+Gra ma 7 poziomów, czym wyższy poziom tym wieksza trudnosć zagadek, większa ilość przeciwników oraz większa mapa.
+Cały czas są wspominane wątki fabularne.
+
+## GRAFIKA
+Oprawa graficzna jest w stylu INDIE (PIXELART), nawiązuje ona do całej fabuły i tytułu.
+Postacie i przeciwnicy mają swoje animację.
+Ściany zależnie czym są równiez je mają(drzewa np. mają, ale blaty już nie).
+
+## TECHNOLOGIE
+-JavaScript
+-HTML
+-CSS
+
+## LICENCJA
+Projekt edukacyjny realizowany w celach dydaktycznych.
+
+## CZAS REALIZACJI
+10.04.2026-08.06.2026.

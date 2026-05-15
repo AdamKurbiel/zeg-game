@@ -66,6 +66,7 @@ function lerp (start, end, t){
     return start * (1 - t) + end * t;
 }
 
+//funkcja renderująca kafelek
 export function placeTile(ctx, x, y, style){
     ctx.fillStyle = style;
     ctx.fillRect(
@@ -76,6 +77,7 @@ export function placeTile(ctx, x, y, style){
     );
 }
 
+//funkcja renderująca teksturę (obrazek)
 export function placeTexture(ctx, x, y, img){
     placeTile(ctx,x,y,TILE_COLORS["."]) //rysujemy pod teksturą podłogęd
 
@@ -88,6 +90,7 @@ export function placeTexture(ctx, x, y, img){
     )
 }
 
+//funkcja renderująca gracza
 export function renderPlayer(ctx,player,ease){
     player.renderX = lerp(player.renderX,player.x,ease);
     player.renderY = lerp(player.renderY,player.y,ease);
@@ -100,6 +103,7 @@ export function renderPlayer(ctx,player,ease){
     );
 }
 
+//funkcja renderująca byty
 export function renderEntities(ctx,entityHandler){
     for (let i of entityHandler.entities){
         var entityInfo = entityHandler.getEntityInfo(i.symbol);

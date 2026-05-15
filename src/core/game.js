@@ -1,9 +1,10 @@
 import { buildMap, renderEntities, renderPlayer } from "../systems/renderer.js";
 import { renderHud } from "../systems/hud.js";
 import { FONTNAMES } from "./main.js";
+//Główny skrypt gry.
 
 export function restartLevel(player,entityHandler,map,hasDied){
-
+//Funkcja odpowiadająca za restart poziomu w przypadku śmierci, oraz w przypadku kliknięcia przycisku "zresetuj".
     if (hasDied){
         player.health--;
     }else{
@@ -20,6 +21,7 @@ export function restartLevel(player,entityHandler,map,hasDied){
 }
 
 export function nextLevel(map,player,entityHandler){
+    //Funkcja ładująca kolejny poziom.
         if (map.doMapExist(map.level+1)){
             player.initialHealth = player.health;
             entityHandler.clear(map);
@@ -31,6 +33,7 @@ export function nextLevel(map,player,entityHandler){
 }
 
 export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, camera, keys, entityHandler, audioSystem){ 
+    //funkcja obsługująca cały system gry i zawierająca główną pętlę.
     const GAME_WIDTH = gameCanvas.width;
     const GAME_HEIGHT = gameCanvas.height;
     const STATS_WIDTH = statsCanvas.width;
@@ -46,7 +49,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
     audioSystem.playMusic("assets/sounds/music/01.mp3",0.5);
     //
 
-
+    //czyszczenie ekranu
     function clearScreen(){
         ctx.setTransform(1,0,0,1,0,0);
         ctx.clearRect(0,0,GAME_WIDTH,GAME_HEIGHT);
@@ -55,12 +58,14 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         ctx.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);
     }
 
+    //rysowanie obramowania
     function drawBorder(){
         ctx.lineWidth = 10;
         ctx.strokeStyle = "black";
         ctx.strokeRect(0,0,GAME_WIDTH,GAME_HEIGHT);
     }
 
+    //rysowanie ekranu końca gry
     function drawGameOver(ctx){
         ctx.globalAlpha = 0.5;
         ctx.fillStyle = "red";
@@ -78,6 +83,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         ctx.fillText("Przegrano grę. Aby zacząć od początku, odśwież stronę.",350,640);
     }
 
+    //funkcja aktualizująca stan gracza, kamery oraz bytów.
     function update(now){
         if (player.health == 0){
             if (time_played == 0){
@@ -94,6 +100,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
     }
 
     function render(){
+        //funkcja która odpowiada za wywoływanie renderowania mapy, gracza, bytów oraz całego ekranu gry z obramowaniem.
         clearScreen();
 
         ctx.save();
@@ -117,7 +124,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
     }
 
 
-
+    //Główna pętla gry
     function step(now){
         if (!running) return;
 

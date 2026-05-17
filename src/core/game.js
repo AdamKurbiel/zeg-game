@@ -54,7 +54,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         ctx.setTransform(1,0,0,1,0,0);
         ctx.clearRect(0,0,GAME_WIDTH,GAME_HEIGHT);
 
-        ctx.fillStyle = "gray";
+        ctx.fillStyle = "black";
         ctx.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);
     }
 

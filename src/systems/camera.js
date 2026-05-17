@@ -20,8 +20,8 @@ Camera.prototype.updateRaw = function(plr, width, height){ //ustawia na sucho po
 }
 
 Camera.prototype.updatePosition = function(plr, width, height){
-    this.renderX = lerp(this.renderX,this.x,0.025);
-    this.renderY = lerp(this.renderY,this.y,0.025);
+    this.renderX = Math.round(lerp(this.renderX,this.x,0.025));
+    this.renderY = Math.round(lerp(this.renderY,this.y,0.025));
 
     this.x = plr.x * TILE_SIZE - width/2;
     this.y = plr.y * TILE_SIZE - height/2;

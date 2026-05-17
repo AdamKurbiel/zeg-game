@@ -14,11 +14,11 @@ Natomiast jeśli zamiast koloru, chcemy mieć konkretną teksturę, piszemy to z
 np. jeśli chcemy żeby leczenie miało teksturę medkit.png, ustawiamy H na "MEDKIT". 
 */
 const TILE_COLORS = {
-    "#" : "black",    //# - ściana
-    "." : "white",    //. - podłoga
+    "#" : "TREE1",    //# - ściana
+    "." : "GRASS1",    //. - podłoga
     "M" : "MEDKIT",   //H - Leczenie
     "B" : "BURGER",
-    "S" : "blue",     //S - start
+    "S" : "GRASS2",     //S - start
     "E" : "red",      //E - wyjście
     "<" : "BAT0",     //< - przeciwnik ruszający się w bok, gdy trafi na ścianę odbija się w drugą stronę.
     ">" : "BAT1",    
@@ -44,6 +44,10 @@ export const TEXTURES = {
     BURGER : createImage("assets/textures/golosz-burger.png"),
     DOORS : createImage("assets/textures/doors.png"),
     KEY: createImage("assets/textures/key.png"),
+
+    GRASS1 : createImage("assets/textures/grass1.png"),
+    GRASS2 : createImage("assets/textures/grass2.png"),
+    TREE1 : createImage("assets/textures/tree-s3.png"),
 
     //BYTY W GRZE
     BAT0: createImage("assets/textures/bat0.png"),
@@ -79,7 +83,13 @@ export function placeTile(ctx, x, y, style){
 
 //funkcja renderująca teksturę (obrazek)
 export function placeTexture(ctx, x, y, img){
-    placeTile(ctx,x,y,TILE_COLORS["."]) //rysujemy pod teksturą podłogęd
+    ctx.drawImage(
+        TEXTURES.GRASS1,
+        x * TILE_SIZE,
+        y * TILE_SIZE,
+        TILE_SIZE,
+        TILE_SIZE
+    )
 
     ctx.drawImage(
         img,
@@ -111,6 +121,14 @@ export function renderEntities(ctx,entityHandler){
         var currentFrame = i.frame;
         
         //console.log(`Entity info:\nname: ${entityInfo.Name},\nAnimation frames: ${entityAnimation},\nCurrent frame: ${currentFrame}`);
+
+        ctx.drawImage(
+            TEXTURES.GRASS1,
+            i.x * TILE_SIZE,
+            i.y * TILE_SIZE,
+            TILE_SIZE,
+            TILE_SIZE
+        );
 
         i.renderX = lerp(i.renderX,i.x,0.175);
         i.renderY = lerp(i.renderY,i.y,0.30);

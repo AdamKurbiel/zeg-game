@@ -14,8 +14,8 @@ Natomiast jeśli zamiast koloru, chcemy mieć konkretną teksturę, piszemy to z
 np. jeśli chcemy żeby leczenie miało teksturę medkit.png, ustawiamy H na "MEDKIT". 
 */
 const TILE_COLORS = {
-    "#" : "TREE1",    //# - ściana
-    "." : "GRASS1",    //. - podłoga
+    "#" : "WALL",    //# - ściana
+    "." : "GRASS",    //. - podłoga
     "M" : "MEDKIT",   //H - Leczenie
     "B" : "BURGER",
     "S" : "GRASS2",     //S - start
@@ -47,7 +47,9 @@ export const TEXTURES = {
 
     GRASS1 : createImage("assets/textures/grass1.png"),
     GRASS2 : createImage("assets/textures/grass2.png"),
-    TREE1 : createImage("assets/textures/tree-s3.png"),
+
+    TREE1 : createImage("assets/textures/TREE1.png"),
+    TREE2 : createImage("assets/textures/TREE2.png"),
 
     //BYTY W GRZE
     BAT0: createImage("assets/textures/bat0.png"),
@@ -158,8 +160,18 @@ export function buildMap(ctx, level){
                 placeTile(ctx,column,row,"white");
             }else{
                 //Patrz: linijka 4-11
-                if (tile == tile.toUpperCase()) placeTexture(ctx, column, row, TEXTURES[tile]); 
-                else placeTile(ctx, column, row, tile);
+                if (tile == "GRASS" || tile == "WALL"){
+                    //randomowe tile'y.
+                    let randomInt = Math.floor(Math.random() * 2) + 1; //1 lub 2
+                    placeTexture(ctx,column,row, TEXTURES[tile+randomInt.toString()])
+                    
+
+
+                }else if (tile == tile.toUpperCase()){
+                    placeTexture(ctx, column, row, TEXTURES[tile]);
+                }else{
+                    placeTile(ctx, column, row, tile);
+                }
             }
 
             column++;

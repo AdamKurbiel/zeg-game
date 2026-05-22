@@ -1,3 +1,8 @@
+##LABTRY
+Wcielasz się w rolę bohatera, który budzi się w środku lasu. Nie wie kim jest oraz jak tu się znalazła. 
+W trakcie odkrywania nowych poziomów poznajesz jego historię i odkrywasz tajemnicę zniszczonego laboratorium.
+Czy podołasz temu zadaniu? TRY!
+
 ## AUTORZY
 Adam Kurbiel i Karina Bednarska
 

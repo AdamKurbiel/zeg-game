@@ -3,9 +3,6 @@ Wcielasz się w rolę bohatera, który budzi się w środku lasu. Nie wie kim je
 W trakcie odkrywania nowych poziomów poznajesz jego historię i odkrywasz tajemnicę zniszczonego laboratorium.
 Czy podołasz temu zadaniu? TRY!
 
-## AUTORZY
-Adam Kurbiel i Karina Bednarska
-
 ## GRA LABIRYNT
 Prosta gra typu labirynt tworzona w JavaScript, HTML i CSS.
 Gracz steruje postacią poruszającą się po planszy, zbiera przedmioty, unika zagrożeń i rozwiązuje zagadki logiczne.
@@ -44,3 +41,6 @@ Projekt edukacyjny realizowany w celach dydaktycznych.
 
 ## CZAS REALIZACJI
 10.04.2026-08.06.2026.
+
+## AUTORZY
+Adam Kurbiel i Karina Bednarska

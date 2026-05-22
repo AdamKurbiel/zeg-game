@@ -52,7 +52,6 @@ var currentLevel = 1;
 
 //funkcja rozpoczynająca grę
 window.startGame = function(){
-    window.document.getElementById("startGame").remove();
     MAP.loadLevel(currentLevel); //ładuje poziom
     MAP.instantiateEntities(ENTITYHANDLER); //ładuje byty
     PLAYER.resetPosition(MAP); //Ustawienie pozycji gracza na START na mapie

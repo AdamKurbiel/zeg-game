@@ -1,6 +1,6 @@
 const maps = {
     1:[
-    "####################",
+    "####$###############",
     "#S...#K....#.##....#",
     "####.###.#.#....#..#",
     "#..#...##..#.#.###.#",
@@ -68,6 +68,27 @@ Map.prototype.findFirstBlock = function(type){
 Map.prototype.loadLevel = function(level){
     this.level = level;
     this.grid = getMap(this.level);
+
+    let i;
+    for (i in this.grid){
+        let row = this.grid[i];
+        let j;
+        for (j in row){
+            if (row[j] == "#"){
+                let randomInt = Math.floor(Math.random() * 2) + 1; //1 lub 2
+                if (randomInt == 1){
+                    row[j] = "$";
+                }
+            }
+
+            if (row[j] == "."){
+                let randomInt = Math.floor(Math.random() * 4) + 1; //1 lub 2
+                if (randomInt == 1){
+                    row[j] = ";";
+                }
+            }
+        }
+    }
 }
 
 Map.prototype.content = function(){

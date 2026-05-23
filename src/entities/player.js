@@ -84,7 +84,7 @@ Player.prototype.move = function(dx,dy,map,entityHandler, audioSystem){
     if (this.paused) return;
     
     let nextTile = map.content()[this.y+dy][this.x+dx];
-    if (nextTile == "#") return; //sprawdzam czy to sciana
+    if (nextTile == "#" || nextTile == "$") return; //sprawdzam czy to sciana
     if (nextTile == "D"){
         if (this.inventory.indexOf('KEY') != -1){
             this.deleteItem('KEY');

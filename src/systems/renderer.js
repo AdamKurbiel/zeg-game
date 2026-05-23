@@ -14,8 +14,10 @@ Natomiast jeśli zamiast koloru, chcemy mieć konkretną teksturę, piszemy to z
 np. jeśli chcemy żeby leczenie miało teksturę medkit.png, ustawiamy H na "MEDKIT". 
 */
 const TILE_COLORS = {
-    "#" : "WALL",    //# - ściana
-    "." : "GRASS",    //. - podłoga
+    "#" : "TREE1",    //# - ściana
+    "$" : "TREE2",    //# - ściana
+    "." : "GRASS1",    //. - podłoga
+    ";" : "GRASS2",    //. - podłoga
     "M" : "MEDKIT",   //H - Leczenie
     "B" : "BURGER",
     "S" : "GRASS2",     //S - start
@@ -160,14 +162,10 @@ export function buildMap(ctx, level){
                 placeTile(ctx,column,row,"white");
             }else{
                 //Patrz: linijka 4-11
-                if (tile == "GRASS" || tile == "WALL"){
-                    //randomowe tile'y.
-                    let randomInt = Math.floor(Math.random() * 2) + 1; //1 lub 2
-                    placeTexture(ctx,column,row, TEXTURES[tile+randomInt.toString()])
-                    
 
 
-                }else if (tile == tile.toUpperCase()){
+                if (tile == tile.toUpperCase()){
+
                     placeTexture(ctx, column, row, TEXTURES[tile]);
                 }else{
                     placeTile(ctx, column, row, tile);

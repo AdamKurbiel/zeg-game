@@ -66,6 +66,13 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         ctx.strokeRect(0,0,GAME_WIDTH,GAME_HEIGHT);
     }
 
+    function checkGameClick(){
+        if (player.currentNote != 0){
+            console.log("SIGMA");
+            player.currentNote = 0;
+            player.paused = false;
+        } 
+    }
     //rysowanie ekranu końca gry
     function drawGameOver(){
         ctx.globalAlpha = 0.5;
@@ -98,6 +105,15 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         ctx.font = `18px ${FONTNAMES[0]}`
         ctx.fillText("Kliknij na ekran aby zamknąć",350,640);
     }
+
+    gameCanvas.addEventListener("click", (event) => {
+        const rect = gameCanvas.getBoundingClientRect();
+
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        checkGameClick();
+    });
 
     //funkcja aktualizująca stan gracza, kamery oraz bytów.
     function update(now){

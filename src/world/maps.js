@@ -46,7 +46,7 @@ const maps = {
 };
 
 export const notes = {
-    1: "elo to test notatki"
+    1: "Lorem ipsum dolor sit amet, consectetur adipiscing elit "
 };
 
 export function getMap(index){

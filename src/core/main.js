@@ -57,7 +57,6 @@ window.startGame = function(){
     MAP.instantiateEntities(ENTITYHANDLER); //ładuje byty
     PLAYER.resetPosition(MAP); //Ustawienie pozycji gracza na START na mapie
 
-
     statsCanvas.addEventListener("click", (event) => {
         const rect = statsCanvas.getBoundingClientRect();
 

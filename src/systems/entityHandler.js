@@ -1,10 +1,22 @@
 //ten skrypt odpowiada za koordynowanie wszystkimi bytami w grze.
-import { Bat } from "../entities/bat.js";
+import { HorizontalBat } from "../entities/horizontal_bat.js";
+import { VerticalBat } from "../entities/vertical_bat.js";
 
 //indeks bytów wraz z informacjami o nich
 const ENTITY_INDEX = {
     "<" : {
-        Name : "Bat",
+        Name : "HorizontalBat",
+        Frames : ["BAT0","BAT1"], //klatki animacji
+        
+        //możliwość zmiany szerokości/wysokości i koordynatów renderowanej tekstury bytu
+        WidthScale : 1, 
+        HeightScale : 0.9,
+        YOffset : 0,
+        XOffset : 0,
+        
+    },
+    "^" : {
+        Name : "VerticalBat",
         Frames : ["BAT0","BAT1"], //klatki animacji
         
         //możliwość zmiany szerokości/wysokości i koordynatów renderowanej tekstury bytu
@@ -29,7 +41,7 @@ export function isEntity(type){
 export class EntityHandler{
     constructor(){
         this.entities = [], //lista z wszystkimi aktualnymi bytami
-        this.move_delay = 100 //opóźnienie między aktualizacjami bytó
+        this.move_delay = 125 //opóźnienie między aktualizacjami bytó
     }
 
     //usuwanie bytów z mapy w przypadku czyszczenia
@@ -49,9 +61,15 @@ export class EntityHandler{
 
     //dodanie nowego bytu
     addEntity(type,y,x){
+        console.log("ADDING"+type);
         if (type == "<"){
-            var bat = new Bat(x,y);
-            this.entities.push(bat);
+            var horizontalBat = new HorizontalBat(x,y);
+            this.entities.push(horizontalBat);
+        }        
+        if (type == "^"){
+            console.log("CREATED VERTICAL")
+            var verticalBat = new VerticalBat(x,y);
+            this.entities.push(verticalBat);
         }        
     }
 

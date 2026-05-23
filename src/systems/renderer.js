@@ -1,4 +1,4 @@
-import { Bat } from "../entities/bat.js";
+
 import { isEntity } from "./entityHandler.js";
 
 export const TILE_SIZE = 50;
@@ -22,8 +22,6 @@ const TILE_COLORS = {
     "B" : "BURGER",
     "S" : "GRASS2",     //S - start
     "E" : "red",      //E - wyjście
-    "<" : "BAT0",     //< - przeciwnik ruszający się w bok, gdy trafi na ścianę odbija się w drugą stronę.
-    ">" : "BAT1",    
     "K" : "KEY", //Klucz do drzwi 
     "D" : "DOORS" //drzwi
 };

@@ -1,11 +1,13 @@
+import { isEntity } from "../systems/entityHandler.js";
+
 const maps = {
     1:[
     "####$###############",
     "#S...#K....#.##....#",
-    "####.###.#.#....#..#",
+    "####.###.#.#..^.#..#",
     "#..#...##..#.#.###.#",
-    "##.##.....###..#.#.#",
-    "##..#.##..#..#.#.#.E#",
+    "##.##<.....###..#..#",
+    "##..#.##..#..#..##.E#",
     "###...#####.##.#...#",
     "#.#.####....#..###.#",
     "#.#......#####...#.#",
@@ -120,8 +122,8 @@ Map.prototype.instantiateEntities = function(entityHandler){
     for (let x = 0; x < this.content().length; x++){
 
         for (let y = 0; y < this.content()[x].length; y++){
-            if (this.content()[x][y] == "<"){
-                entityHandler.addEntity("<",x,y);
+            if (isEntity(this.content()[x][y])){
+                entityHandler.addEntity(this.content()[x][y],x,y);
             }
         }
 

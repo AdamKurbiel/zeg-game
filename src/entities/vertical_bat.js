@@ -1,8 +1,8 @@
-//logika do przeciwnika: nietoperz
-//może zacząć iść w prawo (>) lub w lewo (<).
+//logika do przeciwnika: nietoperz (pionowy)
+//porusza się góra-dół.
 //gdy dotrze do ściany, odbije kierunek.
 
-export class Bat {
+export class VerticalBat {
     constructor(x,y){
         this.symbol = "<",
         this.x = x,
@@ -26,7 +26,7 @@ export class Bat {
         }
         if (now - this.cooldown > moveDelay) {
 
-            if (map.getCell(this.x+this.direction,this.y) != "."){
+            if (map.getCell(this.x,this.y+this.direction) != "." && map.getCell(this.x,this.y+this.direction) != ";"){
                 this.direction *= -1;
             }
 
@@ -38,9 +38,9 @@ export class Bat {
             
 
             map.clearRow(this.x,this.y);
-            map.setCell(this.x+this.direction,this.y,"<");
+            map.setCell(this.x,this.y +this.direction,"<");
             
-            this.x += this.direction;
+            this.y+= this.direction;
             this.cooldown = now;
         }
     }

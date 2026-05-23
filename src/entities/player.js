@@ -17,6 +17,7 @@ export function Player(){
     this.gameOver = false,
 
     ///Zmienne sterowane przez pętlę gry///
+    this.currentNote = 0; //aktualnie wyświetlana notatka (0 jeśli nie wyświetlana)
     this.animationState = "IDLE", //Stan animacji gracza
     this.foot = 0, //Klatka animacji gracza
     this.moveCooldown = 0; //Opóźnienie przy przytrzymaniu przycisku
@@ -67,7 +68,7 @@ Player.prototype.update = function(KEYS, map, now, MOVE_DELAY,entityHandler,audi
 
     //tutaj kolizje z przeciwnikami nie zależące od ruchu gracza
 
-    if (currTile == "<"){
+    if (currTile == "<" || currTile == "^"){
         if (this.immune) return;
         audioSystem.playSfx("assets/sounds/sfx/bonk.mp3",0.25);
         restartLevel(this,entityHandler,map,true);     
@@ -85,13 +86,19 @@ Player.prototype.move = function(dx,dy,map,entityHandler, audioSystem){
     
     let nextTile = map.content()[this.y+dy][this.x+dx];
     if (nextTile == "#" || nextTile == "$") return; //sprawdzam czy to sciana
-    if (nextTile == "D"){
+
+    if (nextTile == "D"){ //drzwi
         if (this.inventory.indexOf('KEY') != -1){
             this.deleteItem('KEY');
             map.clearRow(this.x+dx,this.y+dy);
         }else{
             return;
         }
+    }
+
+    if (nextTile == "N"){ //notatki
+        this.currentNote = map.level;
+        map.clearRow(this.x+dx,this.y+dy);
     }
 
     this.x += dx;

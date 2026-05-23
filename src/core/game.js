@@ -1,6 +1,7 @@
 import { buildMap, renderEntities, renderPlayer } from "../systems/renderer.js";
 import { renderHud } from "../systems/hud.js";
 import { FONTNAMES } from "./main.js";
+import { notes } from "../world/maps.js";
 //Główny skrypt gry.
 
 export function restartLevel(player,entityHandler,map,hasDied){
@@ -66,7 +67,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
     }
 
     //rysowanie ekranu końca gry
-    function drawGameOver(ctx){
+    function drawGameOver(){
         ctx.globalAlpha = 0.5;
         ctx.fillStyle = "red";
         ctx.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);
@@ -83,6 +84,21 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         ctx.fillText("Przegrano grę. Aby zacząć od początku, odśwież stronę.",350,640);
     }
 
+    function drawNote(player){
+        ctx.globalAlpha = 0.5;
+        ctx.fillStyle = "black";
+        ctx.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);
+        ctx.globalAlpha = 1.0;
+        
+        ctx.fillStyle = "white";
+        ctx.textAlign = "center";
+        ctx.font = `28px ${FONTNAMES[0]}`
+        ctx.fillText(`${notes[player.currentNote]}`,350,290);
+
+        ctx.font = `18px ${FONTNAMES[0]}`
+        ctx.fillText("Kliknij na ekran aby zamknąć",350,640);
+    }
+
     //funkcja aktualizująca stan gracza, kamery oraz bytów.
     function update(now){
         if (player.health == 0){
@@ -92,6 +108,10 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
             player.paused = true;
             player.gameOver = true;
             
+        }
+
+        if (player.currentNote != 0){
+            player.paused = true;
         }
 
         player.update(keys,map,now,MOVE_DELAY,entityHandler,audioSystem);
@@ -115,9 +135,9 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
 
         
         if (player.gameOver){
-            drawGameOver(ctx,player);
-        }else{
-            gameCanvas.style.webkitFilter = "blur(0px)";
+            drawGameOver(player);
+        }else if (player.currentNote != 0){
+            drawNote(player);
         }
 
         drawBorder();

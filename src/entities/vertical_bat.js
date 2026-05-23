@@ -38,7 +38,7 @@ export class VerticalBat {
             
 
             map.clearRow(this.x,this.y);
-            map.setCell(this.x,this.y +this.direction,"<");
+            map.setCell(this.x,this.y +this.direction,"^");
             
             this.y+= this.direction;
             this.cooldown = now;

@@ -23,13 +23,12 @@ gracz musi uważać na:
 Gdy gracz zostanie udeżony przez przeciwnika lub wejdzie w pułapke to traci 1 punkt zdrowia
 
 ## POZIOMY
-Gra ma 7 poziomów, czym wyższy poziom tym wieksza trudnosć zagadek, większa ilość przeciwników oraz większa mapa.
+Gra ma 5 poziomów, czym wyższy poziom tym wieksza trudnosć zagadek, większa ilość przeciwników oraz większa mapa.
 Cały czas są wspominane wątki fabularne.
 
 ## GRAFIKA
 Oprawa graficzna jest w stylu INDIE (PIXELART), nawiązuje ona do całej fabuły i tytułu.
 Postacie i przeciwnicy mają swoje animację.
-Ściany zależnie czym są równiez je mają(drzewa np. mają, ale blaty już nie).
 
 ## TECHNOLOGIE
 -JavaScript

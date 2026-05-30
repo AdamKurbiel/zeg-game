@@ -2,6 +2,7 @@ import { buildMap, renderEntities, renderPlayer } from "../systems/renderer.js";
 import { renderHud } from "../systems/hud.js";
 import { FONTNAMES } from "./main.js";
 import { notes } from "../world/maps.js";
+import{ fog, updateFog, drawFog } from "../systems/vignette.js";
 //Główny skrypt gry.
 
 export function restartLevel(player,entityHandler,map,hasDied){
@@ -133,6 +134,8 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         player.update(keys,map,now,MOVE_DELAY,entityHandler,audioSystem);
         camera.updatePosition(player,GAME_WIDTH,GAME_HEIGHT);
         entityHandler.update(map,now);
+
+        updateFog(player);
     }
 
     function render(){
@@ -149,6 +152,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
 
         ctx.restore();
 
+        drawFog(ctx, camera, GAME_WIDTH, GAME_HEIGHT);
         
         if (player.gameOver){
             drawGameOver(player);

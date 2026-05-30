@@ -30,6 +30,28 @@ body {
     padding: 15px 30px;
     font-size: 24px;
     cursor: pointer;
+
+    background-color: #7b2d8b;
+    color: #000000;
+    border: 4px solid #b45fd4;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    image-rendering: pixelated;
+
+    box-shadow: 0 0 20px #b45fd4, 0 0 40px #7b2d8b;
+
+    transition: all 0.2s ease;
+}
+
+.startButton:hover {
+    background-color: #b45fd4;
+    box-shadow: 0 0 30px #d480ff, 0 0 60px #b45fd4;
+    transform: translate(-50%, -50%) scale(1.08);
+}
+
+.startButton:active {
+    transform: translate(-50%, -50%) scale(0.95);
 }
 
 .bg_foto {

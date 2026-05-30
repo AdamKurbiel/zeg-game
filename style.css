@@ -77,3 +77,8 @@ body {
 .bg_foto--right img {
     transform: scaleX(-1);
 }
+
+
+img{
+    image-rendering: pixelated;
+}

@@ -11,6 +11,7 @@ body {
     justify-content: center;
     align-items: flex-start;    
     gap: 20px;
+    z-index: 3;
 }
 .inventory{
     margin-left: 50px;
@@ -29,4 +30,28 @@ body {
     padding: 15px 30px;
     font-size: 24px;
     cursor: pointer;
+}
+
+.bg_foto {
+    position: fixed;
+    z-index: 2;
+    bottom: 0;
+}
+
+.bg_foto--left {
+    left: 0;
+}
+
+.bg_foto--right {
+    right: 0;
+}
+
+.bg_foto img {
+    width: 300px;
+    height: auto;
+    display: block;
+}
+
+.bg_foto--right img {
+    transform: scaleX(-1);
 }

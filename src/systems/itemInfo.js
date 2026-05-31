@@ -13,7 +13,12 @@ export const ITEM_DICT = {
         "Rarity": 1,
         "Title": "Klucz",
         "Description":"Ten klucz powinien otworzyć\nwiększość drzwi.\n**Za zgubienie kluczyka płatność\n30zł u Pani woźnej.**"
-    }
+    },
+     MEDKIT : { 
+        "Rarity": 2,
+        "Title": "Medkit",
+        "Description": "Używa się automatycznie.\nPrzywraca 3 punkty życia.\n**Smak lepszy niż niejeden napój.**"
+    }  
 }
 
 export const ITEM_RARITY_DICT = {

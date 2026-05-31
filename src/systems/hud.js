@@ -111,6 +111,12 @@ export function checkHudClick(x,y,player,map,entityHandler,audioSystem){
                 player.immune = true
             }
 
+            if (item == "MEDKIT"){
+                player.deleteItem("MEDKIT");
+                player.health += 3;
+                audioSystem.playSfx('assets/sounds/sfx/heal.mp3', 0.35);
+            }
+
             return;
         }
     }

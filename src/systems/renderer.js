@@ -24,7 +24,9 @@ const TILE_COLORS = {
     "E" : "red",      //E - wyjście
     "K" : "KEY", //Klucz do drzwi 
     "D" : "DOORS", //drzwi
-    "N" : "PAPERNOTES" //notatki
+    "N" : "PAPERNOTES", //notatki
+    "C" : "CHEST_MATH",    //skrzynka zamknięta
+    "O" : "CHEST_MATH_OPEN"   //skrzynka otwarta 
 };
 
 
@@ -47,6 +49,9 @@ export const TEXTURES = {
     KEY : createImage("assets/textures/key.png"),
     PAPERNOTES : createImage("assets/textures/paper-notes.png"),
     
+    CHEST_MATH : createImage("assets/textures/chest-math.png"),     
+    CHEST_MATH_OPEN : createImage("assets/textures/chest-math-open.png"),
+
     GRASS1 : createImage("assets/textures/grass1.png"),
     GRASS2 : createImage("assets/textures/grass2.png"),
 

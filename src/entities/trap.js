@@ -59,6 +59,6 @@ export class Trap {
     }
 
 
-    panic() { } // wymagane przez entityHandler.clear()
+    panic() { } 
 
 }

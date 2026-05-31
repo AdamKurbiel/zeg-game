@@ -3,6 +3,12 @@ import { renderHud } from "../systems/hud.js";
 import { FONTNAMES } from "./main.js";
 import { notes } from "../world/maps.js";
 import{ fog, updateFog, drawFog } from "../systems/vignette.js";
+
+const MATH_CHEST_PUZZLE = {
+    question : "2 + 2 × 3 = ?",
+    answer   : 8
+};
+
 //Główny skrypt gry.
 
 export function restartLevel(player,entityHandler,map,hasDied){
@@ -48,6 +54,80 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
     var time_played = 0;
     let running = true;
 
+    let mathChestActive  = false; 
+
+    
+    let mathChestAnswer  = "";
+    let mathChestShake   = 0;
+
+    const CHEST_INPUT_IMG = new Image();
+    CHEST_INPUT_IMG.src = "assets/textures/chest-match-input.png";
+
+    function openMathChestUI(){
+        if (mathChestActive) return;
+            mathChestActive = true;
+            mathChestAnswer = "";
+            mathChestShake  = 0;
+    }
+
+    //zamknięcie UI, zmiana tekstury, nagroda medkit
+    function closeMathChestUI(success){
+        mathChestActive  = false;  
+        mathChestAnswer  = "";
+
+        if (success && player.mathChestPos){
+            map.setCell(player.mathChestPos.x, player.mathChestPos.y, "O"); // C → O
+            player.inventory.push("MEDKIT");                              // medkit do ekwipunku
+            audioSystem.playSfx("assets/sounds/sfx/pickup_item.mp3", 0.25); // dzwięk
+        }
+
+        player.currentMathChest = false;
+        player.mathChestPos     = null;
+        player.paused           = false;
+    }
+
+   function drawMathChest(){
+    // przyciemnienie tła
+    ctx.globalAlpha = 0.6;
+    ctx.fillStyle   = "black";
+    ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+    ctx.globalAlpha = 1.0;
+
+    const imgW = 300;
+    const imgH = 300;
+    const imgX = (GAME_WIDTH  - imgW) / 2;   // wyśrodkowanie poziome
+    const imgY = (GAME_HEIGHT - imgH) / 2;   // wyśrodkowanie pionowe
+
+    // shake przy złej odpowiedzi
+    const shakeX = mathChestShake > 0 ? Math.sin(mathChestShake * 1.8) * 8 : 0;
+    if (mathChestShake > 0) mathChestShake--;
+
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(CHEST_INPUT_IMG, imgX + shakeX, imgY, imgW, imgH);
+   
+    const equationX = imgX + shakeX + (11 / 32 * imgW);
+    const textY     = imgY + imgH * 0.55;  // środek pionowy obrazka
+
+    ctx.textAlign   = "center";
+    ctx.font        = `bold 40px tiny5`;
+    ctx.fillStyle   = "#ffffff";
+    ctx.shadowBlur  = 0;
+    ctx.fillText("2 + 2 x 3 =", equationX, textY);
+
+    const answerX    = imgX + shakeX + (26 / 32 * imgW);
+    const displayVal = mathChestAnswer === "" ? "?" : mathChestAnswer;
+
+    ctx.font        = `bold 40px tiny5`;
+    ctx.fillStyle   = "#ffd966";
+    ctx.fillText(displayVal, answerX, textY);
+
+    ctx.shadowBlur  = 0;
+    ctx.font        = `16px tiny5`;
+    ctx.fillStyle   = "#aaaaaa";
+    ctx.fillText("ENTER = zatwierdz  ESC = zamknij", GAME_WIDTH / 2, imgY + imgH + 20);
+}
+
+    //
     audioSystem.playMusic("assets/sounds/music/01.mp3",0.5);
     //
 
@@ -116,6 +196,29 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         checkGameClick();
     });
 
+    window.addEventListener("keydown", (e) => {
+    if (!mathChestActive) return;
+
+    if (e.key >= "0" && e.key <= "9"){
+        if (mathChestAnswer.length < 4) mathChestAnswer += e.key;
+
+    } else if (e.key === "Backspace"){
+        mathChestAnswer = mathChestAnswer.slice(0, -1);
+
+    } else if (e.key === "Enter"){
+        const val = parseInt(mathChestAnswer);
+        if (val === MATH_CHEST_PUZZLE.answer){
+            closeMathChestUI(true);
+        } else {
+            mathChestAnswer = "";
+            mathChestShake  = 12;
+        }
+
+    } else if (e.key === "Escape"){
+        closeMathChestUI(false);
+    }
+});
+
     //funkcja aktualizująca stan gracza, kamery oraz bytów.
     function update(now){
         if (player.health == 0){
@@ -129,6 +232,11 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
 
         if (player.currentNote != 0){
             player.paused = true;
+        }
+
+        //uruchom UI gdy gracz podejdzie do skrzynki
+        if (player.currentMathChest && !document.getElementById("math-chest-ui")){
+            openMathChestUI();
         }
 
         player.update(keys,map,now,MOVE_DELAY,entityHandler,audioSystem);
@@ -157,6 +265,10 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
             drawGameOver(player);
         }else if (player.currentNote != 0){
             drawNote(player);
+        }
+
+        if (mathChestActive){
+            drawMathChest();
         }
 
         drawBorder();

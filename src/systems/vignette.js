@@ -26,7 +26,7 @@ export function drawFog(ctx, camera, canvasWidth, canvasHeight) {
     );
 
     gradient.addColorStop(0,   "rgba(0, 0, 0, 0)");
-    gradient.addColorStop(0.5, "rgba(0, 0, 0, 0.55)");
+    gradient.addColorStop(0.3, "rgba(0, 0, 0, 0.55)");
     gradient.addColorStop(1,   "rgba(0, 0, 0, 0.92)");
 
     ctx.fillStyle = gradient;

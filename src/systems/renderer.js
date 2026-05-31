@@ -135,27 +135,30 @@ export function renderPlayer(ctx,player,ease){
 function drawEntity(ctx, i, entityInfo) {
 
     var entityAnimation = entityInfo.Frames;
-
     var currentFrame = i.frame;
 
     ctx.drawImage(TEXTURES.GRASS1,
-
         i.x * TILE_SIZE, i.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 
     i.renderX = lerp(i.renderX, i.x, 0.175);
-
     i.renderY = lerp(i.renderY, i.y, 0.30);
 
-    ctx.drawImage(TEXTURES[entityAnimation[currentFrame]],
+    var drawX = i.renderX * TILE_SIZE + entityInfo.XOffset;
+    var drawY = i.renderY * TILE_SIZE + entityInfo.YOffset;
+    var drawW = entityInfo.WidthScale * TILE_SIZE;
+    var drawH = entityInfo.HeightScale * TILE_SIZE;
 
-        i.renderX * TILE_SIZE + entityInfo.XOffset,
-
-        i.renderY * TILE_SIZE + entityInfo.YOffset,
-
-        entityInfo.WidthScale * TILE_SIZE,
-
-        entityInfo.HeightScale * TILE_SIZE);
-
+    // jeśli byt ma kierunek w lewo — odbij obrazek lustrzanie
+    if (i.direction !== undefined && i.direction === 1) {
+        ctx.save();
+        ctx.scale(-1, 1);
+        ctx.drawImage(TEXTURES[entityAnimation[currentFrame]],
+            -drawX - drawW, drawY, drawW, drawH);
+        ctx.restore();
+    } else {
+        ctx.drawImage(TEXTURES[entityAnimation[currentFrame]],
+            drawX, drawY, drawW, drawH);
+    }
 }
 
 

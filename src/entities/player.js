@@ -73,7 +73,30 @@ Player.prototype.update = function(KEYS, map, now, MOVE_DELAY,entityHandler,audi
         audioSystem.playSfx("assets/sounds/sfx/bonk.mp3",0.25);
         restartLevel(this,entityHandler,map,true);     
     }
-    
+
+     if (currTile == "T") {
+
+        for (let entity of entityHandler.entities) {
+
+            if (entity.symbol == "T" &&
+
+                entity.x == this.x && entity.y == this.y) {
+
+                if (entity.isDangerous && !this.immune) {
+
+                    audioSystem.playSfx("assets/sounds/sfx/bonk.mp3", 0.25);
+
+                    restartLevel(this, entityHandler, map, true);
+
+                }
+
+                break;
+
+            }
+
+        }
+
+    }
 };
 
 Player.prototype.deleteItem = function(item){
@@ -135,6 +158,30 @@ Player.prototype.move = function(dx,dy,map,entityHandler, audioSystem){
         this.paused = true;
         //ładowanie kolejnego poziomu
         nextLevel(map,this,entityHandler);
+    }
+
+     if (nextTile == "T") {
+
+        for (let entity of entityHandler.entities) {
+
+            if (entity.symbol == "T" &&
+
+                entity.x == (this.x+dx) && entity.y == (this.y+dy)) {
+
+                if (entity.isDangerous && !this.immune) {
+
+                    audioSystem.playSfx("assets/sounds/sfx/bonk.mp3", 0.25);
+
+                    restartLevel(this, entityHandler, map, true);
+
+                }
+
+                break;
+
+            }
+
+        }
+
     }
     
 }

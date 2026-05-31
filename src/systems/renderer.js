@@ -55,7 +55,11 @@ export const TEXTURES = {
 
     //BYTY W GRZE
     BAT0: createImage("assets/textures/bat0.png"),
-    BAT1: createImage("assets/textures/bat1.png")
+    BAT1: createImage("assets/textures/bat1.png"),
+
+    SPIKES1 : createImage("assets/textures/spikes-s1.png"), // faza 0 bezpieczna
+    SPIKES2 : createImage("assets/textures/spikes-s2.png"), // faza 1 niebezpieczna
+    SPIKES3 : createImage("assets/textures/spikes-s3.png"), // faza 2 niebezpieczna
 }
 
 //TODO: ZMIENIĆ PLACEHOLDEROWE KOLORY NA TEKSTURY

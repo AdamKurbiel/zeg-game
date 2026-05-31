@@ -1,6 +1,7 @@
 //ten skrypt odpowiada za koordynowanie wszystkimi bytami w grze.
 import { HorizontalBat } from "../entities/horizontal_bat.js";
 import { VerticalBat } from "../entities/vertical_bat.js";
+import { Trap } from "../entities/trap.js";
 
 //indeks bytów wraz z informacjami o nich
 const ENTITY_INDEX = {
@@ -25,6 +26,20 @@ const ENTITY_INDEX = {
         YOffset : 0,
         XOffset : 0,
         
+    },
+     "T" : {
+
+        Name : "Trap",
+
+        // klatka 0 = SPIKES1, 1 = SPIKES2, 2 = SPIKES3
+
+        Frames : ["SPIKES1", "SPIKES2", "SPIKES3"],
+
+        WidthScale : 1, 
+        HeightScale : 1,
+        YOffset : 0,  
+        XOffset : 0,
+
     },
 }
 
@@ -70,6 +85,11 @@ export class EntityHandler{
             console.log("CREATED VERTICAL")
             var verticalBat = new VerticalBat(x,y);
             this.entities.push(verticalBat);
+        }
+        if (type == "T") {
+
+            var trap = new Trap(x, y);
+            this.entities.push(trap);
         }        
     }
 

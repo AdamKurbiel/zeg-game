@@ -70,7 +70,7 @@ Player.prototype.update = function(KEYS, map, now, MOVE_DELAY,entityHandler,audi
 
     //tutaj kolizje z przeciwnikami nie zależące od ruchu gracza
 
-    if (currTile == "<" || currTile == "^"){
+    if (currTile == "<" || currTile == "^" || currTile == "P"){
         if (this.immune) return;
         audioSystem.playSfx("assets/sounds/sfx/bonk.mp3",0.25);
         restartLevel(this,entityHandler,map,true);     
@@ -110,7 +110,7 @@ Player.prototype.move = function(dx,dy,map,entityHandler, audioSystem){
     if (this.paused) return;
     
     let nextTile = map.content()[this.y+dy][this.x+dx];
-    if (nextTile == "#" || nextTile == "$") return; //sprawdzam czy to sciana
+    if (nextTile == "#" || nextTile == "$" || nextTile == "P") return; //sprawdzam czy to sciana
 
     if (nextTile == "D"){ //drzwi
         if (this.inventory.indexOf('KEY') != -1){

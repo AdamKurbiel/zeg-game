@@ -26,7 +26,8 @@ const TILE_COLORS = {
     "D" : "DOORS", //drzwi
     "N" : "PAPERNOTES", //notatki
     "C" : "CHEST_MATH",    //skrzynka zamknięta
-    "O" : "CHEST_MATH_OPEN"   //skrzynka otwarta 
+    "O" : "CHEST_MATH_OPEN",  //skrzynka otwarta 
+    "P" : "SPIDER0"
 };
 
 
@@ -61,6 +62,9 @@ export const TEXTURES = {
     //BYTY W GRZE
     BAT0: createImage("assets/textures/bat0.png"),
     BAT1: createImage("assets/textures/bat1.png"),
+
+    SPIDER0 : createImage("assets/textures/enemy-spider-s1.png"),
+    SPIDER1 : createImage("assets/textures/enemy-spider-s2.png"),
 
     SPIKES1 : createImage("assets/textures/spikes-s1.png"), // faza 0 bezpieczna
     SPIKES2 : createImage("assets/textures/spikes-s2.png"), // faza 1 niebezpieczna

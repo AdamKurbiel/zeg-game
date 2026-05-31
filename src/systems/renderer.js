@@ -66,6 +66,11 @@ export const TEXTURES = {
     SPIDER0 : createImage("assets/textures/enemy-spider-s1.png"),
     SPIDER1 : createImage("assets/textures/enemy-spider-s2.png"),
 
+    SPIDER_BACK0  : createImage("assets/textures/spider-back-s1.png"),
+    SPIDER_BACK1  : createImage("assets/textures/spider-back-s2.png"),
+    SPIDER_FRONT0 : createImage("assets/textures/spider-front-s1.png"),
+    SPIDER_FRONT1 : createImage("assets/textures/spider-front-s2.png"),
+
     SPIKES1 : createImage("assets/textures/spikes-s1.png"), // faza 0 bezpieczna
     SPIKES2 : createImage("assets/textures/spikes-s2.png"), // faza 1 niebezpieczna
     SPIKES3 : createImage("assets/textures/spikes-s3.png"), // faza 2 niebezpieczna
@@ -136,6 +141,14 @@ function drawEntity(ctx, i, entityInfo) {
 
     var entityAnimation = entityInfo.Frames;
     var currentFrame = i.frame;
+    
+    if (i.symbol === "V") {
+        if (i.direction === -1) {
+            entityAnimation = ["SPIDER_BACK0", "SPIDER_BACK1"];
+        } else {
+            entityAnimation = ["SPIDER_FRONT0", "SPIDER_FRONT1"];
+        }
+    }
 
     ctx.drawImage(TEXTURES.GRASS1,
         i.x * TILE_SIZE, i.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
@@ -168,7 +181,7 @@ export function renderGroundEntities(ctx, entityHandler) {
 
     for (let i of entityHandler.entities) {
 
-        if (i.symbol !== "T") continue;
+        if (i.symbol !== "T" && i.symbol !== "V") continue;
 
         drawEntity(ctx, i, entityHandler.getEntityInfo(i.symbol));
 
@@ -184,6 +197,7 @@ export function renderAirEntities(ctx, entityHandler) {
     for (let i of entityHandler.entities) {
 
         if (i.symbol === "T") continue;
+        if (i.symbol === "V") continue;
 
         drawEntity(ctx, i, entityHandler.getEntityInfo(i.symbol));
 

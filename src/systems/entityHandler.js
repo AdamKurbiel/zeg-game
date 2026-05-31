@@ -2,7 +2,8 @@
 import { HorizontalBat } from "../entities/horizontal_bat.js";
 import { VerticalBat } from "../entities/vertical_bat.js";
 import { Trap } from "../entities/trap.js";
-import { Spider } from "../entities/spider.js";
+import { Spider } from "../entities/horizontal_spider.js";
+import { VerticalSpider } from "../entities/vertical_spider.js";
 
 //indeks bytów wraz z informacjami o nich
 const ENTITY_INDEX = {
@@ -50,6 +51,14 @@ const ENTITY_INDEX = {
         YOffset : 0,
         XOffset : 0,
     },   
+    "V" : {
+        Name : "VerticalSpider",
+        Frames : ["SPIDER_FRONT0", "SPIDER_FRONT1"],
+        WidthScale  : 1,
+        HeightScale : 1,
+        YOffset : 0,
+        XOffset : 0,
+    },
 }
 
 //Sprawdzenie, czy podany znak z mapy to jakiś byt.
@@ -103,7 +112,11 @@ export class EntityHandler{
         if (type == "P") {
             var spider = new Spider(x, y);
             this.entities.push(spider);
-        }              
+        }  
+        if (type == "V") {
+            var verticalSpider = new VerticalSpider(x, y);
+            this.entities.push(verticalSpider);
+        }         
     }
 
     //zdobycie informacji z ENTITY_INDEX na podstawie konkretnego typu

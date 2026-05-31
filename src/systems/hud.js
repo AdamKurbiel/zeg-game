@@ -3,6 +3,7 @@ import { TEXTURES } from "./renderer.js";
 import { ITEM_DICT, ITEM_RARITY_DICT } from "./itemInfo.js";
 import { restartLevel } from "../core/game.js";
 import { FONTNAMES } from "../core/main.js";
+import { notes } from "../world/maps.js";
 
 const HUD_POSITIONS = {
     heart : [20,10],
@@ -39,6 +40,118 @@ var tooltip = {
 
 function lerp (start, end, t){
     return start * (1 - t) + end * t;
+}
+
+const NOTE_SLOT_SIZE = 64;
+const NOTE_PAD = 15;
+const NOTE_START_Y = 80;
+
+var hoveredNoteIndex = -1;
+
+export function checkNotesHover(x, y, player) {
+    hoveredNoteIndex = -1;
+    for (let i = 0; i < player.collectedNotes.length; i++) {
+        let sy = NOTE_START_Y + i * (NOTE_SLOT_SIZE + NOTE_PAD);
+        if (x >= NOTE_PAD && x <= NOTE_PAD + NOTE_SLOT_SIZE &&
+            y >= sy && y <= sy + NOTE_SLOT_SIZE) {
+            hoveredNoteIndex = i;
+            break;
+        }
+    }
+}
+
+export function checkNotesClick(x, y, player) {
+    for (let i = 0; i < player.collectedNotes.length; i++) {
+        let sy = NOTE_START_Y + i * (NOTE_SLOT_SIZE + NOTE_PAD);
+        if (x >= NOTE_PAD && x <= NOTE_PAD + NOTE_SLOT_SIZE &&
+            y >= sy && y <= sy + NOTE_SLOT_SIZE) {
+            player.currentNote = player.collectedNotes[i];
+            player.paused = true;
+            break;
+        }
+    }
+}
+
+export function renderNotes(notesCtx, width, height, player) {
+    notesCtx.fillStyle = "#2B1A4F";
+    notesCtx.fillRect(0, 0, width, height);
+    notesCtx.strokeStyle = "black";
+    notesCtx.lineWidth = 10;
+    notesCtx.strokeRect(0, 0, width, height);
+
+    notesCtx.fillStyle = "white";
+    notesCtx.font = `28px ${FONTNAMES[0]}`;
+    notesCtx.textAlign = "center";
+    notesCtx.fillText("Notatki", width / 2, 45);
+
+    notesCtx.strokeStyle = "#7a4bbf";
+    notesCtx.lineWidth = 2;
+    notesCtx.beginPath();
+    notesCtx.moveTo(NOTE_PAD, 58);
+    notesCtx.lineTo(width - NOTE_PAD, 58);
+    notesCtx.stroke();
+
+    if (player.collectedNotes.length === 0) {
+        notesCtx.fillStyle = "#7a4bbf";
+        notesCtx.font = `16px ${FONTNAMES[1]}`;
+        notesCtx.textAlign = "center";
+        notesCtx.fillText("Brak notatek.", width / 2, NOTE_START_Y + 30);
+        return;
+    }
+
+    for (let i = 0; i < player.collectedNotes.length; i++) {
+        let sy = NOTE_START_Y + i * (NOTE_SLOT_SIZE + NOTE_PAD);
+        let isHovered = hoveredNoteIndex === i;
+
+        notesCtx.fillStyle = isHovered ? "#5a2f90" : "#3d2066";
+        notesCtx.strokeStyle = isHovered ? "#d4aaff" : "#7a4bbf";
+        notesCtx.lineWidth = 3;
+        notesCtx.fillRect(NOTE_PAD, sy, NOTE_SLOT_SIZE, NOTE_SLOT_SIZE);
+        notesCtx.strokeRect(NOTE_PAD, sy, NOTE_SLOT_SIZE, NOTE_SLOT_SIZE);
+
+        notesCtx.globalAlpha = 0.9;
+        notesCtx.drawImage(TEXTURES.PAPERNOTES, NOTE_PAD + 8, sy + 8, NOTE_SLOT_SIZE - 16, NOTE_SLOT_SIZE - 16);
+        notesCtx.globalAlpha = 1;
+
+        notesCtx.fillStyle = isHovered ? "#d4aaff" : "white";
+        notesCtx.font = `17px ${FONTNAMES[0]}`;
+        notesCtx.textAlign = "left";
+        notesCtx.fillText(`Notatka #${player.collectedNotes[i]}`, NOTE_PAD + NOTE_SLOT_SIZE + 10, sy + 26);
+
+        notesCtx.fillStyle = "#aaaaaa";
+        notesCtx.font = `13px ${FONTNAMES[1]}`;
+        let preview = (notes[player.collectedNotes[i]] || "").split("\n")[0];
+        if (preview.length > 14) preview = preview.slice(0, 14) + "…";
+        notesCtx.fillText(preview, NOTE_PAD + NOTE_SLOT_SIZE + 10, sy + 48);
+
+        if (isHovered) {
+            let lines = (notes[player.collectedNotes[i]] || "Brak treści.").split("\n");
+            let TW = width - NOTE_PAD * 2;
+            let TH = 32 + lines.length * 20;
+            let TX = NOTE_PAD;
+            let TY = sy - TH - 8;
+            if (TY < 65) TY = sy + NOTE_SLOT_SIZE + 8;
+
+            notesCtx.globalAlpha = 0.88;
+            notesCtx.fillStyle = "#1a0d33";
+            notesCtx.fillRect(TX, TY, TW, TH);
+            notesCtx.globalAlpha = 1;
+            notesCtx.strokeStyle = "#d4aaff";
+            notesCtx.lineWidth = 3;
+            notesCtx.strokeRect(TX, TY, TW, TH);
+
+            notesCtx.fillStyle = "#d4aaff";
+            notesCtx.font = `17px ${FONTNAMES[0]}`;
+            notesCtx.textAlign = "left";
+            notesCtx.fillText(`Notatka #${player.collectedNotes[i]}`, TX + 8, TY + 20);
+
+            for (let j = 0; j < lines.length; j++) {
+                notesCtx.fillStyle = "white";
+                notesCtx.font = `14px ${FONTNAMES[1]}`;
+                notesCtx.fillText(lines[j], TX + 8, TY + 36 + j * 20);
+            }
+        }
+    }
 }
 
 class Button { //PRZYCISK

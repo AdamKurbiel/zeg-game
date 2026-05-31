@@ -1,5 +1,5 @@
 import { buildMap, renderGroundEntities, renderAirEntities, renderPlayer } from "../systems/renderer.js";
-import { renderHud } from "../systems/hud.js";
+import { renderHud, renderNotes } from "../systems/hud.js";
 import { FONTNAMES } from "./main.js";
 import { notes } from "../world/maps.js";
 import{ fog, updateFog, drawFog } from "../systems/vignette.js";
@@ -40,13 +40,15 @@ export function nextLevel(map,player,entityHandler){
         }
 }
 
-export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, camera, keys, entityHandler, audioSystem){ 
+export function createGame(ctx, statsCtx, notesCtx, gameCanvas, statsCanvas, notesCanvas, map, player, camera, keys, entityHandler, audioSystem){
     //funkcja obsługująca cały system gry i zawierająca główną pętlę.
     const GAME_WIDTH = gameCanvas.width;
     const GAME_HEIGHT = gameCanvas.height;
     const STATS_WIDTH = statsCanvas.width;
     const STATS_HEIGHT = statsCanvas.height;
-    
+    const NOTES_WIDTH = notesCanvas.width;
+    const NOTES_HEIGHT = notesCanvas.height;
+
     //CONFIG (RACZEJ NIE ZMIENIAJ JEŚLI SIĘ NIE ZNASZ)
     const MOVE_DELAY = 150;
     const MOVE_EASING = 0.125;
@@ -177,16 +179,77 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         ctx.fillStyle = "black";
         ctx.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);
         ctx.globalAlpha = 1.0;
-        
-        ctx.fillStyle = "white";
+
+        const BOX_W = 500;
+        const LINE_H = 26;
+        const PADDING = 20;
+
+        // ustaw czcionkę PRZED measureText żeby pomiar był dokładny
+        ctx.font = `20px ${FONTNAMES[1]}`;
+
+        // najpierw oblicz wszystkie linie
+        const rawLines = (notes[player.currentNote] || "").split("\n");
+        const MAX_WIDTH = BOX_W - 40;
+        let allLines = [];
+
+        for (let raw of rawLines) {
+            let words = raw.split(" ");
+            let line = "";
+            for (let word of words) {
+                let test = line ? line + " " + word : word;
+                if (ctx.measureText(test).width > MAX_WIDTH && line !== "") {
+                    allLines.push(line);
+                    line = word;
+                } else {
+                    line = test;
+                }
+            }
+            allLines.push(line);
+        }
+
+        // dopasuj wysokość do ilości linii
+        const BOX_H = 70 + allLines.length * LINE_H + PADDING;
+        const BOX_X = (GAME_WIDTH - BOX_W) / 2;
+        const BOX_Y = Math.max(20, (GAME_HEIGHT - BOX_H) / 2); // wyśrodkuj, min 20px od góry
+
+        // tło ramki
+        ctx.fillStyle = "#1a0d33";
+        ctx.strokeStyle = "#d4aaff";
+        ctx.lineWidth = 4;
+        ctx.globalAlpha = 0.92;
+        ctx.fillRect(BOX_X, BOX_Y, BOX_W, BOX_H);
+        ctx.globalAlpha = 1.0;
+        ctx.strokeRect(BOX_X, BOX_Y, BOX_W, BOX_H);
+
+        // tytuł
+        ctx.fillStyle = "#d4aaff";
         ctx.textAlign = "center";
-        ctx.font = `28px ${FONTNAMES[0]}`
-        ctx.fillText(`${notes[player.currentNote]}`,350,290);
+        ctx.font = `28px ${FONTNAMES[0]}`;
+        ctx.fillText(`Notatka #${player.currentNote}`, GAME_WIDTH / 2, BOX_Y + 35);
 
-        ctx.font = `18px ${FONTNAMES[0]}`
-        ctx.fillText("Kliknij na ekran aby zamknąć",350,640);
+        // linia pod tytułem
+        ctx.strokeStyle = "#7a4bbf";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(BOX_X + 15, BOX_Y + 48);
+        ctx.lineTo(BOX_X + BOX_W - 15, BOX_Y + 48);
+        ctx.stroke();
+
+        // tekst
+        ctx.fillStyle = "white";
+        ctx.textAlign = "left";
+        ctx.font = `20px ${FONTNAMES[1]}`;
+        let textStartY = BOX_Y + 70;
+        for (let i = 0; i < allLines.length; i++) {
+            ctx.fillText(allLines[i], BOX_X + 20, textStartY + i * LINE_H);
+        }
+
+        // hint na dole
+        ctx.fillStyle = "#aaaaaa";
+        ctx.font = `16px ${FONTNAMES[0]}`;
+        ctx.textAlign = "center";
+        ctx.fillText("Kliknij na ekran aby zamknąć", GAME_WIDTH / 2, BOX_Y + BOX_H - 8);
     }
-
     gameCanvas.addEventListener("click", (event) => {
         const rect = gameCanvas.getBoundingClientRect();
 
@@ -282,6 +345,7 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         update(now);
 
         renderHud(statsCtx,player,STATS_WIDTH,STATS_HEIGHT,map,now);
+        renderNotes(notesCtx, NOTES_WIDTH, NOTES_HEIGHT, player); 
         render();
 
         requestAnimationFrame(step);

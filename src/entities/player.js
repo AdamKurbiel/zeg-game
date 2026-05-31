@@ -3,6 +3,7 @@ import { restartLevel, nextLevel } from "../core/game.js";
 export function Player(){
     this.health = 2, //Życia gracza
     this.inventory = [],
+    this.collectedNotes = [],
 
     this.immuneTimer = 5000; //czas efektu nietykalności
     
@@ -121,10 +122,13 @@ Player.prototype.move = function(dx,dy,map,entityHandler, audioSystem){
         }
     }
 
-    if (nextTile == "N"){ //notatki
-        this.currentNote = map.level;
-        map.clearRow(this.x+dx,this.y+dy);
-    }
+    if (nextTile == "N"){  //notatki
+    this.currentNote = map.level;
+    map.clearRow(this.x+dx, this.y+dy);
+    if (!this.collectedNotes.includes(map.level)) {
+        this.collectedNotes.push(map.level);
+    }                                                  
+}
 
      if (nextTile == "C"){ //skrzynka
         this.mathChestPos     = { x: this.x + dx, y: this.y + dy };

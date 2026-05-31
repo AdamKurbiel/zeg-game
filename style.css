@@ -82,3 +82,7 @@ body {
 img{
     image-rendering: pixelated;
 }
+
+.notes-panel {
+    margin-right: 50px;
+}

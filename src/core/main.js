@@ -4,7 +4,7 @@ import { Player } from "../entities/player.js";
 import { Camera } from "../systems/camera.js";
 import { createKeyboard } from "../systems/input.js";
 import { createGame } from "./game.js";
-import { checkHudHover, checkHudClick} from "../systems/hud.js";
+import { checkHudHover, checkHudClick, checkNotesHover, checkNotesClick } from "../systems/hud.js";
 import { EntityHandler } from "../systems/entityHandler.js";
 import { AudioSystem } from "../systems/audio.js";
 
@@ -12,14 +12,17 @@ const SMOOTHING_ENABLED = false; //filtrowanie obrazu wyłączone żeby pixelart
 
 var gameCanvas = document.getElementById("game"); //główny canvas gry
 var statsCanvas = document.getElementById("gameStats"); //canvas pokazujący ekwipunek, statystyki oraz opcje.
+var notesCanvas = document.getElementById("gameNotes");// canvas na notatki
 
 //kontekst
 var ctx = gameCanvas.getContext("2d");
 var statsCtx = statsCanvas.getContext("2d");
+var notesCtx = notesCanvas.getContext("2d");
 
 //ustawienia z SMOOTHING_ENABLED
 ctx.imageSmoothingEnabled = SMOOTHING_ENABLED;
 statsCtx.imageSmoothingEnabled = SMOOTHING_ENABLED;
+notesCtx.imageSmoothingEnabled = SMOOTHING_ENABLED;
 
 
 //tworzenie obiektów mapy, gracza, kamery, inputu, systemu bytów, systemu audio.
@@ -66,6 +69,20 @@ window.startGame = function(){
         checkHudClick(x, y, PLAYER,MAP,ENTITYHANDLER,AUDIOSYSTEM);
     });//sprawdzanie kliknięcia na canvasie ekwipunku
 
+    notesCanvas.addEventListener('mousemove', (event) => {
+        const rect = notesCanvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        checkNotesHover(x, y, PLAYER);
+    });
+
+        notesCanvas.addEventListener('click', (event) => {
+        const rect = notesCanvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        checkNotesClick(x, y, PLAYER);
+    });
+
     statsCanvas.addEventListener('mousemove', (event) => {
         const rect = statsCanvas.getBoundingClientRect();
 
@@ -75,7 +92,7 @@ window.startGame = function(){
         checkHudHover(x,y,statsCtx,PLAYER,AUDIOSYSTEM);
     });//sprawdzanie czy mysz znajduje się na canvasie ekwipunku
 
-    const GAME = createGame(ctx, statsCtx, gameCanvas, statsCanvas, MAP, PLAYER, CAMERA, KEYS, ENTITYHANDLER, AUDIOSYSTEM); 
+    const GAME = createGame(ctx, statsCtx, notesCtx, gameCanvas, statsCanvas, notesCanvas, MAP, PLAYER, CAMERA, KEYS, ENTITYHANDLER, AUDIOSYSTEM);
     GAME.start(); //inicjalizacja gry
 
 }

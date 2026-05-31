@@ -45,9 +45,9 @@ const maps = {
 ],
     
 };
-
+// notatki treść
 export const notes = {
-    1: "Lorem ipsum dolor sit amet, consectetur adipiscing elit "
+    1: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae imperdiet tellus, a euismod orci. Integer aliquam interdum lectus et sollicitudin. Morbi in volutpat neque. Vestibulum in risus neque. Ut eu massa at dolor porttitor feugiat sit amet ut sem. Morbi sit amet sapien id lacus posuere viverra. Integer sit amet sollicitudin orci. Fusce eu ante ornare, ultrices diam in, sollicitudin metus. Sed tempor orci at arcu congue laoreet. Mauris pharetra velit ac ante tempor congue. Ut vitae pulvinar ligula, eget ullamcorper lectus. Proin accumsan, ante in eleifend euismod, lorem ante bibendum orci, at pretium magna tortor eget neque. Suspendisse in neque pretium, pulvinar odio non, dictum purus. Integer tortor odio, scelerisque eu bibendum nec, scelerisque eget nibh. Nullam eget justo eleifend, interdum turpis at, auctor turpis. Ut et tellus a orci volutpat lacinia vel vel felis."
 };
 
 export function getMap(index){

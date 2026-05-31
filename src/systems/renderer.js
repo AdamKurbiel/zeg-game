@@ -121,35 +121,62 @@ export function renderPlayer(ctx,player,ease){
     );
 }
 
-//funkcja renderująca byty
-export function renderEntities(ctx,entityHandler){
-    for (let i of entityHandler.entities){
-        var entityInfo = entityHandler.getEntityInfo(i.symbol);
-        var entityAnimation = entityInfo.Frames;
-        var currentFrame = i.frame;
-        
-        //console.log(`Entity info:\nname: ${entityInfo.Name},\nAnimation frames: ${entityAnimation},\nCurrent frame: ${currentFrame}`);
+// wspólna logika rysowania jednego bytu
 
-        ctx.drawImage(
-            TEXTURES.GRASS1,
-            i.x * TILE_SIZE,
-            i.y * TILE_SIZE,
-            TILE_SIZE,
-            TILE_SIZE
-        );
+function drawEntity(ctx, i, entityInfo) {
 
-        i.renderX = lerp(i.renderX,i.x,0.175);
-        i.renderY = lerp(i.renderY,i.y,0.30);
+    var entityAnimation = entityInfo.Frames;
 
-        ctx.drawImage(
-            TEXTURES[entityAnimation[currentFrame]],
-            i.renderX * TILE_SIZE + entityInfo.XOffset,
-            i.renderY * TILE_SIZE + entityInfo.YOffset,
-            entityInfo.WidthScale * TILE_SIZE,
-            entityInfo.HeightScale * TILE_SIZE
-        );
+    var currentFrame = i.frame;
+
+    ctx.drawImage(TEXTURES.GRASS1,
+
+        i.x * TILE_SIZE, i.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+
+    i.renderX = lerp(i.renderX, i.x, 0.175);
+
+    i.renderY = lerp(i.renderY, i.y, 0.30);
+
+    ctx.drawImage(TEXTURES[entityAnimation[currentFrame]],
+
+        i.renderX * TILE_SIZE + entityInfo.XOffset,
+
+        i.renderY * TILE_SIZE + entityInfo.YOffset,
+
+        entityInfo.WidthScale * TILE_SIZE,
+
+        entityInfo.HeightScale * TILE_SIZE);
+
+}
+
+
+// pułapki — rysowane POD graczem
+
+export function renderGroundEntities(ctx, entityHandler) {
+
+    for (let i of entityHandler.entities) {
+
+        if (i.symbol !== "T") continue;
+
+        drawEntity(ctx, i, entityHandler.getEntityInfo(i.symbol));
 
     }
+
+}
+
+
+// nietoperze itp. — rysowane NAD graczem
+
+export function renderAirEntities(ctx, entityHandler) {
+
+    for (let i of entityHandler.entities) {
+
+        if (i.symbol === "T") continue;
+
+        drawEntity(ctx, i, entityHandler.getEntityInfo(i.symbol));
+
+    }
+
 }
 
 export function buildMap(ctx, level){

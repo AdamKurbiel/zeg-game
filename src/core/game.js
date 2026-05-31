@@ -1,4 +1,4 @@
-import { buildMap, renderEntities, renderPlayer } from "../systems/renderer.js";
+import { buildMap, renderGroundEntities, renderAirEntities, renderPlayer } from "../systems/renderer.js";
 import { renderHud } from "../systems/hud.js";
 import { FONTNAMES } from "./main.js";
 import { notes } from "../world/maps.js";
@@ -146,10 +146,9 @@ export function createGame(ctx, statsCtx, gameCanvas, statsCanvas, map, player, 
         ctx.translate(-camera.renderX, -camera.renderY);
 
         buildMap(ctx,map);
-        entityHandler.update();
-        renderPlayer(ctx, player, MOVE_EASING);
-        renderEntities(ctx,entityHandler);
-
+        renderGroundEntities(ctx, entityHandler);   // 2. pułapki POD graczem
+        renderPlayer(ctx, player, MOVE_EASING);     // 3. gracz
+        renderAirEntities(ctx, entityHandler);      // 4. nietoperze NAD graczem
         ctx.restore();
 
         drawFog(ctx, camera, GAME_WIDTH, GAME_HEIGHT);

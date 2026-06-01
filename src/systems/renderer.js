@@ -33,7 +33,19 @@ const TILE_COLORS = {
     "U" : "CRYSTAL_ORANGE",
     "X" : "LAB_DOOR",
     "Y" : "CANDY",    //Y - Cukierek
-    "W" : "SUSSY_POWDER"  //W - Podejrzany proszek
+    "W" : "SUSSY_POWDER",  //W - Podejrzany proszek
+    // Lasery
+    "1" : "LASER_RED",
+    "2" : "LASER_BLUE",
+    "3" : "LASER_GREEN",
+    "4" : "LASER_PURPLE",
+    "5" : "LASER_ORANGE",
+    // Przyciski (wyłączają odpowiadający laser)
+    "6" : "BUTTON_RED",
+    "7" : "BUTTON_BLUE",
+    "8" : "BUTTON_GREEN",
+    "9" : "BUTTON_PURPLE",
+    "0" : "BUTTON_ORANGE"
 };
 
 
@@ -87,7 +99,19 @@ export const TEXTURES = {
     LAB_DOOR       : createImage("assets/textures/lab-door.png"),
 
     CANDY        : createImage("assets/textures/candy.png"),
-    SUSSY_POWDER : createImage("assets/textures/sussy-powder.png")
+    SUSSY_POWDER : createImage("assets/textures/sussy-powder.png"),
+
+    LASER_RED    : createImage("assets/textures/laser-red.png"),
+    LASER_BLUE   : createImage("assets/textures/laser-blue.png"),
+    LASER_GREEN  : createImage("assets/textures/laser-green.png"),
+    LASER_PURPLE : createImage("assets/textures/laser-purple.png"),
+    LASER_ORANGE : createImage("assets/textures/laser-orange.png"),
+
+    BUTTON_RED    : createImage("assets/textures/button-red.png"),
+    BUTTON_BLUE   : createImage("assets/textures/button-blue.png"),
+    BUTTON_GREEN  : createImage("assets/textures/button-green.png"),
+    BUTTON_PURPLE : createImage("assets/textures/button-purple.png"),
+    BUTTON_ORANGE : createImage("assets/textures/button_orange.png")
 }
 
 //TODO: ZMIENIĆ PLACEHOLDEROWE KOLORY NA TEKSTURY

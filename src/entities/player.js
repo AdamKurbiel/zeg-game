@@ -240,7 +240,36 @@ Player.prototype.move = function(dx,dy,map,entityHandler, audioSystem){
             this.inventory.push("SUSSY_POWDER");
     }
 
+    const LASER_TILES = ["1","2","3","4","5"];
+    if (LASER_TILES.includes(nextTile)){
+        if (!this.immune){
+            audioSystem.playSfx("assets/sounds/sfx/bonk.mp3", 0.25);
+            restartLevel(this, entityHandler, map, true);
+            return;
+        }
+    }
 
+    const BUTTON_LASER_MAP = {
+        "6": "1",  // czerwony
+        "7": "2",  // niebieski
+        "8": "3",  // zielony
+        "9": "4",  // fioletowy
+        "0": "5"   // pomarańczowy
+    };
+    if (nextTile in BUTTON_LASER_MAP){
+        const laserSymbol = BUTTON_LASER_MAP[nextTile];
+
+        map.clearRow(this.x, this.y);
+
+        for (let row = 0; row < map.content().length; row++){
+            for (let col = 0; col < map.content()[row].length; col++){
+                if (map.content()[row][col] === laserSymbol){
+                    map.content()[row][col] = ".";
+                }
+            }
+        }
+        audioSystem.playSfx("assets/sounds/sfx/blip.mp3", 0.5);
+    }
 
     if (nextTile == "E"){
         this.paused = true;

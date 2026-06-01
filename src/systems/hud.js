@@ -8,21 +8,25 @@ import { notes } from "../world/maps.js";
 const HUD_POSITIONS = {
     heart : [20,10],
     reset_button: [190,85],
-    inventory_slots : [60,180],
+    inventory_slots : [40, 192],
     inventory_border : [0,160],
     level_info: [280,50],
     authors: [200,680]
 };
 
-const INVENTORY_MAX_SLOTS = 3;
-const INVENTORY_SLOT_SIZE = 80;
+const INVENTORY_MAX_SLOTS = 6;
+const INVENTORY_SLOT_SIZE = 90;
 const INVENTORY_ITEM_NAMES = {
     0: "Empty"
 };
+
 var slotHover = {
     0 : false,
     1 : false,
-    2 : false
+    2 : false,
+    3 : false,
+    4 : false,
+    5 : false,
 }
 
 var temp_now
@@ -30,11 +34,9 @@ var temp_now
 var tooltip = {
     title : "",
     desc : "",
-
     rarity : 0,
     xPosition : 0,
     yPosition : 0,
-
     enabled : false,
 }
 
@@ -154,7 +156,7 @@ export function renderNotes(notesCtx, width, height, player) {
     }
 }
 
-class Button { //PRZYCISK
+class Button {
 constructor(text,fillColor,textColor,strokeColor,hoverColor){
     this.text = text;
     this.fillColor = fillColor;
@@ -163,7 +165,7 @@ constructor(text,fillColor,textColor,strokeColor,hoverColor){
     this.strokeColor = strokeColor;
     this.hover = false;
 }
- 
+
 setPosition(x,y){
     this.x = x;
     this.y = y;
@@ -190,10 +192,25 @@ draw(ctx){
 }
 };
 
+var hudWidth = 370;
+
+function getInventorySlotPos(i) {
+    const GAP = 10;
+    const slotSize = INVENTORY_SLOT_SIZE;
+    const gridW = 3 * slotSize + 2 * GAP;
+    const col = i % 3;
+    const row = Math.floor(i / 3);
+    const startX = (hudWidth - gridW) / 2;
+    const startY = HUD_POSITIONS.inventory_border[1] + 20;
+    return {
+        x: startX + col * (slotSize + GAP),
+        y: startY + row * (slotSize + GAP)
+    };
+}
+
 export function checkHudClick(x,y,player,map,entityHandler,audioSystem){
     if (player.gameOver) return;
 
-    //RESET BUTTON
     if (
         x >= resetButton.x &&
         x <= resetButton.x + resetButton.width &&
@@ -203,42 +220,34 @@ export function checkHudClick(x,y,player,map,entityHandler,audioSystem){
         restartLevel(player,entityHandler,map,false);
     }
 
-
-    //INVENTORY SLOTS
     for (let i = 0; i < INVENTORY_MAX_SLOTS; i++){
-        let slot_x = HUD_POSITIONS.inventory_slots[0] + i*100;
-        let slot_y = HUD_POSITIONS.inventory_slots[1];
-        let slot_wh = INVENTORY_SLOT_SIZE;
-
+        const pos = getInventorySlotPos(i);
         if (
-            x >= slot_x &&
-            x <= slot_x + slot_wh &&
-            y >= slot_y &&
-            y <= slot_y + slot_wh
+            x >= pos.x &&
+            x <= pos.x + INVENTORY_SLOT_SIZE &&
+            y >= pos.y &&
+            y <= pos.y + INVENTORY_SLOT_SIZE
         ){
-            var item = player.inventory[i]
+            var item = player.inventory[i];
             if (item == "BURGER"){
                 player.deleteItem("BURGER");
                 audioSystem.playSfx('assets/sounds/sfx/eat.mp3',0.25);
                 player.immuneCooldown = temp_now;
-                player.immune = true
+                player.immune = true;
             }
-
             if (item == "MEDKIT"){
                 player.deleteItem("MEDKIT");
                 player.health += 3;
                 audioSystem.playSfx('assets/sounds/sfx/heal.mp3', 0.35);
             }
-
             return;
         }
     }
 }
 
 export function checkHudHover(x,y,statsCtx,player,audioSystem){
-
     if (player.gameOver) return;
-    //RESET BUTTON
+
     if (
         x >= resetButton.x &&
         x <= resetButton.x + resetButton.width &&
@@ -250,17 +259,13 @@ export function checkHudHover(x,y,statsCtx,player,audioSystem){
         resetButton.hover = false;
     }
 
-    //INVENTORY SLOTS HOVER
     for (let i = 0; i < INVENTORY_MAX_SLOTS; i++){
-        let slot_x = HUD_POSITIONS.inventory_slots[0] + i*100;
-        let slot_y = HUD_POSITIONS.inventory_slots[1];
-        let slot_wh = INVENTORY_SLOT_SIZE;
-
+        const pos = getInventorySlotPos(i);
         if (
-            x >= slot_x &&
-            x <= slot_x + slot_wh &&
-            y >= slot_y &&
-            y <= slot_y + slot_wh
+            x >= pos.x &&
+            x <= pos.x + INVENTORY_SLOT_SIZE &&
+            y >= pos.y &&
+            y <= pos.y + INVENTORY_SLOT_SIZE
         ){
             if (player.inventory[i] == undefined){
                 tooltip.title = ITEM_DICT[0].Title;
@@ -275,10 +280,9 @@ export function checkHudHover(x,y,statsCtx,player,audioSystem){
                 tooltip.desc = ITEM_DICT[player.inventory[i]].Description;
                 tooltip.rarity = ITEM_DICT[player.inventory[i]].Rarity;
             }
-            
-            tooltip.xPosition = x,
-            tooltip.yPosition = y,
-            tooltip.enabled = true
+            tooltip.xPosition = x;
+            tooltip.yPosition = y;
+            tooltip.enabled = true;
             return;
         }else{
             slotHover[i] = false;
@@ -286,7 +290,6 @@ export function checkHudHover(x,y,statsCtx,player,audioSystem){
     }
     tooltip.enabled = false;
 }
-
 
 function drawHeartCounter(statsCtx,health){
     statsCtx.drawImage(
@@ -296,7 +299,6 @@ function drawHeartCounter(statsCtx,health){
         128,
         128
     );
-    
     statsCtx.fillStyle = "#fff8fc";
     statsCtx.font = `68px ${FONTNAMES[1]}`;
     statsCtx.textAlign = "center";
@@ -304,9 +306,7 @@ function drawHeartCounter(statsCtx,health){
 }
 
 function drawTooltip(statsCtx,width,height){
-    if (tooltip.enabled == false){     
-        return;
-    };
+    if (tooltip.enabled == false) return;
 
     let SIZE_X = 200;
     let SIZE_Y = 100;
@@ -314,33 +314,26 @@ function drawTooltip(statsCtx,width,height){
     let POS_Y = tooltip.yPosition - 100;
     let OFFSET_X = 5;
 
-
     let title = tooltip.title;
     let description = tooltip.desc.split("\n");
-
 
     if (POS_X + SIZE_X > width - OFFSET_X){
         POS_X = width - SIZE_X - OFFSET_X;
     }
 
-    //Ustawienia
     statsCtx.fillStyle = "Black";
     statsCtx.strokeStyle = "Pink";
     statsCtx.lineWidth = 5;
-    
-    //Główny prostokąt
     statsCtx.strokeRect(POS_X,POS_Y,SIZE_X,SIZE_Y);
     statsCtx.globalAlpha = 0.6;
     statsCtx.fillRect(POS_X,POS_Y,SIZE_X,SIZE_Y);
     statsCtx.globalAlpha = 1.0;
 
-    //Tytuł
     statsCtx.textAlign = "left";
     statsCtx.fillStyle = ITEM_RARITY_DICT[tooltip.rarity].Color;
     statsCtx.font = `28px ${FONTNAMES[0]}`;
     statsCtx.fillText(title,POS_X+5,POS_Y+16);
 
-    //Opis
     for (let i = 0; i < description.length; i++){
         statsCtx.fillStyle = "White";
         statsCtx.font = `16px ${FONTNAMES[1]}`;
@@ -348,44 +341,35 @@ function drawTooltip(statsCtx,width,height){
     }
 }
 
-function drawInventory(statsCtx,player){
-    //funkcja do rysowania przedmiotów ekwipunku
+function drawInventory(statsCtx, player, width) {
     let slots = player.inventory;
     if (slots.length > INVENTORY_MAX_SLOTS) return;
 
+    const GAP = 10;
+    const slotSize = INVENTORY_SLOT_SIZE;
+    const gridW = 3 * slotSize + 2 * GAP;
+    const gridH = 2 * slotSize + GAP;
+    const startX = (width - gridW) / 2;
+    const startY = HUD_POSITIONS.inventory_border[1] + 20;
+
     statsCtx.lineWidth = 4;
     statsCtx.strokeStyle = "black";
-    statsCtx.strokeRect(HUD_POSITIONS.inventory_border[0],HUD_POSITIONS.inventory_border[1],400,120);
+    statsCtx.strokeRect(startX - 60, startY - 8, gridW + 120, gridH + 16);
 
-    for (let i = 0; i < INVENTORY_MAX_SLOTS; i++){
-        statsCtx.drawImage(
-            TEXTURES.INVENTORY_SLOT,
-            HUD_POSITIONS.inventory_slots[0] + i*100,
-            HUD_POSITIONS.inventory_slots[1],
-            INVENTORY_SLOT_SIZE,
-            INVENTORY_SLOT_SIZE
-        );
+    for (let i = 0; i < INVENTORY_MAX_SLOTS; i++) {
+        const col = i % 3;
+        const row = Math.floor(i / 3);
+        const slot_x = startX + col * (slotSize + GAP);
+        const slot_y = startY + row * (slotSize + GAP);
 
-        if (player.inventory[i] != undefined && player.inventory[i] != 0){
+        statsCtx.drawImage(TEXTURES.INVENTORY_SLOT, slot_x, slot_y, slotSize, slotSize);
+
+        if (player.inventory[i] != undefined && player.inventory[i] != 0) {
             statsCtx.globalAlpha = 0.8;
-            var SLOT_SIZE = INVENTORY_SLOT_SIZE * 0.75;
-            let off_x = 0;
-            let off_y = 0;
-            if (slotHover[i]) {
-                SLOT_SIZE = INVENTORY_SLOT_SIZE * 0.80;
-                off_x = -1;
-                off_y = -1;
-            }
-            
-            
-
-            statsCtx.drawImage(
-                TEXTURES[player.inventory[i]],
-                HUD_POSITIONS.inventory_slots[0] + i*100+10+off_x,
-                HUD_POSITIONS.inventory_slots[1] + 10+off_y,
-                SLOT_SIZE,
-                SLOT_SIZE
-            )
+            var SLOT_SIZE_DRAW = slotSize * 0.75;
+            let off_x = 0, off_y = 0;
+            if (slotHover[i]) { SLOT_SIZE_DRAW = slotSize * 0.80; off_x = -1; off_y = -1; }
+            statsCtx.drawImage(TEXTURES[player.inventory[i]], slot_x + 10 + off_x, slot_y + 10 + off_y, SLOT_SIZE_DRAW, SLOT_SIZE_DRAW);
             statsCtx.globalAlpha = 1;
         }
     }
@@ -413,6 +397,7 @@ resetButton.setSize(180,40);
 
 export function renderHud(statsCtx,player,width,height,map,now){
     temp_now = now;
+    hudWidth = width;
     statsCtx.fillStyle = "#2B1A4F";
     statsCtx.fillRect(0,0,width,height);
 
@@ -421,14 +406,10 @@ export function renderHud(statsCtx,player,width,height,map,now){
     statsCtx.strokeRect(0,0,width,height);
     if (player.gameOver) return;
 
-
     drawHeartCounter(statsCtx, player.health);
     resetButton.draw(statsCtx);
     drawLevelInfo(statsCtx,map);
-
-    drawInventory(statsCtx,player);
-
-    drawTooltip(statsCtx, width, height)
-
-    drawAuthors(statsCtx)
+    drawInventory(statsCtx,player,width);
+    drawTooltip(statsCtx, width, height);
+    drawAuthors(statsCtx);
 }

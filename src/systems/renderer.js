@@ -144,7 +144,6 @@ export function renderPlayer(ctx,player,ease){
     );
 }
 
-// wspólna logika rysowania jednego bytu
 
 function drawEntity(ctx, i, entityInfo) {
 
@@ -170,7 +169,6 @@ function drawEntity(ctx, i, entityInfo) {
     var drawW = entityInfo.WidthScale * TILE_SIZE;
     var drawH = entityInfo.HeightScale * TILE_SIZE;
 
-    // jeśli byt ma kierunek w lewo — odbij obrazek lustrzanie
     if (i.direction !== undefined && i.direction === 1) {
         ctx.save();
         ctx.scale(-1, 1);
@@ -184,7 +182,6 @@ function drawEntity(ctx, i, entityInfo) {
 }
 
 
-// pułapki — rysowane POD graczem
 
 export function renderGroundEntities(ctx, entityHandler) {
 
@@ -198,8 +195,6 @@ export function renderGroundEntities(ctx, entityHandler) {
 
 }
 
-
-// nietoperze itp. — rysowane NAD graczem
 
 export function renderAirEntities(ctx, entityHandler) {
 

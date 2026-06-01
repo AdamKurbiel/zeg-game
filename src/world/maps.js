@@ -28,7 +28,7 @@ const maps = {
     "######.#####....###T..E#",
     "#..#P........##...#.###",
     "#.##..#.#.#######.#..##",
-    "#....##.#.#.....#.##..#",
+    "#....##.#N#.....#.##..#",
     "####.#..###.##..#..##.#",
     "#S.#.........#^.##..#.#",
     "##^###.####..#...##.#.#",
@@ -46,7 +46,8 @@ const maps = {
 };
 // notatki treść
 export const notes = {
-    1: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae imperdiet tellus, a euismod orci. Integer aliquam .";
+    1: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae imperdiet tellus, a euismod orci. Integer aliquam .",
+    2: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae imperdiet tellus, a euismod orci. Integer aliquam ."
 };
 
 export function getMap(index){

@@ -23,12 +23,10 @@ export class Spider {
 
             var nextCell = map.getCell(this.x + this.direction, this.y);
 
-            // odbij jeśli ściana, brak komórki lub niechodliwy kafelek
             if (nextCell === undefined || (nextCell !== "." && nextCell !== ";")) {
                 this.direction *= -1;
             }
 
-            // sprawdź ponownie po odbiciu (zabezpieczenie przed zakleszczeniem)
             var nextCellAfterFlip = map.getCell(this.x + this.direction, this.y);
             if (nextCellAfterFlip === undefined || (nextCellAfterFlip !== "." && nextCellAfterFlip !== ";")) {
                 // otoczony z obu stron — stój w miejscu
@@ -36,7 +34,7 @@ export class Spider {
                 return;
             }
 
-            // animacja — przełącz klatkę
+           
             this.frame = this.frame === 0 ? 1 : 0;
 
             map.clearRow(this.x, this.y);

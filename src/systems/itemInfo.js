@@ -21,19 +21,30 @@ export const ITEM_DICT = {
     },
     CRYSTAL_BLUE : {
         "Rarity": 3,
-        "Title": "Kryształ Niebieski",
+        "Title": "Kryształ Blu",
         "Description": "Emanuje zimnym blaskiem.\nCzujesz jak pulsuje w dłoni."
     },
     CRYSTAL_PINK : {
         "Rarity": 3,
-        "Title": "Kryształ Różowy",
+        "Title": "Kryształ Pik",
         "Description": "Ciepły w dotyku.\nPachnie czymś słodkim."
     },
     CRYSTAL_ORANGE : {
         "Rarity": 3,
-        "Title": "Kryształ Pomarańczowy",
+        "Title": "Kryształ Org",
         "Description": "Wibruje energią.\nPodczas trzymania słyszysz brzęczenie."
-    }
+    },
+    CANDY : {
+        "Rarity": 1,
+        "Title": "Cukierek",
+        "Description": "Słodki ratunek.\nPrzywraca 2 punkty życia.\n**Smak zdecydowanie lepszy\nniż medkit.**"
+    },
+
+    SUSSY_POWDER : {
+        "Rarity": 2,
+        "Title": "Sus Proszek",
+        "Description": "Przywraca 5 punktów życia.\nZwiększa widoczność na 8 sek.\n**Skład: ???**"
+    },
 }
 
 export const ITEM_RARITY_DICT = {

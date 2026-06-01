@@ -1,4 +1,5 @@
 import { restartLevel, nextLevel } from "../core/game.js";
+import { activatePowder } from "../systems/vignette.js";
 
 export function Player(){
     this.health = 2, //Życia gracza
@@ -199,11 +200,11 @@ Player.prototype.move = function(dx,dy,map,entityHandler, audioSystem){
     }
 
     if (nextTile == "Q"){ // kryształ niebieski
-    if (this.inventory.length >= 3) return;
-    audioSystem.playSfx("assets/sounds/sfx/pickup_item.mp3", 0.25);
-    map.clearRow(this.x, this.y);
-    this.inventory.push("CRYSTAL_BLUE");
-    this.crystalOrder.push("Q");
+        if (this.inventory.length >= 3) return;
+        audioSystem.playSfx("assets/sounds/sfx/pickup_item.mp3", 0.25);
+        map.clearRow(this.x, this.y);
+        this.inventory.push("CRYSTAL_BLUE");
+        this.crystalOrder.push("Q");
     }
 
     if (nextTile == "R"){ // kryształ różowy
@@ -220,6 +221,23 @@ Player.prototype.move = function(dx,dy,map,entityHandler, audioSystem){
         map.clearRow(this.x, this.y);
         this.inventory.push("CRYSTAL_ORANGE");
         this.crystalOrder.push("U");
+    }
+
+
+    if (nextTile == "Y"){ // Cukierek 
+        if (this.inventory.length >= 3) return;
+
+        audioSystem.playSfx("assets/sounds/sfx/pickup_item.mp3",0.25);
+        map.clearRow(this.x,this.y);
+        this.inventory.push("CANDY");
+    }
+
+        if (nextTile == "W"){ // Podejrzany proszek
+            if (this.inventory.length >= 3) return;
+
+            audioSystem.playSfx("assets/sounds/sfx/pickup_item.mp3", 0.25);
+            map.clearRow(this.x, this.y);
+            this.inventory.push("SUSSY_POWDER");
     }
 
 

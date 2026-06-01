@@ -2,7 +2,7 @@ import { buildMap, renderGroundEntities, renderAirEntities, renderPlayer } from 
 import { renderHud, renderNotes } from "../systems/hud.js";
 import { FONTNAMES } from "./main.js";
 import { notes } from "../world/maps.js";
-import{ fog, updateFog, drawFog } from "../systems/vignette.js";
+import{ fog, updateFog, drawFog, activatePowder } from "../systems/vignette.js";
 
 const MATH_CHEST_PUZZLE = {
     question : "2 + 2 × 3 = ?",
@@ -306,7 +306,7 @@ export function createGame(ctx, statsCtx, notesCtx, gameCanvas, statsCanvas, not
         camera.updatePosition(player,GAME_WIDTH,GAME_HEIGHT);
         entityHandler.update(map,now);
 
-        updateFog(player);
+        updateFog(player, now);
     }
 
     function render(){

@@ -1,6 +1,7 @@
 import { Player } from "../entities/player.js";
 import { TEXTURES } from "./renderer.js";
 import { ITEM_DICT, ITEM_RARITY_DICT } from "./itemInfo.js";
+import { activatePowder } from "./vignette.js";
 import { restartLevel } from "../core/game.js";
 import { FONTNAMES } from "../core/main.js";
 import { notes } from "../world/maps.js";
@@ -238,6 +239,17 @@ export function checkHudClick(x,y,player,map,entityHandler,audioSystem){
             if (item == "MEDKIT"){
                 player.deleteItem("MEDKIT");
                 player.health += 3;
+                audioSystem.playSfx('assets/sounds/sfx/heal.mp3', 0.35);
+            }
+            if (item == "CANDY"){
+                player.deleteItem("CANDY");
+                player.health += 2;
+                audioSystem.playSfx('assets/sounds/sfx/heal.mp3', 0.35);
+            }
+            if (item == "SUSSY_POWDER"){
+                player.deleteItem("SUSSY_POWDER");
+                player.health += 5;
+                activatePowder(temp_now);
                 audioSystem.playSfx('assets/sounds/sfx/heal.mp3', 0.35);
             }
             return;

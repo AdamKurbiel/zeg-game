@@ -31,7 +31,9 @@ const TILE_COLORS = {
     "Q" : "CRYSTAL_BLUE",
     "R" : "CRYSTAL_PINK",
     "U" : "CRYSTAL_ORANGE",
-    "X" : "LAB_DOOR"
+    "X" : "LAB_DOOR",
+    "Y" : "CANDY",    //Y - Cukierek
+    "W" : "SUSSY_POWDER"  //W - Podejrzany proszek
 };
 
 
@@ -82,7 +84,10 @@ export const TEXTURES = {
     CRYSTAL_BLUE   : createImage("assets/textures/crystal-blue.png"),
     CRYSTAL_PINK   : createImage("assets/textures/crystal-pink.png"),
     CRYSTAL_ORANGE : createImage("assets/textures/crystal-orange.png"),
-    LAB_DOOR       : createImage("assets/textures/lab-door.png")
+    LAB_DOOR       : createImage("assets/textures/lab-door.png"),
+
+    CANDY        : createImage("assets/textures/candy.png"),
+    SUSSY_POWDER : createImage("assets/textures/sussy-powder.png")
 }
 
 //TODO: ZMIENIĆ PLACEHOLDEROWE KOLORY NA TEKSTURY

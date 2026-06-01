@@ -18,7 +18,22 @@ export const ITEM_DICT = {
         "Rarity": 2,
         "Title": "Medkit",
         "Description": "Używa się automatycznie.\nPrzywraca 3 punkty życia.\n**Smak lepszy niż niejeden napój.**"
-    }  
+    },
+    CRYSTAL_BLUE : {
+        "Rarity": 3,
+        "Title": "Kryształ Niebieski",
+        "Description": "Emanuje zimnym blaskiem.\nCzujesz jak pulsuje w dłoni."
+    },
+    CRYSTAL_PINK : {
+        "Rarity": 3,
+        "Title": "Kryształ Różowy",
+        "Description": "Ciepły w dotyku.\nPachnie czymś słodkim."
+    },
+    CRYSTAL_ORANGE : {
+        "Rarity": 3,
+        "Title": "Kryształ Pomarańczowy",
+        "Description": "Wibruje energią.\nPodczas trzymania słyszysz brzęczenie."
+    }
 }
 
 export const ITEM_RARITY_DICT = {

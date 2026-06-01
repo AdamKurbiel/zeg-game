@@ -27,7 +27,11 @@ const TILE_COLORS = {
     "N" : "PAPERNOTES", //notatki
     "C" : "CHEST_MATH",    //skrzynka zamknięta
     "O" : "CHEST_MATH_OPEN",  //skrzynka otwarta 
-    "P" : "SPIDER0"
+    "P" : "SPIDER0",
+    "Q" : "CRYSTAL_BLUE",
+    "R" : "CRYSTAL_PINK",
+    "U" : "CRYSTAL_ORANGE",
+    "X" : "LAB_DOOR"
 };
 
 
@@ -74,6 +78,11 @@ export const TEXTURES = {
     SPIKES1 : createImage("assets/textures/spikes-s1.png"), // faza 0 bezpieczna
     SPIKES2 : createImage("assets/textures/spikes-s2.png"), // faza 1 niebezpieczna
     SPIKES3 : createImage("assets/textures/spikes-s3.png"), // faza 2 niebezpieczna
+
+    CRYSTAL_BLUE   : createImage("assets/textures/crystal-blue.png"),
+    CRYSTAL_PINK   : createImage("assets/textures/crystal-pink.png"),
+    CRYSTAL_ORANGE : createImage("assets/textures/crystal-orange.png"),
+    LAB_DOOR       : createImage("assets/textures/lab-door.png")
 }
 
 //TODO: ZMIENIĆ PLACEHOLDEROWE KOLORY NA TEKSTURY

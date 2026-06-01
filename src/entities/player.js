@@ -29,6 +29,7 @@ export function Player(){
     this.immuneCooldown = 0; //cooldown do nietykalności
     this.immune = false; //efekt nietykalności przez burgera
     this.initialHealth = this.health; //zabezpieczenie aby hp po restarcie było ustawiane na takie jakie gracz miał na początku poziomu.
+    this.crystalOrder = []; // kolejność zebranych kryształów
     
 }
 Player.prototype.resetPosition = function(map){
@@ -122,6 +123,38 @@ Player.prototype.move = function(dx,dy,map,entityHandler, audioSystem){
         }
     }
 
+    if (nextTile == "X"){ // drzwi kryształowe
+        const CORRECT_ORDER = ["Q","R","U"]; // niebieski → różowy → pomarańczowy
+        const correct = 
+            this.crystalOrder.length === 3 &&
+            this.crystalOrder[0] === CORRECT_ORDER[0] &&
+            this.crystalOrder[1] === CORRECT_ORDER[1] &&
+            this.crystalOrder[2] === CORRECT_ORDER[2];
+
+        if (correct){
+            // dobra kolejność — otwieramy drzwi
+            map.clearRow(this.x+dx, this.y+dy);
+            this.inventory = this.inventory.filter(i => 
+                i !== "CRYSTAL_BLUE" && i !== "CRYSTAL_PINK" && i !== "CRYSTAL_ORANGE"
+            );
+            this.crystalOrder = [];
+            audioSystem.playSfx("assets/sounds/sfx/blip.mp3", 0.5);
+            // gracz wchodzi na kafelek drzwi
+        } else {
+            // zła kolejność — kryształy wracają na mapę, gracz dostaje reset kolejności
+            this.crystalOrder = [];
+            // usuń kryształy z ekwipunku
+            this.inventory = this.inventory.filter(i => 
+                i !== "CRYSTAL_BLUE" && i !== "CRYSTAL_PINK" && i !== "CRYSTAL_ORANGE"
+            );
+            // przywróć kryształy na mapę (wróć do pozycji startowych)
+            // Najprostsze rozwiązanie: przeładuj pozycje kryształów
+            map.loadLevel(map.level); // reset mapy bez resetu gracza
+            audioSystem.playSfx("assets/sounds/sfx/bonk.mp3", 0.25);
+            return; // gracz NIE wchodzi
+        }
+    }
+
     if (nextTile == "N"){  //notatki
     this.currentNote = map.level;
     map.clearRow(this.x+dx, this.y+dy);
@@ -163,6 +196,30 @@ Player.prototype.move = function(dx,dy,map,entityHandler, audioSystem){
         audioSystem.playSfx("assets/sounds/sfx/pickup_item.mp3",0.25);
         map.clearRow(this.x,this.y);
         this.inventory.push("KEY");
+    }
+
+    if (nextTile == "Q"){ // kryształ niebieski
+    if (this.inventory.length >= 3) return;
+    audioSystem.playSfx("assets/sounds/sfx/pickup_item.mp3", 0.25);
+    map.clearRow(this.x, this.y);
+    this.inventory.push("CRYSTAL_BLUE");
+    this.crystalOrder.push("Q");
+    }
+
+    if (nextTile == "R"){ // kryształ różowy
+        if (this.inventory.length >= 3) return;
+        audioSystem.playSfx("assets/sounds/sfx/pickup_item.mp3", 0.25);
+        map.clearRow(this.x, this.y);
+        this.inventory.push("CRYSTAL_PINK");
+        this.crystalOrder.push("R");
+    }
+
+    if (nextTile == "U"){ // kryształ pomarańczowy
+        if (this.inventory.length >= 3) return;
+        audioSystem.playSfx("assets/sounds/sfx/pickup_item.mp3", 0.25);
+        map.clearRow(this.x, this.y);
+        this.inventory.push("CRYSTAL_ORANGE");
+        this.crystalOrder.push("U");
     }
 
 

@@ -50,7 +50,7 @@ export const FONTNAMES = ["tiny5",'jersey'];
 
 
 //aktualny poziom
-var currentLevel = 4;
+var currentLevel = 2;
 
 
 //funkcja rozpoczynająca grę

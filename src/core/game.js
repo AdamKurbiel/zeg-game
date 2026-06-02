@@ -136,11 +136,17 @@ export function createGame(ctx, statsCtx, notesCtx, gameCanvas, statsCanvas, not
         ctx.imageSmoothingEnabled = false;
         ctx.drawImage(CHEST_NUMBER_IMG, imgX + shakeX, imgY, imgW, imgH);
  
-        const displayVal = numberChestAnswer === "" ? "___" : numberChestAnswer;
+                const slots = [
+            numberChestAnswer[0] || "_",
+            numberChestAnswer[1] || "_",
+            numberChestAnswer[2] || "_",
+        ];
         ctx.textAlign = "center";
         ctx.font      = `bold 48px tiny5`;
         ctx.fillStyle = "#ffd966";
-        ctx.fillText(displayVal, imgX + shakeX + imgW / 2, imgY + imgH * 0.62);
+        ctx.fillText(slots[0], imgX + shakeX + imgW * 0.22, imgY + imgH * 0.59);
+        ctx.fillText(slots[1], imgX + shakeX + imgW * 0.50, imgY + imgH * 0.59);
+        ctx.fillText(slots[2], imgX + shakeX + imgW * 0.78, imgY + imgH * 0.59);
  
         ctx.font      = `16px tiny5`;
         ctx.fillStyle = "#aaaaaa";

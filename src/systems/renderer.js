@@ -60,7 +60,7 @@ const TILE_COLORS = {
 
     "*" : "LAB_FLOOR_S1",//* start laboratoryjny
 
-    "@" : "CHEST_NUMBER",
+    "@" : "CHEST",
     ")" : "CHEST_OPEN",
 };
 

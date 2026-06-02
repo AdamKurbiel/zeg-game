@@ -23,13 +23,13 @@ export class Spider {
 
             var nextCell = map.getCell(this.x + this.direction, this.y);
 
-            if (nextCell === undefined || (nextCell !== "." && nextCell !== ";")) {
+            if (nextCell === undefined || (nextCell !== "." && nextCell !== ";" && nextCell !== "Z" && nextCell !== "!")) {
                 this.direction *= -1;
             }
 
             var nextCellAfterFlip = map.getCell(this.x + this.direction, this.y);
-            if (nextCellAfterFlip === undefined || (nextCellAfterFlip !== "." && nextCellAfterFlip !== ";")) {
-                // otoczony z obu stron — stój w miejscu
+            if (nextCellAfterFlip === undefined || (nextCellAfterFlip !== "." && nextCellAfterFlip !== ";" && nextCellAfterFlip !== "Z" && nextCellAfterFlip !== "!")) {
+                
                 this.cooldown = now;
                 return;
             }

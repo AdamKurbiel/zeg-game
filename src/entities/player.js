@@ -28,6 +28,8 @@ export function Player(){
     this.renderX = this.x, //płynne chodzenie
     this.renderY = this.y //płynne chodzenie
     this.immuneCooldown = 0; //cooldown do nietykalności
+    this.damageCooldown = 0;
+    this.DAMAGE_COOLDOWN = 1500; // 1.5 sekundy nietykalności po obrażeniach
     this.immune = false; //efekt nietykalności przez burgera
     this.initialHealth = this.health; //zabezpieczenie aby hp po restarcie było ustawiane na takie jakie gracz miał na początku poziomu.
     this.crystalOrder = []; // kolejność zebranych kryształów
@@ -75,10 +77,11 @@ Player.prototype.update = function(KEYS, map, now, MOVE_DELAY,entityHandler,audi
 
     if (currTile == "<" || currTile == "^" || currTile == "P" || currTile == "V"){
         if (this.immune) return;
-        audioSystem.playSfx("assets/sounds/sfx/bonk.mp3",0.25);
-        restartLevel(this,entityHandler,map,true);     
+            if (now - this.damageCooldown < this.DAMAGE_COOLDOWN) return;
+            this.damageCooldown = now;
+            audioSystem.playSfx("assets/sounds/sfx/bonk.mp3",0.25);
+            restartLevel(this,entityHandler,map,true);     
     }
-
      if (currTile == "T") {
 
         for (let entity of entityHandler.entities) {
@@ -265,10 +268,10 @@ Player.prototype.move = function(dx,dy,map,entityHandler, audioSystem){
         for (let row = 0; row < map.content().length; row++){
             for (let col = 0; col < map.content()[row].length; col++){
                 if (map.content()[row][col] === laserSymbol){
-                    map.content()[row][col] = ".";
-                }
-            }
+                    map.clearRow(col, row);
         }
+    }
+}
         audioSystem.playSfx("assets/sounds/sfx/blip.mp3", 0.5);
     }
 

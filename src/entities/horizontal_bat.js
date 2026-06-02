@@ -26,7 +26,8 @@ export class HorizontalBat {
         }
         if (now - this.cooldown > moveDelay) {
 
-            if (map.getCell(this.x+this.direction,this.y) != "." && map.getCell(this.x+this.direction,this.y) != ";"){
+            const nextCell = map.getCell(this.x+this.direction,this.y);
+            if (nextCell !== "." && nextCell !== ";" && nextCell !== "Z" && nextCell !== "!"){
                 this.direction *= -1;
             }
 

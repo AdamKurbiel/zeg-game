@@ -27,13 +27,13 @@ export class VerticalSpider {
             var nextCell = map.getCell(this.x, this.y + this.direction);
  
             // odbij jeśli ściana lub brak komórki
-            if (nextCell === undefined || (nextCell !== "." && nextCell !== ";")) {
+            if (nextCell === undefined || (nextCell !== "." && nextCell !== ";" && nextCell !== "Z" && nextCell !== "!")) {
                 this.direction *= -1;
             }
  
             // zabezpieczenie przed zakleszczeniem
             var nextCellAfterFlip = map.getCell(this.x, this.y + this.direction);
-            if (nextCellAfterFlip === undefined || (nextCellAfterFlip !== "." && nextCellAfterFlip !== ";")) {
+            if (nextCellAfterFlip === undefined || (nextCellAfterFlip !== "." && nextCellAfterFlip !== ";" && nextCellAfterFlip !== "Z" && nextCellAfterFlip !== "!")) {
                 this.cooldown = now;
                 return;
             }

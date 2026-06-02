@@ -165,10 +165,10 @@ export function placeTile(ctx, x, y, style){
 }
 
 //funkcja renderująca teksturę (obrazek)
-export function placeTexture(ctx, x, y, img, withGrass = true){
+export function placeTexture(ctx, x, y, img, withGrass = true, floorImg = null){
     if (withGrass) {
         ctx.drawImage(
-            TEXTURES.GRASS1,
+            floorImg || TEXTURES.GRASS1,
             x * TILE_SIZE,
             y * TILE_SIZE,
             TILE_SIZE,
@@ -209,7 +209,9 @@ const FLOOR_TEXTURE_FOR = {
 function getFloorTextureAt(map, x, y) {
     if (!map) return TEXTURES.GRASS1;
 
-    // Sprawdź sąsiadów żeby odgadnąć typ podłogi pod bytem
+    const self = map.getCell(x, y);
+    if (self === "Z" || self === "!") return TEXTURES.LAB_FLOOR_S1;
+
     const neighbors = [
         map.getCell(x + 1, y),
         map.getCell(x - 1, y),
@@ -218,12 +220,13 @@ function getFloorTextureAt(map, x, y) {
     ];
 
     for (const cell of neighbors) {
-        if (cell === "Z" || cell === "!") return TEXTURES.LAB_FLOOR_S1;
-        if (cell === "J")                return TEXTURES.LAB_FLOOR_S1;
+        if (cell === "Z" || cell === "!" || cell === "J" ||
+            cell === "A" || cell === "F" || cell === "G" || cell === "H" || cell === "I") {
+            return TEXTURES.LAB_FLOOR_S1;
+        }
     }
 
     return TEXTURES.GRASS1;
-
 }
 
 function drawEntity(ctx, i, entityInfo, map) {
@@ -239,9 +242,12 @@ function drawEntity(ctx, i, entityInfo, map) {
         }
     }
 
-    const floorTexture = getFloorTextureAt(map, i.x, i.y);
-    ctx.drawImage(floorTexture,
-        i.x * TILE_SIZE, i.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    const drawsFloor = (i.symbol === "T" || i.symbol === "V");
+    if (drawsFloor) {
+        const floorTexture = getFloorTextureAt(map, i.x, i.y);
+        ctx.drawImage(floorTexture,
+            i.x * TILE_SIZE, i.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
 
     i.renderX = lerp(i.renderX, i.x, 0.175);
     i.renderY = lerp(i.renderY, i.y, 0.30);
@@ -280,8 +286,7 @@ export function renderAirEntities(ctx, entityHandler, map) {
     }
 }
 
-export function buildMap(ctx, level){
-    //Ta funkcja interpretuje mapę na podstawie znaków z poziomu (maps.js)
+export function buildMap(ctx, level, map){
     let row = 0;
 
     level.content().forEach(element => {
@@ -290,16 +295,19 @@ export function buildMap(ctx, level){
         while(element[column] != undefined){
             var tile = TILE_COLORS[element[column]];
 
+            const floorTile = map && map.floorGrid && map.floorGrid[row] 
+                ? map.floorGrid[row][column] 
+                : null;
+            const floorImg = (floorTile === "Z" || floorTile === "!") 
+                ? TEXTURES.LAB_FLOOR_S1 
+                : TEXTURES.GRASS1;
+
             if (isEntity(element[column]) == true){
-                placeTile(ctx,column,row,"white");
+                ctx.drawImage(floorImg, column * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
             }else{
-                //Patrz: linijka 4-11
-
-
                 if (tile && tile == tile.toUpperCase()){
-
                     const noGrass = ["Z", "!", "J"];
-                    placeTexture(ctx, column, row, TEXTURES[tile], !noGrass.includes(tile));
+                    placeTexture(ctx, column, row, TEXTURES[tile], !noGrass.includes(tile), floorImg);
                 }else{
                     placeTile(ctx, column, row, tile);
                 }

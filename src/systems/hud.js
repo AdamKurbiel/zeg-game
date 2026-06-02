@@ -355,7 +355,6 @@ function drawTooltip(statsCtx,width,height){
 
 function drawInventory(statsCtx, player, width) {
     let slots = player.inventory;
-    if (slots.length > INVENTORY_MAX_SLOTS) return;
 
     const GAP = 10;
     const slotSize = INVENTORY_SLOT_SIZE;

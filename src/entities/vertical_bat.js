@@ -26,7 +26,8 @@ export class VerticalBat {
         }
         if (now - this.cooldown > moveDelay) {
 
-            if (map.getCell(this.x,this.y+this.direction) != "." && map.getCell(this.x,this.y+this.direction) != ";"){
+            const nextCell = map.getCell(this.x,this.y+this.direction);
+            if (nextCell !== "." && nextCell !== ";" && nextCell !== "Z" && nextCell !== "!"){
                 this.direction *= -1;
             }
 

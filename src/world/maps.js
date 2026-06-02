@@ -68,25 +68,25 @@ const maps = {
 ],
     4:[
         "JJJJJJJJJJJJJJJJJJJJJJJJJJ",
-        "J,LLLLLL,,,,,L,,,LL,,,NLLJ",
-        "J,L,,,,,,LLLLL,LLLLL,LLLLJ",
-        "J,L,L,,,,,,,,,,,,,,L,L,LLJ",
+        "J^LLLLLL,,,,,L,,,LL,,,NLLJ",
+        "J,L<,,,,,LLLLL,LLLLL,LLLLJ",
+        "J,L,L,,,,,,,,,,,,,VL,L,LLJ",
         "J,L,LLLLL,,LLLLLLL,LT,,L,J",
         "J,T,,,,,LL,,,,,,L,,L,LLL,J",
         "J,LLLLL,,LLLLL,,L,,,,,,,,J",
         "JLL,,BL,T,,,,,,,LL,,LLL,,J",
         "J,,,LLLT,,,,LLL,LLLLLLLLLJ",
         "J,LL,L,LLLL,LLL,L,,,LL,,,J",
-        "J,,,,,,,,,,,LLL,L,L,,,,L,J",
+        "JP,,,,,,,,,,LLL,L,L,,,,L,J",
         "JL,LLL,LLL,LLL,,L,LTLLLL,J",
         "JL,L,,,L,,L,,,,,L,L,,L,L,J",
         "JL,L,L,,,LL,LLLLLLL,LL,,,J",
         "JLTLLLLLLLL,,,T,DT,,,,LLLLJJJJJ",
         "JLTL,,,,,LLLLLLLLLLL,L,,,J,T,J",
-        "J,,L,LLL,LL,,,LL,,,,,L,L,JT,TJ",
-        "J,,,,,,L,T,,L,TL,LLL,LTJJJ,T,E",
+        "J,,L,LLL,LL,,,LLP,,,,L,L,JT,TJ",
+        "J<,,,,,L,T,,L,TL,LLL,LTJJJ,T,E",
         "JLLL,L,L,LLLL,LL,,,L,,,,T,T,TJ",
-        "J,,,,L,L,L,,,,L,,L,LLL,JJT,T,J",
+        "JY,,,L,L,L,,,WL,,L,LLL,JJT,T,J",
         "JJJJJJJJ*JJJJJJJJJJJJJJJJJJJJJ",
         "JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ"
 
@@ -96,10 +96,10 @@ const maps = {
         "JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ",
         "JJ,,LL,,,,,,,6L,L,,,,LL,,,,YL,,L,,,L,,,,,,L,J",
         "JJ,,,L,TLLL,LLL,LLLL,LL,L,L,,,LLLL,LLLLLL,L,J",
-        "JJ,L,LL,,L,,,,,,,,,L,L,,L,LLLLL,,,,,,,,,L,L,J",
+        "JJ,L,LL,,L,,,,,,,,,L,L,,L,LLLLL<,,,,,,,,L,L,J",
         "JJ,LT,L,LLLLLLL,LLLL,L,LLLL,,,,,L,LLLLL,LT,,J",
         "JJLLTLL,L,,,,,L,,TT,,L,,,,,,LLL,L,,T,,L,,,L,J",
-        "JJ,L,,L,LLLLL,LLLLLLLLL,L0L,L,L,LLLL,LLLLLLTJ",
+        "JJ,L,VL,LLLLL,LLLLLLLLL,L0L,L,L,LLLL,LLLLLLTJ",
         "JJ,T,,,,L,L,,,L,,LLL,YLLLLL,L,L,L,,L,L,LYL,,J",
         "JJ,LL,LLL,L,LLL,,,,,,,,,,,,,L,L,,,,LLL,L,L,LJ",
         "JJ,,L,,T,,,,LL,L,LLLLLLLL,LL,,,,LL,,,,,,,L,,J",
@@ -108,18 +108,18 @@ const maps = {
         "JJ,LL,,LL,,,L,,L,L,,,,,,,,,,LL,,L,,,LT,L,,LLJ",
         "JJ,,,,,,L,LLL,LL,LLLLLLLLLL,,LL,T,L,,T,,LL,,J",
         "JJLLL,LLL,LL,,LL,T,,,,,LL,L,,L,,L,LLL,L,LL,LJ",
-        "JJ7,L,L,,,T,,,,,LLLLLL,,,,L,,LL,L,,,L,L,T,,,J",
+        "JJ7,L,L,,,T,,,V,LLLLLL,,,,L,,LL,L,,,L,L,T,,,J",
         "JJL,L,LTLLLLLL,,L,,,LLL,LLL,,L,,LLLLLLLLL,LLJ",
-        "JJ,,L,LTL,,,,L,,L,L,L,,,,,,,LLL,L,L,L,L,,,,LJ",
+        "JJ,,L,LTL,,,,L,,L,L,L,,,,,,^LLL,L,L,L,L,,,,LJ",
         "JJ,LLLL,LL,,LL,TL,LLL,,L,LLLL,L,,,,T,,LLL,LLJ",
         "JJ,,,YL,,L,LL,,,L,T,LL,L,,LL,,L,LLLLL,,LL,,LJJJJJJJJJJJJJJJJJ",
         "JJL,LLL,LL,L,L,,,,,,L,,LLLL,,LL,L,,,L,,,,L,,JJ1JJ2JJ3JJ4JJ5JJ",
-        "JJL,L,,,,,,L,LLLLLL,L,,L,,L,,LL,L,LLL,LLT,L,J,1,,2,,3,,4,,5,J",
+        "JJL,L<,,,,,L,LLLLLL,L,,L,,L,,LL,L,LLL,LLT,L,J,1,,2,,3,,4,,5,J",
         "JJ,,L,L,LLLL,,,,L,L,LL,L,LLL,,L,L,,,,,LL,,L,J,1,,2,,3,,4,,5,JJJJ",
         "JJL,,,LTL,,,,LL,L,L,,,,L,L,L,LL,LLLLLLLL,LLLJ,1,,2,,3,,4,,5,,EEJ",
         "JJLLLLL,L,,L,,L,L,,TLLLL,,,,T,,,,,,T,,,LL,,,,,1,,2,,3,,4,,5,,EEJ",
         "JJ,,,,L,LL,LLLLLLLLLLLLLLLLLLL,L,,LLLL,LL,L,J,1,,2,,3,,4,,5,JJJJ",
-        "JJ,LT,L,,,T,,,,T,,,T,,LL,,,T,L,LL,L,,L,L,,L,J,1,,2,,3,,4,,5,J",
+        "JJ,LT,L,,,T,,,,T,,,T,VLL,,,T,L,LL,L,,L,L,,L,J,1,,2,,3,,4,,5,J",
         "JJ,LL,LLLLLLLLLL,LLLL,LL,L,L,,,L,,L,,L,LL,L,JJ1JJ2JJ3JJ4JJ5JJ",
         "JJ,,LT,LL,,,,LTL,L,,L,L,,LLLLLLLLLLL,L,,,,L,JJJJJJJJJJJJJJJJJ",
         "JJ,,LL,L,,LLLL,,,LL,L,LLLLL,L,,,,,LL,LL,LLL,J",
@@ -128,8 +128,8 @@ const maps = {
         "JJLLLLL,LL,L,L,,,,,L,,,L,,L,LLLLLLLLLL,,L,,LJ",
         "JJ,,,9L,,,TLLLLLLLLLLL,L,LL,L,,LLLL,,L,LL,,LJ",
         "JJL,LLL,LL,L,,,L,,,,,,,L,,,,LL,L,,,,,L,,,T,,J",
-        "JJ,,,,,L,,L,L,L,LLLLLLLLLLLL,,,TLLL,LLL,LLLJ",
-        "JJ,LLLL,L,,,,L,L,,,,,,,,,,,L,,LL,L,,,L,L,,,,J",
+        "JJ,,,,,,L,,L,L,L,LLLLLLLLLLLL,,,TLLL,LLL,LLLJ",
+        "JJ,LLLL,L,,,,L,L<,,,,,,,,,,L,,LL,L,,,L,L,,,,J",
         "JJ,L,,,,L,LLLL,L,LLLL,LL,LL,,LLL,LLLLLTLLLL,J",
         "JJLL,LLL,T,L,,L,,L,,L,L,,LL,LL,L,,,,,L,,,,L,J",
         "JJ,L,LLL,LLLL,L,LL,,T,,L,,LYLL,LLLLL,L,LL,L,J",
@@ -139,7 +139,7 @@ const maps = {
         "JJ,LLL,LLLL,,L,L,,,,,LLLLLLLLL,LLLLL,LLLL,L,J",
         "JJ,LL,TL,,,L,LLL,LL,L,L,,,L,,,,L,,,,,L,LL,L,J",
         "JJ,,,L,LLL,L,,,,,L,,,,LLL,,LL,L,LL,L,L,,,TLTJ",
-        "JJ,LL,,,,,,LLL,LLL,LL,,,L,,,,,,,,,,L,L,LLLL,J",
+        "JJ,LL,,,,,,LLL,LLL,LL,,,LP,,,,,,,,,L,L,LLLL,J",
         "JJ,L,,LLL,LL,,,,WL,,L,L,,,L,LL,,L,LL,L,L8,,,J",
         "JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ"
 
@@ -188,25 +188,23 @@ Map.prototype.loadLevel = function(level){
         let j;
         for (j in row){
             if (row[j] == "#"){
-                let randomInt = Math.floor(Math.random() * 2) + 1; //1 lub 2
+                let randomInt = Math.floor(Math.random() * 2) + 1;
                 if (randomInt == 1){
                     row[j] = "$";
                 }
             }
 
             if (row[j] == "."){
-                let randomInt = Math.floor(Math.random() * 4) + 1; //1 lub 2
+                let randomInt = Math.floor(Math.random() * 4) + 1;
                 if (randomInt == 1){
                     row[j] = ";";
                 }
             }
 
-            // L = stol laboratoryjny losuje jeden z 5 rodzaji
             if (row[j] == "L") {
                 const labTableVariants = ["A", "F", "G", "H", "I"];
                 row[j] = labTableVariants[Math.floor(Math.random() * labTableVariants.length)];
             }
-        
 
             if (row[j] == ",") {
                 const labFloorVariants = ["Z", "!"];
@@ -214,15 +212,28 @@ Map.prototype.loadLevel = function(level){
             }
         }
     }
+
+    // PO pętli — zapisz podłogę, zamieniając encje na właściwą podłogę
+    const isLab = [4, 5].includes(this.level);
+    const ENTITY_CHARS = ["<", "^", "T", "P", "V", "S", "*", "E", "B", "M", "K", "N", "C", "O", "Q", "R", "U", "X", "Y", "W", "D", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+    this.floorGrid = this.grid.map(row =>
+        row.map(cell => {
+            if (!ENTITY_CHARS.includes(cell)) return cell;
+            return isLab ? "Z" : ".";
+        })
+    );
 }
 Map.prototype.content = function(){
     return this.grid;
 }
 
 Map.prototype.clearRow = function(x,y){
-    this.grid[y][x] = ".";
+    if (this.floorGrid && this.floorGrid[y] && this.floorGrid[y][x] !== undefined) {
+        this.grid[y][x] = this.floorGrid[y][x];
+    } else {
+        this.grid[y][x] = ".";
+    }
 }
-
 Map.prototype.doMapExist = function(index){
     if (index in maps){
         return true;

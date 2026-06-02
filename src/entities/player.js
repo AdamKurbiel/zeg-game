@@ -22,6 +22,8 @@ export function Player(){
     this.currentNote = 0; //aktualnie wyświetlana notatka (0 jeśli nie wyświetlana)
     this.currentMathChest = false,  //czy UI skrzynki jest aktywne
     this.mathChestPos = null, //pozycja skrzynki { x, y }
+    this.currentNumberChest = false,
+    this.numberChestPos = null,
     this.animationState = "IDLE", //Stan animacji gracza
     this.foot = 0, //Klatka animacji gracza
     this.moveCooldown = 0; //Opóźnienie przy przytrzymaniu przycisku
@@ -161,18 +163,25 @@ Player.prototype.move = function(dx,dy,map,entityHandler, audioSystem){
     }
 
     if (nextTile == "N"){  //notatki
-    this.currentNote = map.level;
-    map.clearRow(this.x+dx, this.y+dy);
-    if (!this.collectedNotes.includes(map.level)) {
-        this.collectedNotes.push(map.level);
-    }                                                  
-}
+        this.currentNote = map.level;
+        map.clearRow(this.x+dx, this.y+dy);
+            if (!this.collectedNotes.includes(map.level)) {
+                this.collectedNotes.push(map.level);
+            }                                                  
+    }
 
      if (nextTile == "C"){ //skrzynka
-        this.mathChestPos     = { x: this.x + dx, y: this.y + dy };
+        this.mathChestPos = { x: this.x + dx, y: this.y + dy };
         this.currentMathChest = true;
-        this.paused           = true;
+        this.paused = true;
         return; // gracz NIE wchodzi na kafelek skrzynki
+    }
+
+    if (nextTile == "@"){
+        this.numberChestPos = { x: this.x + dx, y: this.y + dy };
+        this.currentNumberChest = true;
+        this.paused = true;
+        return;
     }
 
     this.x += dx;

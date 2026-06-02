@@ -59,6 +59,9 @@ const TILE_COLORS = {
     "!" : "LAB_FLOOR_S2",
 
     "*" : "LAB_FLOOR_S1",//* start laboratoryjny
+
+    "@" : "CHEST_NUMBER",
+    ")" : "CHEST_OPEN",
 };
 
 
@@ -134,7 +137,10 @@ export const TEXTURES = {
 
     LAB_WALL    : createImage("assets/textures/lab-wall.png"),
     LAB_FLOOR_S1 : createImage("assets/textures/lab-floor-s1.png"),
-    LAB_FLOOR_S2 : createImage("assets/textures/lab-floor-s2.png")
+    LAB_FLOOR_S2 : createImage("assets/textures/lab-floor-s2.png"),
+
+    CHEST : createImage("assets/textures/chest.png"),
+    CHEST_OPEN : createImage("assets/textures/chest-open.png"),
 }
 
 //TODO: ZMIENIĆ PLACEHOLDEROWE KOLORY NA TEKSTURY

@@ -215,7 +215,7 @@ Map.prototype.loadLevel = function(level){
 
     // PO pętli — zapisz podłogę, zamieniając encje na właściwą podłogę
     const isLab = [4, 5].includes(this.level);
-    const ENTITY_CHARS = ["<", "^", "T", "P", "V", "S", "*", "E", "B", "M", "K", "N", "C", "O", "Q", "R", "U", "X", "Y", "W", "D", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+    const ENTITY_CHARS = ["<", "^", "T", "P", "V", "S", "*", "E", "B", "M", "K", "N", "C", "O", "Q", "R", "U", "X", "Y", "W", "D", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "@", ")"];
     this.floorGrid = this.grid.map(row =>
         row.map(cell => {
             if (!ENTITY_CHARS.includes(cell)) return cell;

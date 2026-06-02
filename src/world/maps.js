@@ -148,8 +148,10 @@ const maps = {
 };
 // notatki treść
 export const notes = {
-    1: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae imperdiet tellus, a euismod orci. Integer aliquam .",
-    2: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae imperdiet tellus, a euismod orci. Integer aliquam ."
+    1: "Dzień 12 \n Moje badania wreszcie zaczynają przynosić efekty. Odkryłem kilka interesujących właściwości kryształów, choć początki były pełne błędów i nieudanych eksperymentów. Najważniejsze jest jednak to, że do wejścia do laboratorium potrzebne są trzy kryształy. Bez nich drzwi pozostaną zamknięte. Muszę pamiętać, by ich nie zgubić.",
+    2: "Dzień 18 \n Antidotum jest bezpiecznie ukryte w skrzyni. Zostawiłem sobie małą zagadkę na wypadek, gdybym zapomniał kodu \n Dwie straże stoją na początku, za nimi siedmiu uczonych, a na końcu dziewięć świec wskazuje drogę.",
+    3: "Dzień 24 \n Droga do dalszej części kompleksu staje się coraz bardziej niebezpieczna. Natrafiłem na liczne pułapki, a korytarze pełne są pająków i nietoperzy. Brakuje mi moich ulubionych bułek gołosza, które zawsze poprawiały mi humor podczas długich wypraw.Na jednej ze ścian znalazłem dziwny napis:\n 2 ścieżki prowadzą dalej\n 1 jest bezpieczna\n 3 pająki pilnują przejścia\n 6 nietoperzy krąży pod sufitem\n 7 razy omal nie wpadłem w pułapkę.\n Może te liczby kiedyś okażą się przydatne.",
+    4: "Dzień 31 \n Wyjście z laboratorium jest chronione lepiej niż przypuszczałem. Pięć laserów blokuje przejście i nie da się ich ominąć. Jedynym sposobem jest aktywowanie przycisków we właściwej kolejności kolorów. Dopiero wtedy system zabezpieczeń zostanie wyłączony. Muszę koniecznie zapamiętać poprawną sekwencję."
 };
 
 export function getMap(index){

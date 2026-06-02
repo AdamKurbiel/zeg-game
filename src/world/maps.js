@@ -105,16 +105,16 @@ Map.prototype.loadLevel = function(level){
             if (row[j] == "L") {
                 const labTableVariants = ["A", "F", "G", "H", "I"];
                 row[j] = labTableVariants[Math.floor(Math.random() * labTableVariants.length)];
-}
-        }
+            }
+        
 
             if (row[j] == ",") {
                 const labFloorVariants = ["Z", "!"];
                 row[j] = labFloorVariants[Math.floor(Math.random() * labFloorVariants.length)];
-}
+            }
+        }
     }
 }
-
 Map.prototype.content = function(){
     return this.grid;
 }

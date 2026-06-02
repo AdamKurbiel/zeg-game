@@ -317,9 +317,9 @@ export function createGame(ctx, statsCtx, notesCtx, gameCanvas, statsCanvas, not
         ctx.translate(-camera.renderX, -camera.renderY);
 
         buildMap(ctx,map);
-        renderGroundEntities(ctx, entityHandler);   // 2. pułapki POD graczem
-        renderPlayer(ctx, player, MOVE_EASING);     // 3. gracz
-        renderAirEntities(ctx, entityHandler);      // 4. nietoperze NAD graczem
+        renderGroundEntities(ctx, entityHandler, map);   // 2. pułapki POD graczem
+        renderPlayer(ctx, player, MOVE_EASING, map);     // 3. gracz
+        renderAirEntities(ctx, entityHandler, map);      // 4. nietoperze NAD graczem
         ctx.restore();
 
         drawFog(ctx, camera, GAME_WIDTH, GAME_HEIGHT);

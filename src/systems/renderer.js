@@ -56,7 +56,9 @@ const TILE_COLORS = {
     "J" : "LAB_WALL",
 
     "Z" : "LAB_FLOOR_S1",
-    "!" : "LAB_FLOOR_S2"
+    "!" : "LAB_FLOOR_S2",
+
+    "*" : "LAB_FLOOR_S1",//* start laboratoryjny
 };
 
 
@@ -195,8 +197,36 @@ export function renderPlayer(ctx,player,ease){
     );
 }
 
+const FLOOR_TEXTURE_FOR = {
+    "." : "GRASS1",
+    ";" : "GRASS2",
+    "S" : "GRASS2",
+    "Z" : "LAB_FLOOR_S1",
+    "!" : "LAB_FLOOR_S2",
+};
 
-function drawEntity(ctx, i, entityInfo) {
+// Zwraca teksturę podłogi jaka powinna być pod bytem na danej pozycji
+function getFloorTextureAt(map, x, y) {
+    if (!map) return TEXTURES.GRASS1;
+
+    // Sprawdź sąsiadów żeby odgadnąć typ podłogi pod bytem
+    const neighbors = [
+        map.getCell(x + 1, y),
+        map.getCell(x - 1, y),
+        map.getCell(x, y + 1),
+        map.getCell(x, y - 1),
+    ];
+
+    for (const cell of neighbors) {
+        if (cell === "Z" || cell === "!") return TEXTURES.LAB_FLOOR_S1;
+        if (cell === "J")                return TEXTURES.LAB_FLOOR_S1;
+    }
+
+    return TEXTURES.GRASS1;
+
+}
+
+function drawEntity(ctx, i, entityInfo, map) {
 
     var entityAnimation = entityInfo.Frames;
     var currentFrame = i.frame;
@@ -209,7 +239,8 @@ function drawEntity(ctx, i, entityInfo) {
         }
     }
 
-    ctx.drawImage(TEXTURES.GRASS1,
+    const floorTexture = getFloorTextureAt(map, i.x, i.y);
+    ctx.drawImage(floorTexture,
         i.x * TILE_SIZE, i.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 
     i.renderX = lerp(i.renderX, i.x, 0.175);
@@ -234,30 +265,19 @@ function drawEntity(ctx, i, entityInfo) {
 
 
 
-export function renderGroundEntities(ctx, entityHandler) {
-
+export function renderGroundEntities(ctx, entityHandler, map) {
     for (let i of entityHandler.entities) {
-
         if (i.symbol !== "T" && i.symbol !== "V") continue;
-
-        drawEntity(ctx, i, entityHandler.getEntityInfo(i.symbol));
-
+        drawEntity(ctx, i, entityHandler.getEntityInfo(i.symbol), map);
     }
-
 }
 
-
-export function renderAirEntities(ctx, entityHandler) {
-
+export function renderAirEntities(ctx, entityHandler, map) {
     for (let i of entityHandler.entities) {
-
         if (i.symbol === "T") continue;
         if (i.symbol === "V") continue;
-
-        drawEntity(ctx, i, entityHandler.getEntityInfo(i.symbol));
-
+        drawEntity(ctx, i, entityHandler.getEntityInfo(i.symbol), map);
     }
-
 }
 
 export function buildMap(ctx, level){

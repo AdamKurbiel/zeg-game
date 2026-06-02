@@ -34,7 +34,7 @@ export function Player(){
     
 }
 Player.prototype.resetPosition = function(map){
-    var block = map.findFirstBlock("S");//szukam startu
+    var block = map.findFirstBlock("S") || map.findFirstBlock("*");//szukam startu
     if (block == false) return;
 
     this.x = block[1];

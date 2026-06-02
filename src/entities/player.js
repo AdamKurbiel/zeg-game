@@ -113,7 +113,8 @@ Player.prototype.move = function(dx,dy,map,entityHandler, audioSystem){
     if (this.paused) return;
     
     let nextTile = map.content()[this.y+dy][this.x+dx];
-    if (nextTile == "#" || nextTile == "$" || nextTile == "P" || nextTile == "V") return; //sprawdzam czy to sciana
+    if (nextTile == "#" || nextTile == "$" || nextTile == "P" || nextTile == "V" || nextTile == "J"
+    || nextTile == "A" || nextTile == "F" || nextTile == "G" || nextTile == "H" || nextTile == "I") return; //sprawdzam czy to sciana
 
     if (nextTile == "D"){ //drzwi
         if (this.inventory.indexOf('KEY') != -1){

@@ -43,6 +43,12 @@ const maps = {
     "#<....#...##.#....#...#",
     "#######################",
 ],
+    3:[
+        "JJJJJJJJJJJJJJJJJ",
+        "LL,,,,,,,,,,,,,,L",
+        "LLLS,,,,,LLLLLLLJ",
+        "LLLLLLLLLLLLLLLLLL"
+    ]
 };
 // notatki treść
 export const notes = {
@@ -94,7 +100,18 @@ Map.prototype.loadLevel = function(level){
                     row[j] = ";";
                 }
             }
+
+            // L = stol laboratoryjny losuje jeden z 5 rodzaji
+            if (row[j] == "L") {
+                const labTableVariants = ["A", "F", "G", "H", "I"];
+                row[j] = labTableVariants[Math.floor(Math.random() * labTableVariants.length)];
+}
         }
+
+            if (row[j] == ",") {
+                const labFloorVariants = ["Z", "!"];
+                row[j] = labFloorVariants[Math.floor(Math.random() * labFloorVariants.length)];
+}
     }
 }
 

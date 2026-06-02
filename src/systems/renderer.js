@@ -45,7 +45,18 @@ const TILE_COLORS = {
     "7" : "BUTTON_BLUE",
     "8" : "BUTTON_GREEN",
     "9" : "BUTTON_PURPLE",
-    "0" : "BUTTON_ORANGE"
+    "0" : "BUTTON_ORANGE",
+    //stoły w labie
+    "A" : "LAB_TABLE_S1",
+    "F" : "LAB_TABLE_S2",
+    "G" : "LAB_TABLE_S3",
+    "H" : "LAB_TABLE_S4",
+    "I" : "LAB_TABLE_S5",
+
+    "J" : "LAB_WALL",
+
+    "Z" : "LAB_FLOOR_S1",
+    "!" : "LAB_FLOOR_S2"
 };
 
 
@@ -111,7 +122,17 @@ export const TEXTURES = {
     BUTTON_BLUE   : createImage("assets/textures/button-blue.png"),
     BUTTON_GREEN  : createImage("assets/textures/button-green.png"),
     BUTTON_PURPLE : createImage("assets/textures/button-purple.png"),
-    BUTTON_ORANGE : createImage("assets/textures/button_orange.png")
+    BUTTON_ORANGE : createImage("assets/textures/button_orange.png"),
+
+    LAB_TABLE_S1 : createImage("assets/textures/lab-table-s1.png"),
+    LAB_TABLE_S2 : createImage("assets/textures/lab-table-s2.png"),
+    LAB_TABLE_S3 : createImage("assets/textures/lat-table-s3.png"),
+    LAB_TABLE_S4 : createImage("assets/textures/lab-table-s4.png"),
+    LAB_TABLE_S5 : createImage("assets/textures/lab-table-s5.png"),
+
+    LAB_WALL    : createImage("assets/textures/lab-wall.png"),
+    LAB_FLOOR_S1 : createImage("assets/textures/lab-floor-s1.png"),
+    LAB_FLOOR_S2 : createImage("assets/textures/lab-floor-s2.png")
 }
 
 //TODO: ZMIENIĆ PLACEHOLDEROWE KOLORY NA TEKSTURY
@@ -142,15 +163,16 @@ export function placeTile(ctx, x, y, style){
 }
 
 //funkcja renderująca teksturę (obrazek)
-export function placeTexture(ctx, x, y, img){
-    ctx.drawImage(
-        TEXTURES.GRASS1,
-        x * TILE_SIZE,
-        y * TILE_SIZE,
-        TILE_SIZE,
-        TILE_SIZE
-    )
-
+export function placeTexture(ctx, x, y, img, withGrass = true){
+    if (withGrass) {
+        ctx.drawImage(
+            TEXTURES.GRASS1,
+            x * TILE_SIZE,
+            y * TILE_SIZE,
+            TILE_SIZE,
+            TILE_SIZE
+        )
+    }
     ctx.drawImage(
         img,
         x * TILE_SIZE,
@@ -254,9 +276,10 @@ export function buildMap(ctx, level){
                 //Patrz: linijka 4-11
 
 
-                if (tile == tile.toUpperCase()){
+                if (tile && tile == tile.toUpperCase()){
 
-                    placeTexture(ctx, column, row, TEXTURES[tile]);
+                    const noGrass = ["Z", "!", "J"];
+                    placeTexture(ctx, column, row, TEXTURES[tile], !noGrass.includes(tile));
                 }else{
                     placeTile(ctx, column, row, tile);
                 }

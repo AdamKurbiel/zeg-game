@@ -222,7 +222,26 @@ export function createGame(ctx, statsCtx, notesCtx, gameCanvas, statsCanvas, not
         } 
     }
     //rysowanie ekranu końca gry
-    function drawGameOver(){
+    function drawGameOver(won = false){
+        if (won){
+            ctx.globalAlpha = 0.5;
+            ctx.fillStyle = "purple";
+            ctx.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);
+            ctx.globalAlpha = 1.0;
+
+            ctx.fillStyle = "white";
+            ctx.textAlign = "center";
+            ctx.font = `108px ${FONTNAMES[1]}}`;
+            ctx.fillText("KONIEC", 350,250);
+            ctx.font = `28px ${FONTNAMES[0]}}`;
+            ctx.fillText("Ciąg dalszy nastąpi..", 350,250);      
+
+            ctx.font = `18px ${FONTNAMES[0]}`
+            ctx.fillText("Wykonano przez Adam Kurbiel i Karina Bednarska. (2026)",350,640);
+
+            return;
+        }
+
         ctx.globalAlpha = 0.5;
         ctx.fillStyle = "red";
         ctx.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);

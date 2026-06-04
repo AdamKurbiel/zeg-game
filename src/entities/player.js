@@ -3,7 +3,7 @@ import { activatePowder } from "../systems/vignette.js";
 
 export function Player(){
     this.health = 2, //Życia gracza
-    this.inventory = [],
+    this.inventory = ["SUSSY_POWDER","SUSSY_POWDER","BURGER", "BURGER"],
     this.collectedNotes = [],
 
     this.immuneTimer = 5000; //czas efektu nietykalności
@@ -17,6 +17,7 @@ export function Player(){
     //gracz zatrzymany
     this.paused = false,
     this.gameOver = false,
+    this.won = false;
 
     ///Zmienne sterowane przez pętlę gry///
     this.currentNote = 0; //aktualnie wyświetlana notatka (0 jeśli nie wyświetlana)
@@ -139,7 +140,7 @@ Player.prototype.move = function(dx,dy,map,entityHandler, audioSystem){
             this.crystalOrder[2] === CORRECT_ORDER[2];
 
         if (correct){
-            // dobra kolejność — otwieramy drzwi
+            // dobra kolejność, otwieramy drzwi
             map.clearRow(this.x+dx, this.y+dy);
             this.inventory = this.inventory.filter(i => 
                 i !== "CRYSTAL_BLUE" && i !== "CRYSTAL_PINK" && i !== "CRYSTAL_ORANGE"
@@ -148,17 +149,16 @@ Player.prototype.move = function(dx,dy,map,entityHandler, audioSystem){
             audioSystem.playSfx("assets/sounds/sfx/blip.mp3", 0.5);
             // gracz wchodzi na kafelek drzwi
         } else {
-            // zła kolejność — kryształy wracają na mapę, gracz dostaje reset kolejności
+            // zła kolejność, kryształy wracają na mapę, gracz dostaje reset kolejności
             this.crystalOrder = [];
             // usuń kryształy z ekwipunku
             this.inventory = this.inventory.filter(i => 
                 i !== "CRYSTAL_BLUE" && i !== "CRYSTAL_PINK" && i !== "CRYSTAL_ORANGE"
             );
             // przywróć kryształy na mapę (wróć do pozycji startowych)
-            // Najprostsze rozwiązanie: przeładuj pozycje kryształów
             map.loadLevel(map.level); // reset mapy bez resetu gracza
             audioSystem.playSfx("assets/sounds/sfx/bonk.mp3", 0.25);
-            return; // gracz NIE wchodzi
+            return;
         }
     }
 

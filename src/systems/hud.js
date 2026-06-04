@@ -1,7 +1,7 @@
 import { Player } from "../entities/player.js";
 import { TEXTURES } from "./renderer.js";
 import { ITEM_DICT, ITEM_RARITY_DICT } from "./itemInfo.js";
-import { activatePowder } from "./vignette.js";
+import { activatePowder, fog } from "./vignette.js";
 import { restartLevel } from "../core/game.js";
 import { FONTNAMES } from "../core/main.js";
 import { notes } from "../world/maps.js";
@@ -12,7 +12,8 @@ const HUD_POSITIONS = {
     inventory_slots : [40, 192],
     inventory_border : [0,160],
     level_info: [280,50],
-    authors: [200,680]
+    authors: [200,680],
+    effects: [15,430]
 };
 
 const INVENTORY_MAX_SLOTS = 6;
@@ -402,9 +403,56 @@ function drawAuthors(statsCtx){
     statsCtx.globalAlpha = 1.0;
 }
 
+function drawEffects(statsCtx, player, now, width){
+    let currentEffects = [];
+
+    //sussy powder
+    if (fog.powderTimer > 0){
+        let time = Math.round((fog.powderTimer - now)/100);
+
+        let effect = {"name" : "Widoczność", "time" : time, "maxTime":80};
+        currentEffects.push(effect);
+    }
+
+    //burger
+    if (player.immune){
+        let time = Math.round((5000 + (player.immuneCooldown - now))/100);
+
+        let effect = {"name" : "Nietykalność", "time" : time, "maxTime":50};
+        currentEffects.push(effect);
+    }
+
+
+    statsCtx.fillStyle = "white";
+    statsCtx.textAlign = "left";
+    statsCtx.font = `28px ${FONTNAMES[1]}`;
+    statsCtx.fillText("Aktywne efekty: ",HUD_POSITIONS.effects[0], HUD_POSITIONS.effects[1] - 30);
+
+
+
+    for (let i = 0; i < currentEffects.length; i++){
+        let y_padding = 35;
+        let percent = currentEffects[i].time / currentEffects[i].maxTime;
+
+        statsCtx.fillStyle = "black";
+        statsCtx.fillRect(HUD_POSITIONS.effects[0] - 5, HUD_POSITIONS.effects[1] + (y_padding * i) - 15, (width - 20), 30);
+
+
+        statsCtx.fillStyle = "#381940";
+        statsCtx.fillRect(HUD_POSITIONS.effects[0] - 5, HUD_POSITIONS.effects[1] + (y_padding * i) - 15, (width - 20) * percent, 30);
+
+        statsCtx.fillStyle = "#db4aff";
+        statsCtx.font = `28px ${FONTNAMES[1]}`;
+        statsCtx.textAlign = "left";
+        statsCtx.fillText(`${currentEffects[i].name}`, HUD_POSITIONS.effects[0], HUD_POSITIONS.effects[1] + (y_padding * i));   
+    }
+}
+
+
 const resetButton = new Button("Zresetuj","#b4225c","white","#a21c52","#881644");
 resetButton.setPosition(HUD_POSITIONS.reset_button[0],HUD_POSITIONS.reset_button[1]);
 resetButton.setSize(180,40);
+
 
 export function renderHud(statsCtx,player,width,height,map,now){
     temp_now = now;
@@ -420,6 +468,9 @@ export function renderHud(statsCtx,player,width,height,map,now){
     drawHeartCounter(statsCtx, player.health);
     resetButton.draw(statsCtx);
     drawLevelInfo(statsCtx,map);
+
+    drawEffects(statsCtx, player, now, width);
+
     drawInventory(statsCtx,player,width);
     drawTooltip(statsCtx, width, height);
     drawAuthors(statsCtx);

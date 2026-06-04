@@ -41,6 +41,10 @@ export function nextLevel(map,player,entityHandler){
             map.instantiateEntities(entityHandler);
             player.resetPosition(map);
             player.paused = false;
+        }else{
+            //mapa nie istnieje, zakladamy ze gracz skonczyl wszystkie poziomy
+            player.won = true;
+            player.gameOver = true;
         }
 }
  
@@ -231,10 +235,10 @@ export function createGame(ctx, statsCtx, notesCtx, gameCanvas, statsCanvas, not
 
             ctx.fillStyle = "white";
             ctx.textAlign = "center";
-            ctx.font = `108px ${FONTNAMES[1]}}`;
+            ctx.font = `108px ${FONTNAMES[1]}`;
             ctx.fillText("KONIEC", 350,250);
-            ctx.font = `28px ${FONTNAMES[0]}}`;
-            ctx.fillText("Ciąg dalszy nastąpi..", 350,250);      
+            ctx.font = `28px ${FONTNAMES[0]}`;
+            ctx.fillText("Ciąg dalszy nastąpi..", 350,290);      
 
             ctx.font = `18px ${FONTNAMES[0]}`
             ctx.fillText("Wykonano przez Adam Kurbiel i Karina Bednarska. (2026)",350,640);
@@ -430,7 +434,7 @@ export function createGame(ctx, statsCtx, notesCtx, gameCanvas, statsCanvas, not
         drawFog(ctx, camera, GAME_WIDTH, GAME_HEIGHT);
         
         if (player.gameOver){
-            drawGameOver(player);
+            drawGameOver(player.won);
         }else if (player.currentNote != 0){
             drawNote(player);
         }

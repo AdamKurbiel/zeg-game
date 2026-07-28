@@ -1,7 +1,7 @@
 ## LABTRY
 Wcielasz się w rolę bohatera, który budzi się w środku lasu. Nie wie kim jest oraz jak tu się znalazł. 
 W trakcie odkrywania nowych poziomów poznajesz jego historię i odkrywasz tajemnicę zniszczonego laboratorium.
-Czy podołasz temu zadaniu? TRY!
+Czy podołasz temu zadaniu?
 
 ## GRA LABIRYNT
 Prosta gra typu labirynt tworzona w JavaScript, HTML i CSS.
